@@ -1,0 +1,209 @@
+/* css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #2d5f8a; /* A slightly softer blue */
+  --secondary: #0077b6;
+  --text: #333;
+  --light-text: #555;
+  --bg: #f8f9fa; /* Light gray background */
+  --white: #fff;
+  --border-color: #dee2e6;
+  --shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body { 
+  font-family: 'Inter', sans-serif; 
+  color: var(--text); 
+  background: var(--bg); 
+  line-height: 1.6;
+}
+
+.site-header { 
+  background: var(--white); 
+  padding: 1rem 2rem; 
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav .logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav-list { 
+  list-style: none; 
+  display: flex; 
+  gap: 1.5rem; 
+}
+
+.nav-list a { 
+  color: var(--text); 
+  text-decoration: none; 
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.nav-list a:hover {
+  color: var(--secondary);
+}
+
+.nav-toggle {
+    display: none; /* Will be handled by media query */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.hero { 
+  text-align: center; 
+  padding: 5rem 1rem; 
+  background: var(--primary);
+  color: var(--white);
+}
+
+.hero h1 { 
+  font-size: 3rem; 
+  font-weight: 700;
+  margin-bottom: 1rem; 
+}
+
+.hero p {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.content { 
+  padding: 3rem 1rem; 
+  max-width: 960px; 
+  margin: auto; 
+}
+
+/* About Michael Barry Page */
+.about-page .about-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.about-page .profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.about-page .about-title h1 {
+  font-size: 2.25rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.about-page .subtitle {
+  font-size: 1.1rem;
+  color: var(--light-text);
+  font-weight: 600;
+}
+
+.expertise-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.expertise-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  align-items: center;
+}
+
+.expertise-category {
+  background-color: #e9ecef;
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.expertise-category h2 {
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+.expertise-points {
+  padding: 1.5rem;
+}
+
+.expertise-points ul {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+.expertise-points li {
+  margin-bottom: 0.75rem;
+}
+
+.site-footer { 
+  text-align: center; 
+  padding: 2rem 1rem; 
+  font-size: 0.9rem; 
+  background: var(--white);
+  margin-top: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: white;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .nav-list.nav-open {
+    display: flex;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  .about-page .about-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .expertise-item {
+    grid-template-columns: 1fr;
+  }
+  .expertise-category {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
