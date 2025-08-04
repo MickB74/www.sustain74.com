@@ -1,5 +1,5 @@
 /* css/style.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap');
 
 :root {
   --primary: #2d5f8a; /* A slightly softer blue */
@@ -19,7 +19,7 @@
 }
 
 body { 
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Jost', sans-serif; 
   color: var(--text); 
   background: var(--bg); 
   line-height: 1.6;
@@ -27,7 +27,7 @@ body {
 
 .site-header { 
   background: var(--white); 
-  padding: 1rem 2rem; 
+  padding: 1.5rem 2rem; 
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
@@ -43,10 +43,13 @@ body {
 }
 
 .nav .logo {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--primary);
-  text-decoration: none;
+  display: block;
+  height: 65px;
+}
+
+.nav .logo img {
+  height: 100%;
+  width: auto;
 }
 
 .nav-list { 
@@ -203,7 +206,7 @@ body {
   .expertise-item {
     grid-template-columns: 1fr;
   }
-  .expertise-category {
+  .expertise-.category {
     border-bottom: 1px solid var(--border-color);
   }
 }
