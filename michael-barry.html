@@ -1,99 +1,113 @@
+<!--
+    Applied Changes:
+    - Restructured document with semantic HTML5 elements (<main>, <section>, <header>, <footer>).
+    - Updated meta description to be specific to the page content.
+    - Added width and height attributes to the profile image for performance.
+    - Ensured navigation button has an explicit type for accessibility.
+    - Replaced generic <div> wrappers with more specific <section> and <article> elements for the expertise grid.
+    - Formatted the HTML for improved readability and maintainability.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sustain 74 – ESG Strategy & Reporting</title>
-    <meta name="description" content="ESG strategy consulting, sample case studies, and free supplier emissions checklist.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Michael Barry – Sustain 74</title>
+    <meta name="description" content="Learn about Michael Barry, the founder of Sustain74, and his 15+ years of experience in clean energy, ESG reporting, and decarbonization.">
+    
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Sustain 74 – ESG Strategy & Reporting">
-    <meta property="og:description" content="ESG strategy consulting, sample case studies, and free supplier emissions checklist.">
-    <meta property="og:image" content="assets/og-preview.png">
-    <meta property="og:url" content="https://www.sustain74.com">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="About Michael Barry – Sustain 74">
+    <meta property="og:description" content="Learn about Michael Barry, the founder of Sustain74, and his expertise in ESG strategy.">
+    <meta property="og:image" content="assets/michael-barry.png">
+    <meta property="og:url" content="https://www.sustain74.com/michael-barry.html">
+    <meta property="og:type" content="profile">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="site-header">
-        <nav class="nav">
-            <a href="index.html" class="logo"><img src="assets/logo.png" alt="Sustain74 Logo"></a>
-            <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+    <header class="site-header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Main">
+            <a href="index.html" class="logo">
+                <img src="assets/sustain74_logo.png" alt="Sustain74 Logo" width="240" height="100">
+            </a>
+            <button class="nav-toggle" type="button" aria-label="toggle navigation" aria-expanded="false">☰</button>
             <ul class="nav-list">
                 <li><a href="index.html">Home</a></li>
-                        <li><a href="michael-barry.html">About</a></li>
+                <li><a href="michael-barry.html">About</a></li>
                 <li><a href="services.html">Solutions</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="content about-page">
-        <header class="about-header">
-            <img src="assets/michael-barry.png" alt="Michael Barry, Founder of Sustain74" class="profile-image">
-            <div class="about-title">
-                <h1>Michael Barry is the founder of Sustain74</h1>
-                <p class="subtitle">Brings 15+ years delivering real-world leadership to create ESG clarity</p>
-            </div>
-        </header>
+    <main>
+        <section class="content about-page" aria-labelledby="page-title">
+            <header class="about-header">
+                <img src="assets/michael-barry.png" alt="Michael Barry, Founder of Sustain74" class="profile-image" width="150" height="150">
+                <div class="about-title">
+                    <h1 id="page-title">Michael Barry is the founder of Sustain74</h1>
+                    <p class="subtitle">Brings 15+ years delivering real-world leadership to create ESG clarity</p>
+                </div>
+            </header>
 
-        <div class="expertise-grid">
-            <div class="expertise-item">
-                <div class="expertise-category">
-                    <h2>Clean Energy Expert</h2>
-                </div>
-                <div class="expertise-points">
-                    <ul>
-                        <li>Sourced renewable power deals to reach 100% clean electricity</li>
-                        <li>Advised execs on procurement tied to cost, perception, and ESG goals</li>
-                        <li>Aligned finance, ops, and ESG to accelerate clean transitions</li>
-                    </ul>
-                </div>
-            </div>
+            <section class="expertise-grid" aria-label="Areas of Expertise">
+                <article class="expertise-item">
+                    <header class="expertise-category">
+                        <h2>Clean Energy Expert</h2>
+                    </header>
+                    <div class="expertise-points">
+                        <ul>
+                            <li>Sourced renewable power deals to reach 100% clean electricity</li>
+                            <li>Advised execs on procurement tied to cost, perception, and ESG goals</li>
+                            <li>Aligned finance, ops, and ESG to accelerate clean transitions</li>
+                        </ul>
+                    </div>
+                </article>
 
-            <div class="expertise-item">
-                <div class="expertise-category">
-                    <h2>ESG Reporting</h2>
-                </div>
-                <div class="expertise-points">
-                    <ul>
-                        <li>Led ESG disclosure efforts using GHG Protocol, CDP, RE100, and SBTi-aligned frameworks</li>
-                        <li>Translated technical reporting standards into decision-useful insights for cross-functional teams</li>
-                    </ul>
-                </div>
-            </div>
+                <article class="expertise-item">
+                    <header class="expertise-category">
+                        <h2>ESG Reporting</h2>
+                    </header>
+                    <div class="expertise-points">
+                        <ul>
+                            <li>Led ESG disclosure efforts using GHG Protocol, CDP, RE100, and SBTi-aligned frameworks</li>
+                            <li>Translated technical reporting standards into decision-useful insights for cross-functional teams</li>
+                        </ul>
+                    </div>
+                </article>
 
-            <div class="expertise-item">
-                <div class="expertise-category">
-                    <h2>Decarbonization</h2>
-                </div>
-                <div class="expertise-points">
-                    <ul>
-                        <li>Led global Scope 2 reduction strategy across offices and data centers</li>
-                        <li>Cut emissions >40% through sourcing and efficiency upgrades</li>
-                        <li>Integrated decarbonization into IT, procurement, and ops strategy</li>
-                    </ul>
-                </div>
-            </div>
+                <article class="expertise-item">
+                    <header class="expertise-category">
+                        <h2>Decarbonization</h2>
+                    </header>
+                    <div class="expertise-points">
+                        <ul>
+                            <li>Led global Scope 2 reduction strategy across offices and data centers</li>
+                            <li>Cut emissions >40% through sourcing and efficiency upgrades</li>
+                            <li>Integrated decarbonization into IT, procurement, and ops strategy</li>
+                        </ul>
+                    </div>
+                </article>
 
-            <div class="expertise-item">
-                <div class="expertise-category">
-                    <h2>AI & ESG Analytics</h2>
-                </div>
-                <div class="expertise-points">
-                    <ul>
-                        <li>Applied machine learning and ESG data models to identify reduction levers and reporting gaps</li>
-                        <li>Combined data science with domain expertise to prioritize high-impact ESG initiatives</li>
-                        <li>Unified AI and ESG expertise to drive strategic actions</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                <article class="expertise-item">
+                    <header class="expertise-category">
+                        <h2>AI & ESG Analytics</h2>
+                    </header>
+                    <div class="expertise-points">
+                        <ul>
+                            <li>Applied machine learning and ESG data models to identify reduction levers and reporting gaps</li>
+                            <li>Combined data science with domain expertise to prioritize high-impact ESG initiatives</li>
+                            <li>Unified AI and ESG expertise to drive strategic actions</li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" role="contentinfo">
         <div class="footer-content">
-            <div class="about-mick-panel">
+            <div class="about-michael-panel">
                 <h4>About Michael</h4>
                 <p>15 years at Bloomberg LP leading clean power procurements.</p>
             </div>
