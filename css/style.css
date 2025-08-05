@@ -328,6 +328,97 @@ body {
 }
 
 
+/* Capabilities Framework */
+.capabilities-section {
+    margin: 2rem 0;
+}
+
+.capabilities-section h1 {
+    color: #00A3E0;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.capabilities-section h2 {
+    color: #666;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.capability-box {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.capability-header {
+    background: #2d5f8a;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.capability-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f0f8ff;
+}
+
+.capability-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.supporting-section {
+    background: #2d5f8a;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 2rem 0;
+}
+
+.implementation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.implementation-box {
+    display: grid;
+    gap: 1rem;
+}
+
+.implementation-item {
+    background: #f0f8ff;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .capabilities-grid,
+    .capability-items,
+    .implementation-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-list {
