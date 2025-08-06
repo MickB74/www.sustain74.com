@@ -318,6 +318,19 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+.expertise-section {
+  margin: 3rem 0 2rem 0;
+  text-align: center;
+}
+
+.expertise-section h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
 .expertise-grid {
   display: grid;
   gap: 2rem;
