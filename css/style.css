@@ -136,6 +136,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto; 
 }
 
+.contact-page .content p {
+  text-align: left !important;
+}
+
 /* New Section Styles */
 .card {
   background: var(--white);
