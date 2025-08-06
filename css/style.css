@@ -235,6 +235,25 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+.story-content {
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.story-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.story-content p:last-child {
+  margin-bottom: 0;
+}
+
 .expertise-grid {
   display: grid;
   gap: 2rem;
