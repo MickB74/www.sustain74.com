@@ -136,6 +136,21 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto; 
 }
 
+.intro-section {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin: 2rem auto;
+}
+
+.intro-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text);
+  text-align: left;
+  margin: 0;
+}
+
 .contact-page .content p {
   text-align: left !important;
 }
