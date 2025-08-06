@@ -1,5 +1,5 @@
 /* css/style.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
 
 :root {
   --primary: #2d5f8a; /* A slightly softer blue */
@@ -19,7 +19,7 @@
 }
 
 body { 
-  font-family: 'Merriweather', serif; 
+  font-family: 'Lora', serif; 
   color: var(--text); 
   background: var(--bg); 
   line-height: 1.6;
@@ -60,7 +60,7 @@ body {
 }
 
 .nav-list a { 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--text); 
   text-decoration: none; 
   font-weight: 600;
@@ -87,7 +87,7 @@ body {
 }
 
 .hero h1 { 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3rem; 
   font-weight: 700;
   margin-bottom: 1rem; 
@@ -127,7 +127,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .content { 
