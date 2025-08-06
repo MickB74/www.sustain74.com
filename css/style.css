@@ -99,6 +99,16 @@ body {
   margin-bottom: 2rem;
 }
 
+.hero-intro {
+  font-size: 1.1rem !important;
+  line-height: 1.7;
+  margin-bottom: 2rem !important;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+}
+
 .hero .secondary-link {
     display: block;
     margin-top: 1rem;
