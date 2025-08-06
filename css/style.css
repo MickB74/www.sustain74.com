@@ -286,6 +286,34 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
 
+.story-content h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 2rem 0 1rem 0;
+}
+
+.story-content ul {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.story-content ul ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.story-content li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.story-content li strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
 .expertise-grid {
   display: grid;
   gap: 2rem;
