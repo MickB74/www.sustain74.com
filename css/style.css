@@ -105,13 +105,14 @@ body {
 }
 
 .hero-intro {
-  font-size: 1.1rem !important;
-  line-height: 1.6;
-  margin-bottom: 2rem !important;
-  max-width: 60ch;
+  font-size: 1.3rem !important;
+  line-height: 1.7;
+  margin-bottom: 2.5rem !important;
+  max-width: 70ch;
   margin-left: auto;
   margin-right: auto;
   opacity: 0.95;
+  font-weight: 400;
 }
 
 .hero .button-primary {
