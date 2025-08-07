@@ -146,6 +146,12 @@ body {
   text-align: left;
 }
 
+/* Centered call-to-action text inside hero */
+.hero .cta-text {
+  display: block;
+  text-align: center !important;
+}
+
 .hero .button-primary {
   padding: 0.75rem 1.5rem;
   background-color: #3D8CC1;
