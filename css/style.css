@@ -493,6 +493,12 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 2rem;
 }
 
+.page-header h1, .page-header h2 {
+  color: #00A3E0;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
 .capabilities-section h1 {
     text-align: center;
     margin-bottom: 1rem;
