@@ -81,7 +81,7 @@ body {
 
 .hero { 
   text-align: center; 
-  padding: 5rem 1rem; 
+  padding: 6rem 1rem; 
   background: var(--primary);
   color: var(--white);
 }
@@ -90,6 +90,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 3rem; 
   font-weight: 700;
+  line-height: 1.2;
   margin-bottom: 1rem; 
 }
 
@@ -97,16 +98,27 @@ body {
   font-size: 1.25rem;
   font-weight: 400;
   margin-bottom: 2rem;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 .hero-intro {
   font-size: 1.1rem !important;
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 2rem !important;
-  max-width: 800px;
+  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
   opacity: 0.95;
+}
+
+.hero .button-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: #3D8CC1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-weight: 600;
 }
 
 .hero .secondary-link {
@@ -602,6 +614,22 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero {
+    text-align: left;
+    padding: 4rem 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p,
+  .hero-intro {
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .nav-list {
     display: none;
     flex-direction: column;
