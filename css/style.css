@@ -105,14 +105,41 @@ body {
 }
 
 .hero-intro {
-  font-size: 1.3rem !important;
-  line-height: 1.7;
-  margin-bottom: 2.5rem !important;
-  max-width: 70ch;
+  font-size: 1.1rem !important;
+  line-height: 1.6;
+  margin-bottom: 1rem !important;
+  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
   opacity: 0.95;
-  font-weight: 400;
+}
+
+.hero-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 1.5rem;
+  max-width: 60ch;
+  text-align: left;
+}
+
+.hero-list li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.hero-list li::before {
+  content: '✓';
+  color: #3D8CC1;
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+}
+
+.hero-outro {
+  max-width: 60ch;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
 }
 
 .hero .button-primary {
@@ -491,6 +518,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 2rem auto;
     max-width: 1200px;
     padding: 0 2rem;
+}
+
+.page-header h1, .page-header h2 {
+  color: #00A3E0;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .capabilities-section h1 {
