@@ -387,6 +387,18 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow);
 }
 
+.story-content .story-figure {
+  margin: 1rem auto 2rem;
+  max-width: 960px;
+}
+
+.story-content .story-caption {
+  font-size: 0.95rem;
+  color: var(--light-text);
+  text-align: center;
+  margin-top: -1rem;
+}
+
 .story-content p:last-child {
   margin-bottom: 0;
 }
