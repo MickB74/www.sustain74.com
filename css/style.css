@@ -250,13 +250,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Contact page links styled consistently */
-.contact-page .content a {
+.contact-page .content a:not(.button) {
   color: var(--secondary);
   text-decoration: underline;
 }
 
-.contact-page .content a:hover,
-.contact-page .content a:focus {
+.contact-page .content a:not(.button):hover,
+.contact-page .content a:not(.button):focus {
   color: var(--secondary);
   text-decoration: underline;
 }
