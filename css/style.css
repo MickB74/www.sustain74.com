@@ -232,6 +232,22 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left !important;
 }
 
+.content .center {
+  text-align: center;
+}
+
+/* Contact page links styled consistently */
+.contact-page .content a {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+.contact-page .content a:hover,
+.contact-page .content a:focus {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
 /* New Section Styles */
 .card {
   background: var(--white);
