@@ -450,6 +450,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2rem 0;
 }
 
+.story-content .story-cta p {
+  color: var(--white);
+}
+
 .story-content .story-cta a {
   color: var(--white);
   text-decoration: underline;
