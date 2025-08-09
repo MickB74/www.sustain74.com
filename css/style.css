@@ -441,6 +441,27 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -1rem;
 }
 
+.story-content .story-cta {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.story-content .story-cta a {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.story-content .story-cta a:hover,
+.story-content .story-cta a:focus {
+  color: var(--white);
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
 .story-content p:last-child {
   margin-bottom: 0;
 }
