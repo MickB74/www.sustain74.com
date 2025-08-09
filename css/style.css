@@ -213,6 +213,14 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto; 
 }
 
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
 .intro-section {
   background: var(--white);
   border-radius: 8px;
