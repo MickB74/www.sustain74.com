@@ -86,6 +86,23 @@ body {
   color: var(--white);
 }
 
+/* Ensure hero links are white and underlined for better contrast */
+.hero a {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.hero a:visited {
+  color: var(--white);
+}
+
+.hero a:hover,
+.hero a:focus {
+  color: var(--white);
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
 .hero h1 {
   font-family: 'Inter', sans-serif;
   font-size: 3rem;
