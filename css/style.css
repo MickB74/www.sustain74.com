@@ -249,6 +249,14 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center !important;
 }
 
+.content .disclaimer {
+  font-size: 0.9rem;
+  color: var(--light-text);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
 /* Contact page links styled consistently */
 .contact-page .content a:not(.button) {
   color: var(--secondary);
