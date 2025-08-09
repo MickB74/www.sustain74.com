@@ -363,6 +363,19 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+/* Ensure links in the Our Story header/subtitle match text color and are underlined */
+.about-page .about-title a,
+.about-page .about-title a:visited {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.about-page .about-title a:hover,
+.about-page .about-title a:focus {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .story-content {
   margin: 3rem 0;
   padding: 2rem 0;
