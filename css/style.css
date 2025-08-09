@@ -395,7 +395,7 @@ h1, h2, h3, h4, h5, h6 {
 .story-content .story-caption {
   font-size: 0.95rem;
   color: var(--light-text);
-  text-align: center;
+  text-align: left;
   margin-top: -1rem;
 }
 
