@@ -539,7 +539,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Blog Styles */
 .page-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin: 3rem auto 2rem;
+    padding-top: 1rem;
 }
 
 .blog-post .post-header {
@@ -582,7 +583,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .page-header h1, .page-header h2 {
-  color: #00A3E0;
+  color: var(--primary);
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
