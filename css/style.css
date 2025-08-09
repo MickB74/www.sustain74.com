@@ -378,6 +378,15 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
 }
 
+.story-content .story-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
 .story-content p:last-child {
   margin-bottom: 0;
 }
