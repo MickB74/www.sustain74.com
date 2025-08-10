@@ -748,8 +748,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Layout for heading with right-aligned note */
 .heading-with-note {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* heading area + right note */
-  align-items: start;
+  grid-template-columns: auto 1fr; /* heading area + right note */
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -853,18 +853,9 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
 }
 
-.badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  margin-left: 0.5rem;
-  vertical-align: middle;
-}
-
-.badge-internal { background: #2d5f8a; color: #fff; }
-.badge-external { background: #00A3E0; color: #fff; }
+.badge {}
+.badge-internal {}
+.badge-external {}
 
 @media (max-width: 768px) {
   .impl-two-col { grid-template-columns: 1fr; }
@@ -945,6 +936,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#capability-list { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+#capability-list { margin-top: 1.5rem; padding-top: 0; border-top: none; }
 #capability-list h3 { margin-top: 0.5rem; }
 #capability-list .implementation-item { margin-bottom: 0.5rem; }
