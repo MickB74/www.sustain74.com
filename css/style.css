@@ -204,17 +204,18 @@ body {
 }
 
 /* Contact page CTA buttons: underline text and use theme blue */
-.contact-page .cta-buttons .button {
-  background-color: var(--secondary);
-  color: var(--white);
-  text-decoration: underline;
+.contact-page .cta-buttons .button,
+.contact-page .cta-buttons .button:visited {
+  background-color: var(--secondary) !important;
+  color: var(--white) !important;
+  text-decoration: underline !important;
 }
 
 .contact-page .cta-buttons .button:hover,
 .contact-page .cta-buttons .button:focus {
-  background-color: #006aa3; /* slightly darker than --secondary for hover */
-  color: var(--white);
-  text-decoration: underline;
+  background-color: #006aa3 !important; /* slightly darker than --secondary for hover */
+  color: var(--white) !important;
+  text-decoration: underline !important;
 }
 
 .button:hover {
