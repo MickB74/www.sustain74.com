@@ -57,7 +57,8 @@
     @media (min-width: 960px) { .mini-toc { display: block; } }
 
     /* Heading anchor links */
-    .anchor-link { margin-left: 0.4rem; opacity: 0.6; text-decoration: none; font-size: 0.9em; }
+    .anchor-link { margin-left: 0.4rem; opacity: 0; text-decoration: none; font-size: 0.9em; }
+    h2:hover .anchor-link, h3:hover .anchor-link, .anchor-link:focus { opacity: 0.6; }
     .anchor-link:hover { opacity: 1; }
 
     /* Tables inside article */
@@ -320,7 +321,7 @@
         a.href = `#${h.id}`;
         a.className = 'anchor-link';
         a.setAttribute('aria-label', 'Anchor link');
-        a.textContent = '¶';
+        a.textContent = '#';
         if (!h.querySelector('.anchor-link')) h.appendChild(a);
         if (tocList && h.tagName.toLowerCase() !== 'h1') {
           const li = document.createElement('li');
