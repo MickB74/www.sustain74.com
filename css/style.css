@@ -203,6 +203,20 @@ body {
     color: #1f2d3d;
 }
 
+/* Contact page CTA buttons: underline text and use theme blue */
+.contact-page .cta-buttons .button {
+  background-color: var(--secondary);
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.contact-page .cta-buttons .button:hover,
+.contact-page .cta-buttons .button:focus {
+  background-color: #006aa3; /* slightly darker than --secondary for hover */
+  color: var(--white);
+  text-decoration: underline;
+}
+
 .button:hover {
     transform: translateY(-2px);
 }
