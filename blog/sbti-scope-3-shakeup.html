@@ -73,11 +73,11 @@
 
     /* S74 Cards Styling */
     :root{
-      --s74-blue:#0f3d8a;
-      --s74-ink:#1b1e24;
-      --s74-muted:#6b7280;
-      --s74-bg:#ffffff;
-      --s74-ring:rgba(15,61,138,.12);
+      --s74-blue:var(--primary);
+      --s74-ink:var(--text);
+      --s74-muted:var(--light-text);
+      --s74-bg:var(--white);
+      --s74-ring:rgba(45,95,138,.12);
       --s74-radius:12px;
     }
     #s74-sbti-cards.s74-section{ margin:28px auto 22px; }
@@ -94,7 +94,7 @@
     #s74-sbti-cards strong{ font-weight:650; }
     @media (max-width:640px){ #s74-sbti-cards .s74-card{ padding:16px; } #s74-sbti-cards h3{ font-size:1.1rem; } #s74-sbti-cards li{ margin-bottom:10px; } }
     @media (prefers-color-scheme:dark){
-      :root{ --s74-bg:#0f1220; --s74-ink:#e6e7ea; --s74-muted:#a1a6b2; --s74-ring:rgba(0,0,0,.35); }
+      :root{ --s74-bg:#1a1a1a; --s74-ink:#e6e6e6; --s74-muted:#a0a0a0; --s74-ring:rgba(0,0,0,.35); }
       #s74-sbti-cards .s74-card{ border-color:rgba(255,255,255,.08); }
     }
   </style>
