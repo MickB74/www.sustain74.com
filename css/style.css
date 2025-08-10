@@ -957,3 +957,27 @@ h1, h2, h3, h4, h5, h6 {
 #capability-list { margin-top: 1.5rem; padding-top: 0; border-top: none; }
 #capability-list h3 { margin-top: 0.5rem; }
 #capability-list .implementation-item { margin-bottom: 0.5rem; }
+
+/* New two-column layout for Internal ESG Strategy */
+.esg-strategy-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.esg-strategy-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.esg-strategy-right {
+    flex: 2;
+}
+
+@media (max-width: 768px) {
+    .esg-strategy-left,
+    .esg-strategy-right {
+        flex: 1 1 100%;
+    }
+}
