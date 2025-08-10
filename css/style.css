@@ -780,6 +780,30 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 1000px;
 }
 
+.impl-group {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 1rem 0 2rem;
+  padding: 1rem 1rem 0.5rem;
+}
+
+.impl-group .impl-header {
+  text-align: left;
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin: 0.25rem 0 0.5rem 0.5rem;
+}
+
+.impl-group.internal {
+  border-left: 6px solid #2d5f8a; /* tie to internal header color */
+}
+
+.impl-group.external {
+  border-left: 6px solid #00A3E0; /* slightly brighter cue for external */
+}
+
 .implementation-box {
     display: grid;
     gap: 1rem;
