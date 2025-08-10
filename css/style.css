@@ -695,6 +695,29 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 1000px;
 }
 
+/* New two-column layout: left = capabilities, right = supporting implementation */
+.solutions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin: 4rem auto;
+  max-width: 1200px;
+}
+
+.solutions-grid .right-column .supporting-section {
+  margin: 0 0 1rem 0;
+}
+
+.solutions-grid .right-impl {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .solutions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .capability-box {
     background: var(--white);
     border-radius: 12px;
