@@ -70,6 +70,33 @@
 
     /* Override implementation grid spacing */
     .implementation-grid { gap: 0.25rem !important; }
+
+    /* S74 Cards Styling */
+    :root{
+      --s74-blue:#0f3d8a;
+      --s74-ink:#1b1e24;
+      --s74-muted:#6b7280;
+      --s74-bg:#ffffff;
+      --s74-ring:rgba(15,61,138,.12);
+      --s74-radius:12px;
+    }
+    #s74-sbti-cards.s74-section{ margin:28px auto 22px; }
+    #s74-sbti-cards .s74-grid{
+      display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); align-items:start;
+    }
+    #s74-sbti-cards .s74-card{
+      background:var(--s74-bg); border-radius:var(--s74-radius); padding:18px 20px;
+      box-shadow:0 4px 14px var(--s74-ring); border:1px solid rgba(17,24,39,.06);
+    }
+    #s74-sbti-cards h3{ font-size:1.15rem; line-height:1.3; color:var(--s74-blue); margin:0 0 10px 0; letter-spacing:.1px; }
+    #s74-sbti-cards p,#s74-sbti-cards li{ color:var(--s74-ink); line-height:1.55; margin:0 0 8px 0; }
+    #s74-sbti-cards ul,#s74-sbti-cards ol{ margin:0; padding-left:20px; }
+    #s74-sbti-cards strong{ font-weight:650; }
+    @media (max-width:640px){ #s74-sbti-cards .s74-card{ padding:16px; } #s74-sbti-cards h3{ font-size:1.1rem; } #s74-sbti-cards li{ margin-bottom:10px; } }
+    @media (prefers-color-scheme:dark){
+      :root{ --s74-bg:#0f1220; --s74-ink:#e6e7ea; --s74-muted:#a1a6b2; --s74-ring:rgba(0,0,0,.35); }
+      #s74-sbti-cards .s74-card{ border-color:rgba(255,255,255,.08); }
+    }
   </style>
 </head>
 <body>
@@ -241,43 +268,42 @@
         See also SBTi’s overview page: <a href="https://sciencebasedtargets.org/developing-the-net-zero-standard" target="_blank" rel="noopener">Developing the Corporate Net‑Zero Standard V2</a>.<sup id="fnref-4"><a href="#fn-4">[4]</a></sup>
       </div>
 
-      <div class="implementation-grid" style="margin-top:1rem">
-        <div class="impl-group">
-          <div class="impl-header">Why this matters for suppliers</div>
-          <ul>
-            <li>Buyers will prioritize <strong>high‑impact categories</strong> and expect <strong>activity‑based, auditable data</strong>.</li>
-            <li>Many suppliers will be asked to set <strong>SBT‑aligned targets</strong> and show verified progress.</li>
-            <li>Readiness will influence <strong>RFP scoring, renewals, and preferred‑supplier status</strong>.</li>
-          </ul>
+      <section id="s74-sbti-cards" class="s74-section">
+        <div class="s74-grid">
+          <article class="s74-card">
+            <h3>Why this matters for suppliers</h3>
+            <ul>
+              <li>Buyers will prioritize <strong>high-impact categories</strong> and expect <strong>activity-based, auditable data</strong>.</li>
+              <li>Many suppliers will be asked to set <strong>SBT-aligned targets</strong> and show verified progress.</li>
+              <li>Readiness will influence <strong>RFP scoring, renewals, and preferred-supplier status</strong>.</li>
+            </ul>
+          </article>
+          <article class="s74-card">
+            <h3>Opportunity for solution providers</h3>
+            <ul>
+              <li>Bundle <strong>credits/SAF/renewables/efficiency</strong> with verifiable emissions data.</li>
+              <li>Map offerings to new <strong>alignment metrics</strong> (e.g., net-zero supplier spend).</li>
+              <li>Enable <strong>procurement-led decarbonization</strong> with robust MRV.</li>
+            </ul>
+          </article>
+          <article class="s74-card">
+            <h3>How to prepare (suppliers)</h3>
+            <ol>
+              <li><strong>Materiality check:</strong> Are your offerings in customer categories &gt; 5% of Scope 3?</li>
+              <li><strong>Upgrade data:</strong> Shift from spend‑based proxies to activity‑based, auditable data; plan a multi‑year data‑quality roadmap.</li>
+              <li><strong>Set targets:</strong> Adopt SBT‑aligned goals and document progress with evidence.</li>
+            </ol>
+          </article>
+          <article class="s74-card">
+            <h3>How to win (solution providers)</h3>
+            <ol>
+              <li><strong>Bundle solutions + MRV:</strong> Credits/SAF/renewables paired with verifiable data.</li>
+              <li><strong>Map to V2 metrics:</strong> Help buyers increase % spend with net-zero-aligned suppliers.</li>
+              <li><strong>Procurement enablement:</strong> Tooling, attestations, and supplier engagement content.</li>
+            </ol>
+          </article>
         </div>
-        <div class="impl-group">
-          <div class="impl-header">Opportunity for solution providers</div>
-          <ul>
-            <li>Bundle <strong>credits/SAF/renewables/efficiency</strong> with verifiable emissions data.</li>
-            <li>Map offerings to new <strong>alignment metrics</strong> (e.g., net‑zero supplier spend).</li>
-            <li>Enable <strong>procurement‑led</strong> decarbonization with robust MRV (measurement, reporting, verification).</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="implementation-grid" style="margin-top:1rem">
-        <div class="impl-group">
-          <div class="impl-header">How to prepare (suppliers)</div>
-          <ol>
-            <li><strong>Materiality check:</strong> Are your offerings in customer categories &gt; 5% of Scope 3?</li>
-            <li><strong>Upgrade data:</strong> Shift from spend‑based proxies to activity‑based, auditable data; plan a multi‑year data‑quality roadmap.</li>
-            <li><strong>Set targets:</strong> Adopt SBT‑aligned goals and document progress with evidence.</li>
-          </ol>
-        </div>
-        <div class="impl-group">
-          <div class="impl-header">How to win (solution providers)</div>
-          <ol>
-            <li><strong>Bundle solutions + MRV:</strong> Credits/SAF/renewables paired with verifiable data.</li>
-            <li><strong>Map to V2 metrics:</strong> Help buyers increase % spend with net‑zero‑aligned suppliers.</li>
-            <li><strong>Procurement enablement:</strong> Tooling, attestations, and supplier engagement content.</li>
-          </ol>
-        </div>
-      </div>
+      </section>
 
       <div class="impl-group" style="margin-top:1rem">
         <div class="impl-header">Turn compliance into an advantage</div>
