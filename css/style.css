@@ -739,6 +739,12 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.5rem;
 }
 
+.capability-note {
+  margin: 0.75rem 0 0.5rem;
+  color: var(--light-text);
+  text-align: left;
+}
+
 .capability-items {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -772,6 +778,10 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
 }
 
+.supporting-inline {
+  margin: 2rem 0 0; /* tighter spacing when used inline below external box */
+}
+
 .implementation-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -802,6 +812,43 @@ h1, h2, h3, h4, h5, h6 {
 
 .impl-group.external {
   border-left: 6px solid #00A3E0; /* slightly brighter cue for external */
+}
+
+/* Simpler two-column grouping with subheaders and badges */
+.impl-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.impl-subheader {
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0.25rem;
+  text-align: left;
+}
+
+.impl-col .implementation-item {
+  margin: 0 0 0.75rem 0;
+  text-align: left;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.badge-internal { background: #2d5f8a; color: #fff; }
+.badge-external { background: #00A3E0; color: #fff; }
+
+@media (max-width: 768px) {
+  .impl-two-col { grid-template-columns: 1fr; }
 }
 
 .implementation-box {
