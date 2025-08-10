@@ -745,6 +745,25 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
 }
 
+/* Layout for heading with right-aligned note */
+.heading-with-note {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* heading area + right note */
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.capability-note-right {
+  color: var(--light-text);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .heading-with-note { grid-template-columns: 1fr; }
+  .capability-note-right { margin-top: -0.5rem; }
+}
+
 .capability-items {
     display: grid;
     grid-template-columns: 1fr 1fr;
