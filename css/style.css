@@ -957,3 +957,30 @@ h1, h2, h3, h4, h5, h6 {
 #capability-list { margin-top: 1.5rem; padding-top: 0; border-top: none; }
 #capability-list h3 { margin-top: 0.5rem; }
 #capability-list .implementation-item { margin-bottom: 0.5rem; }
+
+/* Adjust the layout for the services page */
+.internal-esg-container {
+  display: flex;
+  flex-wrap: wrap; /* allows stacking on mobile */
+}
+
+/* Left column (Internal ESG Strategy box) */
+.internal-esg-left {
+  width: 25%; /* was likely wider before */
+  min-width: 220px; /* prevents it from getting too narrow */
+}
+
+/* Right column (text starting with Baseline & Benchmark) */
+.internal-esg-right {
+  flex: 1; /* takes the remaining space */
+  margin-left: 2rem; /* adds space between columns */
+}
+
+/* Mobile view: stack columns */
+@media (max-width: 768px) {
+  .internal-esg-left,
+  .internal-esg-right {
+    width: 100%;
+    margin-left: 0;
+  }
+}
