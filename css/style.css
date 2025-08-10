@@ -980,3 +980,14 @@ h1, h2, h3, h4, h5, h6 {
         flex: 1 1 100%;
     }
 }
+
+.supporting-card {
+  margin-top: 1rem;
+}
+
+@media (min-width: 769px) {
+  .solutions-grid .right-column .supporting-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
