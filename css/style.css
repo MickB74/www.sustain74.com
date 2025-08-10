@@ -749,7 +749,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Layout for heading with right-aligned note */
 .heading-with-note {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* equal columns for left box and right note */
+  grid-template-columns: minmax(420px, 1fr) 1fr; /* ensure left column wide enough for box; allow text to wrap */
   align-items: start;
   gap: 1rem;
   margin-bottom: 1.5rem;
@@ -761,6 +761,9 @@ h1, h2, h3, h4, h5, h6 {
 .capability-note-right {
   color: var(--light-text);
   font-size: 0.95rem;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
 }
 
 @media (max-width: 900px) {
