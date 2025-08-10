@@ -766,6 +766,9 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
 }
 
+.note-list { margin: 0; padding-left: 1.1rem; }
+.note-list li { margin-bottom: 0.5rem; }
+
 @media (max-width: 900px) {
   .heading-with-note { grid-template-columns: 1fr; }
   .capability-note-right { margin-top: -0.5rem; }
