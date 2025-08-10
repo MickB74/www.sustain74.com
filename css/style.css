@@ -841,11 +841,6 @@ h1, h2, h3, h4, h5, h6 {
   .impl-two-col { grid-template-columns: 1fr; }
 }
 
-/* Nudge External group down to visually align with left-side 'External product development' */
-@media (min-width: 769px) {
-  .solutions-grid .impl-col.external { margin-top: 3.5rem; }
-}
-
 .implementation-box {
     display: grid;
     gap: 1rem;
