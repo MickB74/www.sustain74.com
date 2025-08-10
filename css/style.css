@@ -698,9 +698,9 @@ h1, h2, h3, h4, h5, h6 {
 /* New two-column layout: left = capabilities, right = supporting implementation */
 .solutions-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin: 4rem auto;
+  grid-template-columns: 480px 1fr; /* fixed left column, flexible right */
+  gap: 2rem;
+  margin: 3rem auto;
   max-width: 1200px;
 }
 
