@@ -998,13 +998,15 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2rem 0; 
 }
 
-/* Fix bullet point alignment in blog posts */
+/* Fix bullet point alignment in blog posts (force flush with body text) */
 .blog-post .post-content ul {
+  margin-left: 0 !important;
   padding-left: 0 !important;
-  list-style-position: outside;
+  list-style-position: inside !important;
 }
 
 .blog-post .post-content li {
-  padding-left: 1.5rem;
-  text-indent: -1.5rem;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
 }
