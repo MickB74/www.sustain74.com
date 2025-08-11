@@ -667,6 +667,13 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
+.blog-post .hero-intro {
+  max-width: 120ch;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.65;
+}
+
 .blog-post .post-title {
     font-size: 2.5rem;
     color: var(--primary);
