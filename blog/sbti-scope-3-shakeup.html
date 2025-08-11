@@ -48,7 +48,17 @@
     .blog-post .post-content p + p { margin-top: 1rem; }
     .blog-post .post-content h2 { margin-top: 1rem; }
     .blog-post .post-content h3 { margin-top: 1rem; }
-
+    
+    /* Fix bullet point alignment to match text above */
+    .blog-post .post-content ul {
+      padding-left: 0 !important;
+      list-style-position: outside;
+    }
+    
+    .blog-post .post-content li {
+      padding-left: 1.5rem;
+      text-indent: -1.5rem;
+    }
     /* Tables inside article */
     .post-content table { border-collapse: separate; border-spacing: 0; width: 100%; border: 1px solid var(--border-color); }
     .post-content th, .post-content td { border-bottom: 1px solid var(--border-color); padding: 12px 14px; text-align: left; vertical-align: top; }
