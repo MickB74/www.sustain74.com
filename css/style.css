@@ -787,6 +787,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 1rem;
     padding: 1rem;
     background: #f0f8ff;
+    align-items: stretch; /* ensure columns match height */
 }
 
 .capability-item {
@@ -797,6 +798,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     font-size: 1.1rem;
     transition: background-color 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .capability-item:hover {
@@ -884,13 +888,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .implementation-item {
-    background: #f0f8ff;
-    padding: 1.5rem;
+    background: #f8fbff; /* slightly lighter */
+    padding: 1.25rem;
     border-radius: 8px;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-color); /* light border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 96px; /* match box sizes */
 }
 
 .implementation-item:hover {
