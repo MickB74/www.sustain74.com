@@ -1,0 +1,28 @@
+2025-08-21 17:10:37 - Starting RSS feed update
+Traceback (most recent call last):
+  File "/Users/michaelbarry/Documents/GitHub/www.sustain74.com/rss_aggregator.py", line 7, in <module>
+    import feedparser
+ModuleNotFoundError: No module named 'feedparser'
+2025-08-21 17:10:37 - ERROR: RSS feed update failed
+2025-08-21 17:10:37 - RSS feed update completed
+2025-08-21 17:11:03 - Starting RSS feed update
+INFO:__main__:Fetching feed: https://feeds.feedburner.com/GreentechMedia
+INFO:__main__:Found 0 relevant articles from Greentech Media
+INFO:__main__:Fetching feed: https://www.reuters.com/arcio/rss/tag/environment/
+ERROR:__main__:Error fetching https://www.reuters.com/arcio/rss/tag/environment/: 401 Client Error: HTTP Forbidden for url: https://www.reuters.com/arcio/rss/tag/environment/
+INFO:__main__:Fetching feed: https://www.bloomberg.com/feeds/bgreen
+ERROR:__main__:Error fetching https://www.bloomberg.com/feeds/bgreen: 404 Client Error: Not Found for url: https://www.bloomberg.com/feeds/bgreen
+INFO:__main__:Fetching feed: https://www.climatechangenews.com/feed/
+INFO:__main__:Found 10 relevant articles from Climate Change News
+INFO:__main__:Fetching feed: https://www.esgtoday.com/feed/
+INFO:__main__:Found 8 relevant articles from ESG Today
+INFO:__main__:Created RSS feed with 18 articles: feed.xml
+Sustain74 RSS Feed Aggregator
+===================================
+Fetching ESG and sustainability news from external sources...
+
+✅ Successfully created RSS feed with 18 articles
+📄 Feed saved as: feed.xml
+🌐 Add this to your website at: https://www.sustain74.com/feed.xml
+2025-08-21 17:11:07 - RSS feed updated successfully
+2025-08-21 17:11:07 - RSS feed update completed
