@@ -32,7 +32,7 @@
     .news-header h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: #2c5530;
+      color: #2d5f8a;
     }
     
     .news-header p {
@@ -40,6 +40,7 @@
       color: #666;
       max-width: 600px;
       margin: 0 auto;
+      line-height: 1.7;
     }
     
     .news-filters {
@@ -52,9 +53,9 @@
     
     .filter-btn {
       padding: 0.5rem 1rem;
-      border: 2px solid #2c5530;
+      border: 2px solid #2d5f8a;
       background: transparent;
-      color: #2c5530;
+      color: #2d5f8a;
       border-radius: 25px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -63,7 +64,7 @@
     
     .filter-btn:hover,
     .filter-btn.active {
-      background: #2c5530;
+      background: #2d5f8a;
       color: white;
     }
     
@@ -98,7 +99,7 @@
     
     .news-source {
       background: #f0f8f0;
-      color: #2c5530;
+      color: #2d5f8a;
       padding: 0.25rem 0.75rem;
       border-radius: 15px;
       font-weight: 500;
@@ -113,7 +114,7 @@
       font-weight: 600;
       margin-bottom: 1rem;
       line-height: 1.4;
-      color: #2c5530;
+      color: #2d5f8a;
     }
     
     .news-excerpt {
@@ -123,7 +124,7 @@
     }
     
     .read-more-btn {
-      color: #2c5530;
+      color: #2d5f8a;
       text-decoration: none;
       font-weight: 600;
       display: inline-flex;
@@ -133,7 +134,7 @@
     }
     
     .read-more-btn:hover {
-      color: #1a3d1f;
+      color: #1e4a6b;
     }
     
     .news-loading {
@@ -161,7 +162,7 @@
     }
     
     .rss-info h3 {
-      color: #2c5530;
+      color: #2d5f8a;
       margin-bottom: 1rem;
     }
     
@@ -172,7 +173,7 @@
     
     .rss-link {
       display: inline-block;
-      background: #2c5530;
+      background: #2d5f8a;
       color: white;
       padding: 0.75rem 1.5rem;
       text-decoration: none;
@@ -182,7 +183,7 @@
     }
     
     .rss-link:hover {
-      background: #1a3d1f;
+      background: #1e4a6b;
     }
     
     @media (max-width: 768px) {
@@ -216,23 +217,27 @@
     <nav class="nav">
       <a href="index.html" class="logo"><img src="assets/sustain74_logo.png" alt="Sustain74 Logo"></a>
       <button class="nav-toggle" aria-label="toggle navigation">☰</button>
-      <ul class="nav-list">
+                  <ul class="nav-list">
+        <li><a href="news.html" class="active">News</a></li>
         <li><a href="index.html">Home</a></li>
         <li><a href="michael-barry.html">Our Story</a></li>
         <li><a href="services.html">Our Solutions</a></li>
         <li><a href="sample-engagements.html">Sample Engagements</a></li>
         <li><a href="blog/index.html">Blog</a></li>
-        <li><a href="news.html" class="active">News</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="news-container">
+  <section class="content">
     <div class="news-header">
-      <h1>ESG News & Insights</h1>
-      <p>Stay informed with the latest sustainability news, ESG developments, and industry insights curated from trusted sources.</p>
+      <h1 style="color: #2d5f8a;">ESG News & Insights</h1>
+      <h2>Stay informed with the latest sustainability news, ESG developments, and industry insights curated from trusted sources.</h2>
     </div>
+
+    <p style="font-size: 1.2rem; line-height: 1.7; color: var(--text); margin: 2rem 0; text-align: left;">
+      At Sustain74, we curate the most relevant ESG and sustainability news to keep you informed about the latest developments in climate policy, renewable energy, corporate sustainability, and regulatory changes. Our news feed aggregates content from leading sources including Climate Change News and ESG Today, providing you with timely insights that matter for your sustainability strategy.
+    </p>
 
     <div class="rss-info">
       <h3><i class="fas fa-rss"></i> RSS Feed Available</h3>
@@ -257,7 +262,7 @@
         <p>Loading latest news...</p>
       </div>
     </div>
-  </main>
+  </section>
 
   <footer class="site-footer">
     <div class="footer-content">
