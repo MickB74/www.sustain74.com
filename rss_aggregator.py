@@ -46,15 +46,18 @@ class RSSAggregator:
             }
         ]
         
-        # ESG-related keywords for filtering
-        self.esg_keywords = [
+        # Industry-related keywords for filtering
+        self.industry_keywords = [
             'esg', 'environmental', 'social', 'governance',
             'sustainability', 'sustainable', 'climate', 'carbon',
             'renewable', 'green energy', 'clean energy',
             'net zero', 'carbon neutral', 'emissions',
             'biodiversity', 'circular economy', 'scope 3',
             'sbti', 'science based targets', 'cdp',
-            'tcfd', 'sasb', 'gri', 'ungc'
+            'tcfd', 'sasb', 'gri', 'ungc',
+            'carbon credits', 'carbon offset', 'carbon trading',
+            'data center', 'data centres', 'server farm',
+            'renewable energy', 'solar', 'wind power', 'clean energy'
         ]
 
     def fetch_feed(self, feed_url, timeout=10):
@@ -70,11 +73,11 @@ class RSSAggregator:
             return None
 
     def is_relevant(self, title, description):
-        """Check if an article is relevant to ESG/sustainability"""
+        """Check if an article is relevant to industry news"""
         text = (title + ' ' + description).lower()
         
-        # Check for ESG keywords
-        for keyword in self.esg_keywords:
+        # Check for industry keywords
+        for keyword in self.industry_keywords:
             if keyword.lower() in text:
                 return True
         return False
