@@ -98,6 +98,64 @@ class RSSAggregator:
                 'url': 'https://www.greenbiz.com/feed',
                 'name': 'GreenBiz',
                 'keywords': ['sustainability', 'esg', 'green business', 'climate']
+            },
+            # New sources for Technology & Innovation
+            {
+                'url': 'https://www.venturebeat.com/category/ai/feed/',
+                'name': 'VentureBeat AI',
+                'keywords': ['ai', 'artificial intelligence', 'technology', 'innovation', 'sustainability']
+            },
+            {
+                'url': 'https://www.techcrunch.com/tag/artificial-intelligence/feed/',
+                'name': 'TechCrunch AI',
+                'keywords': ['ai', 'artificial intelligence', 'technology', 'innovation']
+            },
+            {
+                'url': 'https://www.zdnet.com/news/rss.xml',
+                'name': 'ZDNet',
+                'keywords': ['technology', 'ai', 'artificial intelligence', 'innovation', 'sustainability']
+            },
+            {
+                'url': 'https://www.axios.com/feed.rss',
+                'name': 'Axios',
+                'keywords': ['technology', 'ai', 'sustainability', 'esg', 'innovation']
+            },
+            # New sources for Supply Chain
+            {
+                'url': 'https://www.supplychaindive.com/rss/',
+                'name': 'Supply Chain Dive',
+                'keywords': ['supply chain', 'logistics', 'manufacturing', 'sustainability']
+            },
+            {
+                'url': 'https://www.supplychainbrain.com/rss/',
+                'name': 'Supply Chain Brain',
+                'keywords': ['supply chain', 'logistics', 'manufacturing', 'sustainability']
+            },
+            {
+                'url': 'https://www.industryweek.com/rss.xml',
+                'name': 'Industry Week',
+                'keywords': ['manufacturing', 'industrial', 'supply chain', 'sustainability']
+            },
+            {
+                'url': 'https://www.manufacturingtomorrow.com/rss/',
+                'name': 'Manufacturing Tomorrow',
+                'keywords': ['manufacturing', 'industrial', 'technology', 'sustainability']
+            },
+            # Additional ESG and sustainability sources
+            {
+                'url': 'https://www.triplepundit.com/feed/',
+                'name': 'TriplePundit',
+                'keywords': ['sustainability', 'esg', 'social responsibility', 'supply chain']
+            },
+            {
+                'url': 'https://www.sustainablebrands.com/feed/',
+                'name': 'Sustainable Brands',
+                'keywords': ['sustainability', 'esg', 'brands', 'supply chain']
+            },
+            {
+                'url': 'https://www.edie.net/rss/',
+                'name': 'Edie',
+                'keywords': ['sustainability', 'esg', 'environmental', 'technology']
             }
         ]
         
@@ -176,9 +234,13 @@ class RSSAggregator:
         if any(keyword in text for keyword in ['esg', 'environmental social governance', 'sustainability']):
             categories.append('esg')
         
-        # Scope 3
-        if any(keyword in text for keyword in ['scope 3', 'scope iii', 'supply chain emissions', 'value chain']):
-            categories.append('scope3')
+        # Technology & Innovation
+        if any(keyword in text for keyword in ['ai', 'artificial intelligence', 'innovation', 'technology', 'digital', 'clean tech', 'smart', 'automation', 'machine learning']):
+            categories.append('technology')
+        
+        # Supply Chain
+        if any(keyword in text for keyword in ['supply chain', 'manufacturing', 'factory', 'industrial', 'scope 3', 'value chain', 'logistics', 'procurement']):
+            categories.append('supplychain')
         
         # RTO/Grid
         if any(keyword in text for keyword in ['nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso', 'grid operator', 'transmission']):
