@@ -233,6 +233,7 @@
     <div class="news-header">
       <h1 style="color: #2d5f8a;">ESG News</h1>
       <h2>Stay informed with the latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.</h2>
+      <p id="article-count" style="color: #666; font-size: 0.9rem; margin-top: 1rem;"></p>
     </div>
 
     <p style="font-size: 1.2rem; line-height: 1.7; color: var(--text); margin: 2rem 0; text-align: left;">
@@ -317,7 +318,6 @@
           
           // Extract articles
           const items = xmlDoc.querySelectorAll('item');
-          console.log(`Found ${items.length} articles in RSS feed`);
           this.newsData = Array.from(items).map(item => {
             const title = item.querySelector('title')?.textContent || '';
             const description = item.querySelector('description')?.textContent || '';
@@ -334,7 +334,7 @@
             };
           });
 
-          console.log('First 3 articles:', this.newsData.slice(0, 3).map(a => ({ title: a.title, source: a.source, date: a.pubDate })));
+          document.getElementById('article-count').textContent = `Loading ${this.newsData.length} articles...`;
           this.displayNews();
         } catch (error) {
           console.error('Error loading news:', error);
@@ -351,6 +351,8 @@
       displayNews() {
         const newsContent = document.getElementById('news-content');
         const filteredNews = this.filterNews();
+        
+        document.getElementById('article-count').textContent = `Showing ${filteredNews.length} articles`;
         
         if (filteredNews.length === 0) {
           newsContent.innerHTML = `

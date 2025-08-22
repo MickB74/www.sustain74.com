@@ -238,8 +238,8 @@ class RSSAggregator:
         # Sort articles by publication date (newest first)
         all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
         
-        # Generate RSS XML
-        rss_xml = self.generate_rss(all_articles)
+        # Generate RSS XML with higher max_items
+        rss_xml = self.generate_rss(all_articles, max_items=50)
         
         # Add XML declaration
         xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n' + rss_xml
