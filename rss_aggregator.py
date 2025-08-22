@@ -155,6 +155,37 @@ class RSSAggregator:
                 return True
         return False
 
+    def categorize_article(self, title, description):
+        """Categorize article based on keywords"""
+        text = (title + ' ' + description).lower()
+        categories = []
+        
+        # Carbon Credits
+        if any(keyword in text for keyword in ['carbon credit', 'carbon offset', 'carbon trading', 'carbon market']):
+            categories.append('carbon')
+        
+        # Renewable Energy
+        if any(keyword in text for keyword in ['renewable energy', 'solar', 'wind power', 'clean energy', 'green energy']):
+            categories.append('renewable')
+        
+        # Data Centers
+        if any(keyword in text for keyword in ['data center', 'data centre', 'server farm', 'cloud computing']):
+            categories.append('datacenters')
+        
+        # ESG
+        if any(keyword in text for keyword in ['esg', 'environmental social governance', 'sustainability']):
+            categories.append('esg')
+        
+        # Scope 3
+        if any(keyword in text for keyword in ['scope 3', 'scope iii', 'supply chain emissions', 'value chain']):
+            categories.append('scope3')
+        
+        # RTO/Grid
+        if any(keyword in text for keyword in ['nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso', 'grid operator', 'transmission']):
+            categories.append('rto')
+        
+        return categories
+
     def extract_articles(self, feed, source_name, keywords):
         """Extract relevant articles from a feed"""
         articles = []
@@ -184,13 +215,18 @@ class RSSAggregator:
                 
                 # Only include articles from last 30 days
                 if datetime.now() - pub_date <= timedelta(days=30):
+                    # Categorize the article
+                    categories = self.categorize_article(title, description)
+                    
                     articles.append({
                         'title': title,
                         'description': description[:300] + '...' if len(description) > 300 else description,
                         'link': entry.get('link', ''),
                         'pubDate': pub_date.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+                        'pubDateObj': pub_date,  # Keep datetime object for sorting
                         'source': source_name,
-                        'guid': entry.get('id', entry.get('link', ''))
+                        'guid': entry.get('id', entry.get('link', '')),
+                        'categories': categories
                     })
         
         return articles
@@ -228,6 +264,10 @@ class RSSAggregator:
             ET.SubElement(item, 'pubDate').text = article['pubDate']
             ET.SubElement(item, 'source').text = article['source']
             ET.SubElement(item, 'guid').text = article['guid']
+            
+            # Add categories as comma-separated string
+            if article.get('categories'):
+                ET.SubElement(item, 'categories').text = ','.join(article['categories'])
         
         return ET.tostring(rss, encoding='unicode', method='xml')
 
@@ -261,7 +301,7 @@ class RSSAggregator:
                 logger.info(f"Found {len(articles)} articles from {feed_config['name']}")
         
         # Sort articles by publication date (newest first)
-        all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
+        all_articles.sort(key=lambda x: x['pubDateObj'], reverse=True)
         
         # Generate RSS XML with higher max_items
         rss_xml = self.generate_rss(all_articles, max_items=100)

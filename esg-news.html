@@ -246,7 +246,7 @@
       <button class="filter-btn" data-filter="renewable">Renewable Energy</button>
       <button class="filter-btn" data-filter="datacenters">Data Centers</button>
       <button class="filter-btn" data-filter="esg">ESG</button>
-      <button class="filter-btn" data-filter="climate">Climate</button>
+      <button class="filter-btn" data-filter="scope3">Scope 3</button>
     </div>
 
     <div id="news-content">
@@ -309,7 +309,7 @@
           
           // Fetch RSS feed with aggressive cache busting
           const timestamp = new Date().getTime();
-          const feedUrl = `feed-20250822-1252.xml?v=4&t=${timestamp}&r=${Math.random()}`;
+          const feedUrl = `feed-20250822-1301.xml?v=5&t=${timestamp}&r=${Math.random()}`;
           console.log('Fetching from:', feedUrl);
           const response = await fetch(feedUrl, {
             cache: 'no-cache',
@@ -334,13 +334,15 @@
             const link = item.querySelector('link')?.textContent || '';
             const pubDate = item.querySelector('pubDate')?.textContent || '';
             const source = item.querySelector('source')?.textContent || 'Unknown Source';
+            const categories = item.querySelector('categories')?.textContent || '';
             
             return {
               title: this.decodeHtmlEntities(title),
               description: this.decodeHtmlEntities(description),
               link: link,
               pubDate: pubDate,
-              source: source
+              source: source,
+              categories: categories.split(',').map(cat => cat.trim()).filter(cat => cat)
             };
           });
 
@@ -388,8 +390,14 @@
         }
         
         return this.newsData.filter(article => {
-          const text = (article.title + ' ' + article.description).toLowerCase();
-          return text.includes(this.currentFilter.toLowerCase());
+          // Use categories from RSS feed if available, otherwise fall back to text search
+          if (article.categories && article.categories.length > 0) {
+            return article.categories.includes(this.currentFilter);
+          } else {
+            // Fallback to text search for older articles without categories
+            const text = (article.title + ' ' + article.description).toLowerCase();
+            return text.includes(this.currentFilter.toLowerCase());
+          }
         });
       }
 
