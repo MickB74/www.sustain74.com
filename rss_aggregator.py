@@ -310,47 +310,29 @@ class RSSAggregator:
         """Check if an article is relevant to ESG/sustainability topics"""
         text = (title + ' ' + description).lower()
         
-        # First, check for exclusion keywords (if any match, exclude the article)
-        for exclude_keyword in self.exclude_keywords:
-            if exclude_keyword.lower() in text:
+        # Only exclude completely off-topic content
+        off_topic_keywords = [
+            'sports', 'football', 'basketball', 'baseball', 'soccer', 'tennis', 'golf',
+            'entertainment', 'celebrity', 'gossip', 'movie', 'music', 'hollywood',
+            'gaming', 'video game', 'casino', 'poker', 'betting', 'gambling',
+            'crypto', 'bitcoin', 'ethereum', 'blockchain', 'nft', 'cryptocurrency',
+            'real estate', 'property', 'housing', 'mortgage', 'home buying',
+            'health', 'medical', 'pharmaceutical', 'drug', 'medicine', 'disease',
+            'food', 'restaurant', 'cooking', 'recipe', 'diet', 'nutrition',
+            'fashion', 'clothing', 'shopping', 'retail', 'consumer goods',
+            'automotive', 'car', 'vehicle', 'transportation', 'travel', 'tourism',
+            'politics', 'election', 'government', 'political party', 'campaign',
+            'crime', 'police', 'law enforcement', 'legal', 'court', 'lawyer'
+        ]
+        
+        # Check for completely off-topic keywords
+        for off_topic in off_topic_keywords:
+            if off_topic in text:
                 return False
         
-        # Then check for inclusion keywords (need at least one strong match)
-        strong_matches = 0
-        moderate_matches = 0
-        
-        for keyword in self.industry_keywords:
-            if keyword.lower() in text:
-                # Count strong matches (longer, more specific keywords)
-                if len(keyword) > 8:
-                    strong_matches += 1
-                else:
-                    moderate_matches += 1
-        
-        # Require at least one strong match or multiple moderate matches
-        has_relevant_content = strong_matches > 0 or moderate_matches >= 2
-        
-        # Additional validation: ensure the article is actually about the topic
-        if has_relevant_content:
-            # Check if the article has enough context to be meaningful
-            # Skip very short articles that might just be headlines
-            if len(description) < 50:
-                return False
-            
-            # Check for common irrelevant patterns
-            irrelevant_patterns = [
-                'click here', 'read more', 'subscribe', 'newsletter',
-                'advertisement', 'sponsored', 'promotion', 'deal',
-                'sale', 'discount', 'offer', 'limited time'
-            ]
-            
-            for pattern in irrelevant_patterns:
-                if pattern in text:
-                    return False
-            
-            return True
-        
-        return False
+        # If it's not completely off-topic, include it
+        # This is much more lenient - we'll include most content and let the user decide
+        return True
 
     def categorize_article(self, title, description):
         """Categorize article based on keywords"""
