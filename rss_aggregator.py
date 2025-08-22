@@ -275,8 +275,8 @@ class RSSAggregator:
                 else:
                     pub_date = datetime.now()
                 
-                # Only include articles from last 30 days
-                if datetime.now() - pub_date <= timedelta(days=30):
+                # Only include articles from last 30 days and not future dates
+                if datetime.now() - pub_date <= timedelta(days=30) and pub_date <= datetime.now():
                     # Categorize the article
                     categories = self.categorize_article(title, description)
                     
