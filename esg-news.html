@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESG News – Sustain 74</title>
+  <meta name="description" content="Latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="ESG News – Sustain 74">
+  <meta property="og:description" content="Latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.">
+  <meta property="og:image" content="assets/og-preview.png">
+  <meta property="og:url" content="https://www.sustain74.com/esg-news.html">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Sustain74 RSS Feed" href="https://www.sustain74.com/feed.xml">
+  
+  <style>
+    /* News-specific styles */
+    .news-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .news-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .news-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2d5f8a;
+    }
+    
+    .news-header p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .news-filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #2d5f8a;
+      background: transparent;
+      color: #2d5f8a;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #2d5f8a;
+      color: white;
+    }
+    
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .news-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+    
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .news-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .news-source {
+      background: #f0f8f0;
+      color: #2d5f8a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-weight: 500;
+    }
+    
+    .news-date {
+      color: #999;
+    }
+    
+    .news-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      color: #2d5f8a;
+    }
+    
+    .news-excerpt {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .read-more-btn {
+      color: #2d5f8a;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    
+    .read-more-btn:hover {
+      color: #1e4a6b;
+    }
+    
+    .news-loading {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+    }
+    
+    .news-error {
+      text-align: center;
+      padding: 3rem;
+      color: #d32f2f;
+      background: #ffebee;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+    
+    .rss-info {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .rss-info h3 {
+      color: #2d5f8a;
+      margin-bottom: 1rem;
+    }
+    
+    .rss-info p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .rss-link {
+      display: inline-block;
+      background: #2d5f8a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    
+    .rss-link:hover {
+      background: #1e4a6b;
+    }
+    
+    @media (max-width: 768px) {
+      .news-container {
+        padding: 1rem;
+      }
+      
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .news-filters {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E825E8QMZ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E825E8QMZ1');
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><img src="assets/sustain74_logo.png" alt="Sustain74 Logo"></a>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+                  <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="michael-barry.html">Our Story</a></li>
+        <li><a href="services.html">Our Solutions</a></li>
+        <li><a href="sample-engagements.html">Sample Engagements</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="esg-news.html" class="active">ESG News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="content">
+    <div class="news-header">
+      <h1 style="color: #2d5f8a;">ESG News</h1>
+      <h2>Stay informed with the latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.</h2>
+      <p id="article-count" style="color: #666; font-size: 0.9rem; margin-top: 1rem;"></p>
+    </div>
+
+    <p style="font-size: 1.2rem; line-height: 1.7; color: var(--text); margin: 2rem 0; text-align: left;">
+      At Sustain74, we curate the most relevant industry news to keep you informed about the latest developments in carbon credits, renewable energy, data centers, and ESG policy. Our news feed aggregates content from leading sources including Climate Change News and ESG Today, providing you with timely insights that matter for your sustainability strategy and industry positioning.
+    </p>
+
+    <div class="news-filters">
+      <button class="filter-btn active" data-filter="all">All News</button>
+      <button class="filter-btn" data-filter="carbon">Carbon Credits</button>
+      <button class="filter-btn" data-filter="renewable">Renewable Energy</button>
+      <button class="filter-btn" data-filter="datacenters">Data Centers</button>
+      <button class="filter-btn" data-filter="esg">ESG</button>
+      <button class="filter-btn" data-filter="climate">Climate</button>
+    </div>
+
+    <div id="news-content">
+      <div class="news-loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading latest news...</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 Sustain74 · <a href="mailto:info@sustain74.com">info@sustain74.com</a> · <a href="feed.xml" title="RSS Feed"><i class="fas fa-rss"></i> RSS</a></p>
+    </div>
+  </footer>
+  
+  <div class="sticky-cta-bar">
+    <p>Have sustainability questions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSce2loWM6RZDlNACAu0QTHL4wtbtOYjuchxpQ0BUo--y-ovZw/viewform" target="_blank">Contact Sustain74 →</a></p>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // News functionality
+    class NewsManager {
+      constructor() {
+        this.newsData = [];
+        this.currentFilter = 'all';
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.loadNews();
+      }
+
+      setupEventListeners() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            this.handleFilterClick(e);
+          });
+        });
+      }
+
+      handleFilterClick(e) {
+        const filter = e.target.dataset.filter;
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        this.currentFilter = filter;
+        this.displayNews();
+      }
+
+      async loadNews() {
+        try {
+          this.showLoading();
+          
+          // Fetch RSS feed with aggressive cache busting
+          const timestamp = new Date().getTime();
+          const feedUrl = `feed.xml?v=3&t=${timestamp}&r=${Math.random()}`;
+          console.log('Fetching from:', feedUrl);
+          const response = await fetch(feedUrl, {
+            cache: 'no-cache',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            }
+          });
+          const xmlText = await response.text();
+          console.log('Response size:', xmlText.length, 'bytes');
+          
+          // Parse XML
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+          
+          // Extract articles
+          const items = xmlDoc.querySelectorAll('item');
+          this.newsData = Array.from(items).map(item => {
+            const title = item.querySelector('title')?.textContent || '';
+            const description = item.querySelector('description')?.textContent || '';
+            const link = item.querySelector('link')?.textContent || '';
+            const pubDate = item.querySelector('pubDate')?.textContent || '';
+            const source = item.querySelector('source')?.textContent || 'Unknown Source';
+            
+            return {
+              title: this.decodeHtmlEntities(title),
+              description: this.decodeHtmlEntities(description),
+              link: link,
+              pubDate: pubDate,
+              source: source
+            };
+          });
+
+          document.getElementById('article-count').textContent = `Loading ${this.newsData.length} articles... (Latest: ${this.newsData[0]?.title?.substring(0, 50)}...)`;
+          this.displayNews();
+        } catch (error) {
+          console.error('Error loading news:', error);
+          this.showError('Unable to load news at this time. Please try again later.');
+        }
+      }
+
+      decodeHtmlEntities(text) {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = text;
+        return textarea.value;
+      }
+
+      displayNews() {
+        const newsContent = document.getElementById('news-content');
+        const filteredNews = this.filterNews();
+        
+        document.getElementById('article-count').textContent = `Showing ${filteredNews.length} articles`;
+        
+        if (filteredNews.length === 0) {
+          newsContent.innerHTML = `
+            <div class="news-error">
+              <p>No news articles found for the selected category.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const newsHTML = filteredNews.map(article => this.createNewsCard(article)).join('');
+        
+        newsContent.innerHTML = `
+          <div class="news-grid">
+            ${newsHTML}
+          </div>
+        `;
+      }
+
+      filterNews() {
+        if (this.currentFilter === 'all') {
+          return this.newsData;
+        }
+        
+        return this.newsData.filter(article => {
+          const text = (article.title + ' ' + article.description).toLowerCase();
+          return text.includes(this.currentFilter.toLowerCase());
+        });
+      }
+
+      createNewsCard(article) {
+        const formattedDate = this.formatDate(article.pubDate);
+
+        return `
+          <div class="news-card">
+            <div class="news-meta">
+              <span class="news-source">${article.source}</span>
+              <span class="news-date">${formattedDate}</span>
+            </div>
+            <h3 class="news-title">${article.title}</h3>
+            <p class="news-excerpt">${article.description}</p>
+            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="read-more-btn">
+              Read Full Article <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        `;
+      }
+
+      formatDate(dateString) {
+        try {
+          const date = new Date(dateString);
+          return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        } catch (e) {
+          return dateString;
+        }
+      }
+
+      showLoading() {
+        const newsContent = document.getElementById('news-content');
+        newsContent.innerHTML = `
+          <div class="news-loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading latest news...</p>
+          </div>
+        `;
+      }
+
+      showError(message) {
+        const newsContent = document.getElementById('news-content');
+        newsContent.innerHTML = `
+          <div class="news-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${message}</p>
+            <button onclick="newsManager.loadNews()" class="filter-btn" style="margin-top: 1rem;">
+              <i class="fas fa-redo"></i> Try Again
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize news manager when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      window.newsManager = new NewsManager();
+    });
+  </script>
+
+  <div class="rss-info" style="margin-top: 3rem; text-align: center;">
+    <h3><i class="fas fa-rss"></i> RSS Feed Available</h3>
+    <p>Subscribe to our RSS feed to get the latest industry news delivered directly to your feed reader.</p>
+    <a href="feed.xml" class="rss-link">
+      <i class="fas fa-external-link-alt"></i> Subscribe to RSS Feed
+    </a>
+  </div>
+</body>
+</html>
