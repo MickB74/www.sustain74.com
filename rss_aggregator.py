@@ -211,29 +211,30 @@ class RSSAggregator:
         """Create the aggregated RSS feed"""
         all_articles = []
         
-        # Fetch articles from all external feeds
-        for feed_config in self.external_feeds:
-            feed = self.fetch_feed(feed_config['url'])
-            if feed:
-                articles = self.extract_articles(
-                    feed, 
-                    feed_config['name'], 
-                    feed_config['keywords']
-                )
-                all_articles.extend(articles)
-                logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
+        # Skip external feeds - only use Google Alerts
+        # for feed_config in self.external_feeds:
+        #     feed = self.fetch_feed(feed_config['url'])
+        #     if feed:
+        #         articles = self.extract_articles(
+        #             feed, 
+        #             feed_config['name'], 
+        #             feed_config['keywords']
+        #         )
+        #         all_articles.extend(articles)
+        #         logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
         
-        # Fetch articles from Google Alerts feeds
+        # Fetch articles from Google Alerts feeds only
         for feed_config in self.google_alerts_feeds:
             feed = self.fetch_feed(feed_config['url'])
             if feed:
+                # Get all articles from Google Alerts without keyword filtering
                 articles = self.extract_articles(
                     feed, 
                     feed_config['name'], 
-                    feed_config['keywords']
+                    []  # Empty keywords list to get all articles
                 )
                 all_articles.extend(articles)
-                logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
+                logger.info(f"Found {len(articles)} articles from {feed_config['name']}")
         
         # Sort articles by publication date (newest first)
         all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
