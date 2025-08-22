@@ -309,7 +309,7 @@
           
           // Fetch RSS feed with aggressive cache busting
           const timestamp = new Date().getTime();
-          const feedUrl = `feed.xml?v=3&t=${timestamp}&r=${Math.random()}`;
+          const feedUrl = `feed-20250822-1252.xml?v=4&t=${timestamp}&r=${Math.random()}`;
           console.log('Fetching from:', feedUrl);
           const response = await fetch(feedUrl, {
             cache: 'no-cache',
