@@ -365,11 +365,11 @@ class RSSAggregator:
 
     def export_to_csv(self, articles, output_file=None):
         """Export articles to CSV with tags"""
-        # If no output file specified, save to Downloads folder
+        # If no output file specified, save to Google Drive folder
         if output_file is None:
-            downloads_path = os.path.expanduser("~/Downloads")
+            google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            output_file = os.path.join(downloads_path, f"ESG_Stories_{timestamp}.csv")
+            output_file = os.path.join(google_drive_path, f"ESG_Stories_{timestamp}.csv")
         
         with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['Date', 'Title', 'Description', 'Link', 'Source', 'Categories', 'Tags']
@@ -525,5 +525,5 @@ if __name__ == "__main__":
     print(f"\n📊 Summary:")
     print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
     print(f"   - CSV Export: {csv_file}")
-    print(f"   - Location: Your Downloads folder")
-    print(f"\n✅ CSV file saved to Downloads for easy access!")
+    print(f"   - Location: Google Drive ESG News folder")
+    print(f"\n✅ CSV file saved to Google Drive for easy access!")
