@@ -474,6 +474,71 @@ class RSSAggregator:
             print(f"❌ Error preparing email: {e}")
             return False
 
+    def is_duplicate(self, article1, article2):
+        """Check if two articles are duplicates based on title similarity and URL"""
+        # Check if URLs are the same (exact match)
+        if article1['link'] == article2['link']:
+            return True
+        
+        # Check if titles are very similar (fuzzy matching)
+        title1 = article1['title'].lower().strip()
+        title2 = article2['title'].lower().strip()
+        
+        # Remove common punctuation and extra spaces
+        title1 = re.sub(r'[^\w\s]', '', title1)
+        title2 = re.sub(r'[^\w\s]', '', title2)
+        
+        # If titles are identical after cleaning, they're duplicates
+        if title1 == title2:
+            return True
+        
+        # Check for high similarity (if one title contains the other)
+        if len(title1) > 15 and len(title2) > 15:
+            # If one title is contained within the other (with some tolerance)
+            if title1 in title2 or title2 in title1:
+                return True
+            
+            # Check for very similar titles (90% similarity threshold)
+            words1 = set(title1.split())
+            words2 = set(title2.split())
+            
+            if len(words1) > 3 and len(words2) > 3:
+                intersection = words1.intersection(words2)
+                union = words1.union(words2)
+                similarity = len(intersection) / len(union)
+                
+                if similarity > 0.9:  # 90% similarity threshold (increased from 0.8)
+                    return True
+        
+        return False
+
+    def remove_duplicates(self, articles):
+        """Remove duplicate articles from the list"""
+        unique_articles = []
+        seen_urls = set()
+        
+        for article in articles:
+            # Check if we've seen this URL
+            if article['link'] in seen_urls:
+                continue
+            
+            # Check if this article is a duplicate of any existing article
+            is_duplicate = False
+            for existing_article in unique_articles:
+                if self.is_duplicate(article, existing_article):
+                    is_duplicate = True
+                    break
+            
+            if not is_duplicate:
+                unique_articles.append(article)
+                seen_urls.add(article['link'])
+        
+        removed_count = len(articles) - len(unique_articles)
+        if removed_count > 0:
+            logger.info(f"Removed {removed_count} duplicate articles")
+        
+        return unique_articles
+
     def create_feed(self, output_file='feed.xml'):
         """Create the aggregated RSS feed"""
         self.all_articles = []
@@ -502,6 +567,11 @@ class RSSAggregator:
                 )
                 self.all_articles.extend(articles)
                 logger.info(f"Found {len(articles)} articles from {feed_config['name']}")
+        
+        # Remove duplicates before sorting
+        logger.info(f"Total articles before deduplication: {len(self.all_articles)}")
+        self.all_articles = self.remove_duplicates(self.all_articles)
+        logger.info(f"Total articles after deduplication: {len(self.all_articles)}")
         
         # Sort articles by publication date (newest first)
         self.all_articles.sort(key=lambda x: x['pubDateObj'], reverse=True)
