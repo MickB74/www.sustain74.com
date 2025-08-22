@@ -48,11 +48,10 @@ jobs:
         timestamp=$(echo $latest_feed | sed 's/feed-\(.*\)\.xml/\1/')
         version=$(echo $timestamp | sed 's/.*-//') # Get the time part for version number
         
-        # Update the feed URL in esg-news.html
-        sed -i "s/feed-[0-9]\{8\}-[0-9]\{4\}\.xml/feed-$timestamp.xml/g" esg-news.html
-        sed -i "s/v=[0-9]\+/v=$version/g" esg-news.html
+        # Update the feed URL in esg-news.html - update both filename and version in one command
+        sed -i "s/feed-[0-9]\{8\}-[0-9]\{4\}\.xml?v=[0-9]\+/feed-$timestamp.xml?v=$version/g" esg-news.html
         
-        echo "Updated esg-news.html to use $latest_feed"
+        echo "Updated esg-news.html to use $latest_feed with version $version"
         
     - name: Commit and push changes
       run: |
