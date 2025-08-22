@@ -221,6 +221,16 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/4823172020421522588',
                 'name': 'Google Alert: MISO Grid',
                 'keywords': ['miso', 'midcontinent independent system operator', 'grid operator', 'energy market', 'transmission', 'grid reliability']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/17490903940019154653',
+                'name': 'Google Alert: India Renewables',
+                'keywords': ['india', 'renewable energy', 'solar power', 'energy transition', 'clean energy', 'sustainable development']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/13034409552276427076',
+                'name': 'Google Alert: Europe Renewables',
+                'keywords': ['europe', 'eu', 'renewable energy', 'offshore wind', 'solar power', 'energy transition', 'clean energy', 'sustainable development']
             }
         ]
         
