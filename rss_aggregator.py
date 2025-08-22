@@ -516,11 +516,22 @@ if __name__ == "__main__":
     # Export to CSV
     csv_file = aggregator.export_to_csv(aggregator.all_articles)
     
-    # Prepare email (without sending - requires SMTP setup)
-    aggregator.send_csv_email(csv_file)
+    # Try to upload to Google Drive
+    try:
+        from drive_uploader import upload_to_drive
+        print(f"\n📤 Attempting to upload to Google Drive...")
+        file_id = upload_to_drive(csv_file)
+        if file_id:
+            print(f"✅ Successfully uploaded to Google Drive!")
+        else:
+            print(f"⚠️  Google Drive upload failed - CSV file saved locally: {csv_file}")
+    except ImportError:
+        print(f"⚠️  Google Drive uploader not available - CSV file saved locally: {csv_file}")
+    except Exception as e:
+        print(f"⚠️  Google Drive upload error: {e}")
+        print(f"📄 CSV file saved locally: {csv_file}")
     
     print(f"\n📊 Summary:")
     print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
     print(f"   - CSV Export: {csv_file}")
-    print(f"   - Email prepared for: michael@sustain74.com")
-    print(f"\nTo enable email sending, configure SMTP settings in the script.")
+    print(f"   - Google Drive: Upload attempted")
