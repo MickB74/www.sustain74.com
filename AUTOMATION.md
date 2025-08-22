@@ -1,17 +1,16 @@
 # ESG News Automation
 
 ## Overview
-This repository uses GitHub Actions to automatically update ESG news stories 3 times per day.
+This repository uses GitHub Actions to automatically update ESG news stories every hour.
 
 ## Update Schedule
-- **6:00 AM Eastern Time** (11:00 AM UTC)
-- **12:00 PM Eastern Time** (5:00 PM UTC)  
-- **6:00 PM Eastern Time** (11:00 PM UTC)
+- **Every hour** (at the top of each hour)
+- **Manual trigger** also available via GitHub Actions tab
 
 ## What Happens During Each Update
 
 ### 1. RSS Feed Generation
-- Fetches latest stories from 8 Google Alerts
+- Fetches latest stories from 10 Google Alerts
 - Fetches stories from external RSS feeds
 - Categorizes articles by topic (carbon, renewable, datacenters, esg, technology, supplychain, rto)
 - Generates timestamped RSS feed files
@@ -45,6 +44,8 @@ You can also trigger updates manually:
 - SBTi (Science Based Targets)
 - PJM Interconnection
 - Additional Feed
+- GHG Protocol
+- MISO Grid (Central US)
 
 ### External RSS Feeds
 - Climate Change News
