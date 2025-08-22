@@ -184,6 +184,26 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/706682144053230716',
                 'name': 'Google Alert: Carbon Credits',
                 'keywords': ['carbon credits', 'carbon trading', 'carbon offset', 'carbon market']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/13938593169621617300',
+                'name': 'Google Alert: OBBBA Renewables',
+                'keywords': ['obbba', 'renewable energy', 'solar', 'wind', 'energy policy', 'tax credits']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/1990537298683130160',
+                'name': 'Google Alert: SBTi',
+                'keywords': ['sbti', 'science based targets', 'climate targets', 'net zero', 'emissions reduction']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/17593370029704000586',
+                'name': 'Google Alert: PJM',
+                'keywords': ['pjm', 'grid operator', 'energy market', 'transmission', 'interconnection']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/10229188489220187549',
+                'name': 'Google Alert: Additional Feed',
+                'keywords': ['energy', 'sustainability', 'esg', 'grid', 'renewable']
             }
         ]
         
