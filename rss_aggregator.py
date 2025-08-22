@@ -363,8 +363,14 @@ class RSSAggregator:
         print(f"📄 Feed saved as: {output_file}")
         print(f"🌐 Add this to your website at: https://www.sustain74.com/{output_file}")
 
-    def export_to_csv(self, articles, output_file='esg_stories.csv'):
+    def export_to_csv(self, articles, output_file=None):
         """Export articles to CSV with tags"""
+        # If no output file specified, save to Downloads folder
+        if output_file is None:
+            downloads_path = os.path.expanduser("~/Downloads")
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            output_file = os.path.join(downloads_path, f"ESG_Stories_{timestamp}.csv")
+        
         with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['Date', 'Title', 'Description', 'Link', 'Source', 'Categories', 'Tags']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -513,25 +519,11 @@ if __name__ == "__main__":
     aggregator = RSSAggregator()
     aggregator.create_feed()
     
-    # Export to CSV
+    # Export to CSV in Downloads folder
     csv_file = aggregator.export_to_csv(aggregator.all_articles)
-    
-    # Try to upload to Google Drive
-    try:
-        from drive_uploader import upload_to_drive
-        print(f"\n📤 Attempting to upload to Google Drive...")
-        file_id = upload_to_drive(csv_file)
-        if file_id:
-            print(f"✅ Successfully uploaded to Google Drive!")
-        else:
-            print(f"⚠️  Google Drive upload failed - CSV file saved locally: {csv_file}")
-    except ImportError:
-        print(f"⚠️  Google Drive uploader not available - CSV file saved locally: {csv_file}")
-    except Exception as e:
-        print(f"⚠️  Google Drive upload error: {e}")
-        print(f"📄 CSV file saved locally: {csv_file}")
     
     print(f"\n📊 Summary:")
     print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
     print(f"   - CSV Export: {csv_file}")
-    print(f"   - Google Drive: Upload attempted")
+    print(f"   - Location: Your Downloads folder")
+    print(f"\n✅ CSV file saved to Downloads for easy access!")
