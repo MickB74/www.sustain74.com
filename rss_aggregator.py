@@ -216,6 +216,11 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/17166491980537754255',
                 'name': 'Google Alert: GHG Protocol',
                 'keywords': ['ghg protocol', 'greenhouse gas', 'emissions reporting', 'carbon accounting', 'scope 1', 'scope 2', 'scope 3']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/4823172020421522588',
+                'name': 'Google Alert: MISO Grid',
+                'keywords': ['miso', 'midcontinent independent system operator', 'grid operator', 'energy market', 'transmission', 'grid reliability']
             }
         ]
         
