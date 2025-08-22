@@ -236,21 +236,62 @@ class RSSAggregator:
         
         # Industry-related keywords for filtering
         self.industry_keywords = [
-            'esg', 'environmental', 'social', 'governance',
-            'sustainability', 'sustainable', 'climate', 'carbon',
-            'renewable', 'green energy', 'clean energy',
-            'net zero', 'carbon neutral', 'emissions',
-            'biodiversity', 'circular economy', 'scope 3',
-            'sbti', 'science based targets', 'cdp',
-            'tcfd', 'sasb', 'gri', 'ungc',
-            'carbon credits', 'carbon offset', 'carbon trading',
-            'data center', 'data centres', 'server farm',
-            'renewable energy', 'solar', 'wind power', 'clean energy',
+            # Core ESG terms
+            'esg', 'environmental social governance', 'sustainability', 'sustainable development',
+            'climate change', 'climate action', 'carbon', 'carbon footprint', 'emissions',
+            'net zero', 'carbon neutral', 'carbon negative', 'decarbonization',
+            'greenhouse gas', 'ghg', 'scope 1', 'scope 2', 'scope 3',
+            
+            # Sustainability frameworks
+            'sbti', 'science based targets', 'cdp', 'tcfd', 'sasb', 'gri', 'ungc',
+            'carbon disclosure project', 'task force on climate-related financial disclosures',
+            'sustainability accounting standards board', 'global reporting initiative',
+            
+            # Carbon markets
+            'carbon credits', 'carbon offset', 'carbon trading', 'carbon market',
+            'voluntary carbon market', 'compliance carbon market',
+            
+            # Renewable energy
+            'renewable energy', 'clean energy', 'green energy', 'solar power', 'solar energy',
+            'wind power', 'wind energy', 'offshore wind', 'onshore wind', 'hydroelectric',
+            'geothermal', 'biomass', 'bioenergy', 'hydrogen', 'green hydrogen',
+            
+            # Energy efficiency and management
+            'energy efficiency', 'energy management', 'energy conservation',
+            'smart grid', 'grid modernization', 'energy storage', 'battery storage',
+            
+            # Data centers and technology
+            'data center', 'data centre', 'server farm', 'cloud computing',
+            'green data center', 'sustainable technology', 'clean tech', 'cleantech',
+            
             # RTO and grid operators
             'nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso',
-            'grid operator', 'transmission', 'electricity market',
-            'power market', 'energy market', 'grid modernization',
-            'smart grid', 'grid reliability', 'interconnection'
+            'grid operator', 'transmission', 'electricity market', 'power market',
+            'energy market', 'grid reliability', 'interconnection', 'miso',
+            'midcontinent independent system operator',
+            
+            # Supply chain and manufacturing
+            'supply chain', 'manufacturing', 'factory', 'industrial', 'value chain',
+            'logistics', 'procurement', 'circular economy', 'biodiversity',
+            
+            # Policy and regulation
+            'epa', 'environmental protection agency', 'energy policy', 'climate policy',
+            'renewable energy policy', 'energy transition', 'clean energy transition'
+        ]
+        
+        # Keywords that indicate irrelevant content (to exclude)
+        self.exclude_keywords = [
+            'sports', 'entertainment', 'celebrity', 'gossip', 'movie', 'music',
+            'gaming', 'video game', 'casino', 'poker', 'betting', 'gambling',
+            'crypto', 'bitcoin', 'ethereum', 'blockchain', 'nft', 'cryptocurrency',
+            'stock market', 'trading', 'investment', 'finance', 'banking',
+            'real estate', 'property', 'housing', 'mortgage', 'insurance',
+            'health', 'medical', 'pharmaceutical', 'drug', 'medicine',
+            'food', 'restaurant', 'cooking', 'recipe', 'diet', 'nutrition',
+            'fashion', 'clothing', 'shopping', 'retail', 'consumer goods',
+            'automotive', 'car', 'vehicle', 'transportation', 'travel', 'tourism',
+            'politics', 'election', 'government', 'political party', 'campaign',
+            'crime', 'police', 'law enforcement', 'legal', 'court', 'lawyer'
         ]
 
     def fetch_feed(self, feed_url, timeout=10):
@@ -266,13 +307,49 @@ class RSSAggregator:
             return None
 
     def is_relevant(self, title, description):
-        """Check if an article is relevant to industry news"""
+        """Check if an article is relevant to ESG/sustainability topics"""
         text = (title + ' ' + description).lower()
         
-        # Check for industry keywords
+        # First, check for exclusion keywords (if any match, exclude the article)
+        for exclude_keyword in self.exclude_keywords:
+            if exclude_keyword.lower() in text:
+                return False
+        
+        # Then check for inclusion keywords (need at least one strong match)
+        strong_matches = 0
+        moderate_matches = 0
+        
         for keyword in self.industry_keywords:
             if keyword.lower() in text:
-                return True
+                # Count strong matches (longer, more specific keywords)
+                if len(keyword) > 8:
+                    strong_matches += 1
+                else:
+                    moderate_matches += 1
+        
+        # Require at least one strong match or multiple moderate matches
+        has_relevant_content = strong_matches > 0 or moderate_matches >= 2
+        
+        # Additional validation: ensure the article is actually about the topic
+        if has_relevant_content:
+            # Check if the article has enough context to be meaningful
+            # Skip very short articles that might just be headlines
+            if len(description) < 50:
+                return False
+            
+            # Check for common irrelevant patterns
+            irrelevant_patterns = [
+                'click here', 'read more', 'subscribe', 'newsletter',
+                'advertisement', 'sponsored', 'promotion', 'deal',
+                'sale', 'discount', 'offer', 'limited time'
+            ]
+            
+            for pattern in irrelevant_patterns:
+                if pattern in text:
+                    return False
+            
+            return True
+        
         return False
 
     def categorize_article(self, title, description):
@@ -317,9 +394,8 @@ class RSSAggregator:
         if not feed or not feed.entries:
             return articles
             
-        # For Google Alerts, take more entries and skip filtering
+        # For Google Alerts, take more entries but still apply filtering
         max_entries = 100 if "Google Alert" in source_name else 20
-        skip_filtering = "Google Alert" in source_name
             
         for entry in feed.entries[:max_entries]:
             title = entry.get('title', '')
@@ -328,8 +404,8 @@ class RSSAggregator:
             # Clean HTML tags from description
             description = re.sub(r'<[^>]+>', '', description)
             
-            # Check if article is relevant (skip for Google Alerts)
-            if skip_filtering or self.is_relevant(title, description):
+            # Always check if article is relevant (including Google Alerts)
+            if self.is_relevant(title, description):
                 # Parse date
                 published = entry.get('published_parsed') or entry.get('updated_parsed')
                 if published:
