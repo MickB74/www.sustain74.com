@@ -405,11 +405,12 @@
 
       createNewsCard(article) {
         const formattedDate = this.formatDate(article.pubDate);
+        const cleanSource = this.cleanSourceName(article.source);
 
         return `
           <div class="news-card">
             <div class="news-meta">
-              <span class="news-source">${article.source}</span>
+              <span class="news-source">${cleanSource}</span>
               <span class="news-date">${formattedDate}</span>
             </div>
             <h3 class="news-title">${article.title}</h3>
@@ -419,6 +420,26 @@
             </a>
           </div>
         `;
+      }
+
+      cleanSourceName(source) {
+        // Remove "Google Alert:" prefix and clean up the source name
+        let cleanSource = source.replace(/^Google Alert:\s*/i, '');
+        
+        // Map specific Google Alert names to cleaner versions
+        const sourceMap = {
+          'ESG and Energy': 'ESG & Energy',
+          'OBBBA Renewables': 'OBBBA Renewables',
+          'SBTi': 'SBTi',
+          'PJM': 'PJM Interconnection',
+          'Additional Feed': 'Energy & Sustainability',
+          'CAISO': 'CAISO',
+          'ERCOT': 'ERCOT',
+          'Carbon Credits': 'Carbon Credits'
+        };
+        
+        // Return mapped name if available, otherwise return cleaned name
+        return sourceMap[cleanSource] || cleanSource;
       }
 
       formatDate(dateString) {
