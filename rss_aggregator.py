@@ -7,9 +7,16 @@ Fetches relevant ESG/sustainability stories from external sources
 import feedparser
 import requests
 from datetime import datetime, timedelta
-import xml.etree.ElementTree as ET
-import re
 import logging
+import xml.etree.ElementTree as ET
+import csv
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+import os
+import re
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -328,49 +335,122 @@ class RSSAggregator:
         
         return articles
 
-    def generate_rss(self, articles, max_items=20):
+    def generate_rss(self, articles, output_file='feed.xml'):
         """Generate RSS XML from articles"""
-        # Create RSS root element
         rss = ET.Element('rss', version='2.0')
-        rss.set('xmlns:atom', 'http://www.w3.org/2005/Atom')
-        
-        # Create channel
         channel = ET.SubElement(rss, 'channel')
         
-        # Channel metadata
-        ET.SubElement(channel, 'title').text = 'Sustain74 - ESG & Sustainability News'
-        ET.SubElement(channel, 'description').text = 'Curated ESG and sustainability news from trusted sources'
+        ET.SubElement(channel, 'title').text = 'Sustain74 ESG News Feed'
+        ET.SubElement(channel, 'description').text = 'Latest ESG and sustainability news curated by Sustain74'
         ET.SubElement(channel, 'link').text = 'https://www.sustain74.com'
         ET.SubElement(channel, 'language').text = 'en-us'
-        ET.SubElement(channel, 'lastBuildDate').text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')
-        ET.SubElement(channel, 'generator').text = 'Sustain74 RSS Aggregator'
+        ET.SubElement(channel, 'lastBuildDate').text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
         
-        # Self-referencing link
-        atom_link = ET.SubElement(channel, 'atom:link')
-        atom_link.set('href', 'https://www.sustain74.com/feed.xml')
-        atom_link.set('rel', 'self')
-        atom_link.set('type', 'application/rss+xml')
-        
-        # Add articles as items
-        for article in articles[:max_items]:
+        for article in articles:
             item = ET.SubElement(channel, 'item')
-            
             ET.SubElement(item, 'title').text = article['title']
             ET.SubElement(item, 'description').text = article['description']
             ET.SubElement(item, 'link').text = article['link']
             ET.SubElement(item, 'pubDate').text = article['pubDate']
             ET.SubElement(item, 'source').text = article['source']
-            ET.SubElement(item, 'guid').text = article['guid']
-            
             # Add categories as comma-separated string
             if article.get('categories'):
-                ET.SubElement(item, 'categories').text = ','.join(article['categories'])
+                ET.SubElement(item, 'categories').text = ', '.join(article['categories'])
         
-        return ET.tostring(rss, encoding='unicode', method='xml')
+        tree = ET.ElementTree(rss)
+        tree.write(output_file, encoding='utf-8', xml_declaration=True)
+        print(f"✅ Successfully created RSS feed with {len(articles)} articles")
+        print(f"📄 Feed saved as: {output_file}")
+        print(f"🌐 Add this to your website at: https://www.sustain74.com/{output_file}")
+
+    def export_to_csv(self, articles, output_file='esg_stories.csv'):
+        """Export articles to CSV with tags"""
+        with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['Date', 'Title', 'Description', 'Link', 'Source', 'Categories', 'Tags']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            writer.writeheader()
+            for article in articles:
+                # Format date for CSV
+                try:
+                    pub_date = datetime.strptime(article['pubDate'], '%a, %d %b %Y %H:%M:%S %z')
+                    formatted_date = pub_date.strftime('%Y-%m-%d %H:%M:%S')
+                except:
+                    formatted_date = article['pubDate']
+                
+                # Clean up description (remove HTML tags)
+                clean_description = re.sub(r'<[^>]+>', '', article['description'])
+                
+                writer.writerow({
+                    'Date': formatted_date,
+                    'Title': article['title'],
+                    'Description': clean_description,
+                    'Link': article['link'],
+                    'Source': article['source'],
+                    'Categories': ', '.join(article.get('categories', [])),
+                    'Tags': ', '.join(article.get('categories', []))  # Same as categories for now
+                })
+        
+        print(f"📊 CSV exported with {len(articles)} stories: {output_file}")
+        return output_file
+
+    def send_csv_email(self, csv_file, recipient_email='michael@sustain74.com'):
+        """Send CSV file via email"""
+        try:
+            # Email configuration
+            sender_email = "noreply@sustain74.com"  # You may need to update this
+            subject = f"ESG Stories Report - {datetime.now().strftime('%Y-%m-%d')}"
+            
+            # Create message
+            msg = MIMEMultipart()
+            msg['From'] = sender_email
+            msg['To'] = recipient_email
+            msg['Subject'] = subject
+            
+            # Email body
+            body = f"""
+            Hi Michael,
+            
+            Here's your daily ESG stories report with {len(self.all_articles)} articles.
+            
+            The CSV file contains:
+            - Date and time of publication
+            - Article title and description
+            - Source and link
+            - Categories/tags assigned
+            
+            Best regards,
+            Sustain74 RSS Aggregator
+            """
+            
+            msg.attach(MIMEText(body, 'plain'))
+            
+            # Attach CSV file
+            with open(csv_file, "rb") as attachment:
+                part = MIMEBase('application', 'octet-stream')
+                part.set_payload(attachment.read())
+            
+            encoders.encode_base64(part)
+            part.add_header(
+                'Content-Disposition',
+                f'attachment; filename= {os.path.basename(csv_file)}'
+            )
+            msg.attach(part)
+            
+            # Send email (this would need SMTP configuration)
+            print(f"📧 CSV file ready to send to {recipient_email}")
+            print(f"📎 Attached file: {csv_file}")
+            print("Note: SMTP configuration required to actually send email")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Error preparing email: {e}")
+            return False
 
     def create_feed(self, output_file='feed.xml'):
         """Create the aggregated RSS feed"""
-        all_articles = []
+        self.all_articles = []
         
         # Fetch articles from external feeds
         for feed_config in self.external_feeds:
@@ -381,7 +461,7 @@ class RSSAggregator:
                     feed_config['name'], 
                     feed_config['keywords']
                 )
-                all_articles.extend(articles)
+                self.all_articles.extend(articles)
                 logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
         
         # Fetch articles from Google Alerts feeds
@@ -394,42 +474,53 @@ class RSSAggregator:
                     feed_config['name'], 
                     []  # Empty keywords list to get all articles
                 )
-                all_articles.extend(articles)
+                self.all_articles.extend(articles)
                 logger.info(f"Found {len(articles)} articles from {feed_config['name']}")
         
         # Sort articles by publication date (newest first)
-        all_articles.sort(key=lambda x: x['pubDateObj'], reverse=True)
+        self.all_articles.sort(key=lambda x: x['pubDateObj'], reverse=True)
         
-        # Generate RSS XML with higher max_items
-        rss_xml = self.generate_rss(all_articles, max_items=100)
+        # Generate RSS XML
+        self.generate_rss(self.all_articles, output_file)
         
-        # Add XML declaration
-        xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n' + rss_xml
-        
-        # Write to file
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(xml_content)
-        
-        logger.info(f"Created RSS feed with {len(all_articles)} articles: {output_file}")
-        return len(all_articles)
+        logger.info(f"Created RSS feed with {len(self.all_articles)} articles: {output_file}")
+        return len(self.all_articles)
 
 def main():
     """Main function for testing"""
+    print("\nSustain74 RSS Feed Aggregator")
+    print("===================================")
+    
     aggregator = RSSAggregator()
+    aggregator.create_feed()
     
-    print("Sustain74 RSS Feed Aggregator")
-    print("=" * 35)
-    print("Fetching ESG and sustainability news from external sources...")
+    # Export to CSV
+    csv_file = aggregator.export_to_csv(aggregator.all_articles)
     
-    try:
-        article_count = aggregator.create_feed()
-        print(f"\n✅ Successfully created RSS feed with {article_count} articles")
-        print("📄 Feed saved as: feed.xml")
-        print("🌐 Add this to your website at: https://www.sustain74.com/feed.xml")
-        
-    except Exception as e:
-        print(f"\n❌ Error creating RSS feed: {e}")
-        logger.error(f"Feed creation failed: {e}")
+    # Prepare email (without sending - requires SMTP setup)
+    aggregator.send_csv_email(csv_file)
+    
+    print(f"\n📊 Summary:")
+    print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
+    print(f"   - CSV Export: {csv_file}")
+    print(f"   - Email prepared for: michael@sustain74.com")
+    print(f"\nTo enable email sending, configure SMTP settings in the script.")
 
 if __name__ == "__main__":
-    main()
+    print("\nSustain74 RSS Feed Aggregator")
+    print("===================================")
+    
+    aggregator = RSSAggregator()
+    aggregator.create_feed()
+    
+    # Export to CSV
+    csv_file = aggregator.export_to_csv(aggregator.all_articles)
+    
+    # Prepare email (without sending - requires SMTP setup)
+    aggregator.send_csv_email(csv_file)
+    
+    print(f"\n📊 Summary:")
+    print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
+    print(f"   - CSV Export: {csv_file}")
+    print(f"   - Email prepared for: michael@sustain74.com")
+    print(f"\nTo enable email sending, configure SMTP settings in the script.")
