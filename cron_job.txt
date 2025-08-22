@@ -1,2 +1,3 @@
 # Sustain74 RSS Feed Update - Daily at 6 AM
 0 6 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+

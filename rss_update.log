@@ -26,3 +26,42 @@ Fetching ESG and sustainability news from external sources...
 🌐 Add this to your website at: https://www.sustain74.com/feed.xml
 2025-08-21 17:11:07 - RSS feed updated successfully
 2025-08-21 17:11:07 - RSS feed update completed
+2025-08-22 06:12:56 - Starting RSS feed update
+INFO:__main__:Fetching feed: https://feeds.feedburner.com/GreentechMedia
+INFO:__main__:Found 0 relevant articles from Greentech Media
+INFO:__main__:Fetching feed: https://www.reuters.com/arcio/rss/tag/environment/
+ERROR:__main__:Error fetching https://www.reuters.com/arcio/rss/tag/environment/: 401 Client Error: HTTP Forbidden for url: https://www.reuters.com/arcio/rss/tag/environment/
+INFO:__main__:Fetching feed: https://www.bloomberg.com/feeds/bgreen
+ERROR:__main__:Error fetching https://www.bloomberg.com/feeds/bgreen: 404 Client Error: Not Found for url: https://www.bloomberg.com/feeds/bgreen
+INFO:__main__:Fetching feed: https://www.climatechangenews.com/feed/
+INFO:__main__:Found 10 relevant articles from Climate Change News
+INFO:__main__:Fetching feed: https://www.esgtoday.com/feed/
+INFO:__main__:Found 9 relevant articles from ESG Today
+INFO:__main__:Fetching feed: https://www.ft.com/rss/home
+INFO:__main__:Found 0 relevant articles from Financial Times
+INFO:__main__:Fetching feed: https://www.wsj.com/xml/rss/3_7085.xml
+ERROR:__main__:Error fetching https://www.wsj.com/xml/rss/3_7085.xml: 403 Client Error: Forbidden for url: https://www.wsj.com/xml/rss/3_7085.xml
+INFO:__main__:Fetching feed: https://www.greenbiz.com/feed
+INFO:__main__:Found 0 relevant articles from GreenBiz
+INFO:__main__:Fetching feed: https://www.corporateknights.com/feed/
+INFO:__main__:Found 7 relevant articles from Corporate Knights
+INFO:__main__:Fetching feed: https://www.triplepundit.com/feed/
+ERROR:__main__:Error fetching https://www.triplepundit.com/feed/: 500 Server Error: Internal Server Error for url: https://triplepundit.com/feed/
+INFO:__main__:Fetching feed: https://www.datacenterknowledge.com/rss.xml
+INFO:__main__:Found 8 relevant articles from Data Center Knowledge
+INFO:__main__:Fetching feed: https://www.techrepublic.com/rssfeeds/topic/sustainability/
+INFO:__main__:Found 1 relevant articles from TechRepublic Sustainability
+INFO:__main__:Fetching feed: https://www.smartenergydecisions.com/feed/
+ERROR:__main__:Error fetching https://www.smartenergydecisions.com/feed/: 403 Client Error: Forbidden for url: https://www.smartenergydecisions.com/feed/
+INFO:__main__:Fetching feed: https://www.google.com/alerts/feeds/11148815731617361241/8416975834830823093
+INFO:__main__:Found 6 relevant articles from Google Alert: ESG and Energy
+INFO:__main__:Created RSS feed with 41 articles: feed.xml
+Sustain74 RSS Feed Aggregator
+===================================
+Fetching ESG and sustainability news from external sources...
+
+✅ Successfully created RSS feed with 41 articles
+📄 Feed saved as: feed.xml
+🌐 Add this to your website at: https://www.sustain74.com/feed.xml
+2025-08-22 06:13:04 - RSS feed updated successfully
+2025-08-22 06:13:04 - RSS feed update completed

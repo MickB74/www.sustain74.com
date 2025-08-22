@@ -43,6 +43,59 @@ class RSSAggregator:
                 'url': 'https://www.esgtoday.com/feed/',
                 'name': 'ESG Today',
                 'keywords': ['esg', 'sustainability', 'governance']
+            },
+            {
+                'url': 'https://www.ft.com/rss/home',
+                'name': 'Financial Times',
+                'keywords': ['esg', 'sustainability', 'climate', 'environment', 'carbon']
+            },
+            {
+                'url': 'https://www.wsj.com/xml/rss/3_7085.xml',
+                'name': 'Wall Street Journal',
+                'keywords': ['esg', 'sustainability', 'climate', 'environment']
+            },
+            {
+                'url': 'https://www.greenbiz.com/feed',
+                'name': 'GreenBiz',
+                'keywords': ['sustainability', 'esg', 'green business', 'climate']
+            },
+            {
+                'url': 'https://www.corporateknights.com/feed/',
+                'name': 'Corporate Knights',
+                'keywords': ['sustainability', 'esg', 'corporate responsibility']
+            },
+            {
+                'url': 'https://www.triplepundit.com/feed/',
+                'name': 'TriplePundit',
+                'keywords': ['sustainability', 'esg', 'social responsibility']
+            },
+            {
+                'url': 'https://www.datacenterknowledge.com/rss.xml',
+                'name': 'Data Center Knowledge',
+                'keywords': ['data center', 'data centres', 'sustainability', 'energy efficiency', 'green data center', 'carbon footprint']
+            },
+            {
+                'url': 'https://www.techrepublic.com/rssfeeds/topic/sustainability/',
+                'name': 'TechRepublic Sustainability',
+                'keywords': ['sustainability', 'green tech', 'energy efficiency', 'data center', 'esg']
+            },
+            {
+                'url': 'https://www.smartenergydecisions.com/feed/',
+                'name': 'Smart Energy Decisions',
+                'keywords': ['energy', 'smart energy', 'energy efficiency', 'renewable energy', 'sustainability', 'energy management']
+            }
+        ]
+        
+        # Google Alerts RSS feeds - Add your Google Alerts RSS URLs here
+        # To get Google Alerts RSS URLs:
+        # 1. Go to https://www.google.com/alerts
+        # 2. Edit each alert and set "Deliver to" to "RSS feed"
+        # 3. Copy the RSS URL and add it below
+        self.google_alerts_feeds = [
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/8416975834830823093',
+                'name': 'Google Alert: ESG and Energy',
+                'keywords': ['ai', 'artificial intelligence', 'sustainability', 'carbon credits', 'esg', 'sbti', 'energy', 'grid', 'renewable energy', 'epa', 'ferc', 'ghg protocol']
             }
         ]
         
@@ -160,6 +213,18 @@ class RSSAggregator:
         
         # Fetch articles from all external feeds
         for feed_config in self.external_feeds:
+            feed = self.fetch_feed(feed_config['url'])
+            if feed:
+                articles = self.extract_articles(
+                    feed, 
+                    feed_config['name'], 
+                    feed_config['keywords']
+                )
+                all_articles.extend(articles)
+                logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
+        
+        # Fetch articles from Google Alerts feeds
+        for feed_config in self.google_alerts_feeds:
             feed = self.fetch_feed(feed_config['url'])
             if feed:
                 articles = self.extract_articles(
