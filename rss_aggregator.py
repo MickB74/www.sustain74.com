@@ -142,15 +142,19 @@ class RSSAggregator:
         if not feed or not feed.entries:
             return articles
             
-        for entry in feed.entries[:10]:  # Limit to recent 10 entries
+        # For Google Alerts, take more entries and skip filtering
+        max_entries = 30 if "Google Alert" in source_name else 10
+        skip_filtering = "Google Alert" in source_name
+            
+        for entry in feed.entries[:max_entries]:
             title = entry.get('title', '')
             description = entry.get('description', '') or entry.get('summary', '')
             
             # Clean HTML tags from description
             description = re.sub(r'<[^>]+>', '', description)
             
-            # Check if article is relevant
-            if self.is_relevant(title, description):
+            # Check if article is relevant (skip for Google Alerts)
+            if skip_filtering or self.is_relevant(title, description):
                 # Parse date
                 published = entry.get('published_parsed') or entry.get('updated_parsed')
                 if published:
