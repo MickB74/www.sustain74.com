@@ -306,8 +306,9 @@
         try {
           this.showLoading();
           
-          // Fetch RSS feed
-          const response = await fetch('feed.xml');
+          // Fetch RSS feed with cache busting
+          const timestamp = new Date().getTime();
+          const response = await fetch(`feed.xml?t=${timestamp}`);
           const xmlText = await response.text();
           
           // Parse XML
@@ -316,6 +317,7 @@
           
           // Extract articles
           const items = xmlDoc.querySelectorAll('item');
+          console.log(`Found ${items.length} articles in RSS feed`);
           this.newsData = Array.from(items).map(item => {
             const title = item.querySelector('title')?.textContent || '';
             const description = item.querySelector('description')?.textContent || '';
@@ -332,6 +334,7 @@
             };
           });
 
+          console.log('First 3 articles:', this.newsData.slice(0, 3).map(a => ({ title: a.title, source: a.source, date: a.pubDate })));
           this.displayNews();
         } catch (error) {
           console.error('Error loading news:', error);
