@@ -20,21 +20,6 @@ class RSSAggregator:
         # External RSS feeds focused on ESG/sustainability
         self.external_feeds = [
             {
-                'url': 'https://feeds.feedburner.com/GreentechMedia',
-                'name': 'Greentech Media',
-                'keywords': ['sustainability', 'renewable', 'clean energy', 'esg']
-            },
-            {
-                'url': 'https://www.reuters.com/arcio/rss/tag/environment/',
-                'name': 'Reuters Environment',
-                'keywords': ['environment', 'climate', 'sustainability']
-            },
-            {
-                'url': 'https://www.bloomberg.com/feeds/bgreen',
-                'name': 'Bloomberg Green',
-                'keywords': ['climate', 'green', 'sustainability', 'esg']
-            },
-            {
                 'url': 'https://www.climatechangenews.com/feed/',
                 'name': 'Climate Change News',
                 'keywords': ['climate', 'sustainability', 'environment']
@@ -45,29 +30,9 @@ class RSSAggregator:
                 'keywords': ['esg', 'sustainability', 'governance']
             },
             {
-                'url': 'https://www.ft.com/rss/home',
-                'name': 'Financial Times',
-                'keywords': ['esg', 'sustainability', 'climate', 'environment', 'carbon']
-            },
-            {
-                'url': 'https://www.wsj.com/xml/rss/3_7085.xml',
-                'name': 'Wall Street Journal',
-                'keywords': ['esg', 'sustainability', 'climate', 'environment']
-            },
-            {
-                'url': 'https://www.greenbiz.com/feed',
-                'name': 'GreenBiz',
-                'keywords': ['sustainability', 'esg', 'green business', 'climate']
-            },
-            {
                 'url': 'https://www.corporateknights.com/feed/',
                 'name': 'Corporate Knights',
                 'keywords': ['sustainability', 'esg', 'corporate responsibility']
-            },
-            {
-                'url': 'https://www.triplepundit.com/feed/',
-                'name': 'TriplePundit',
-                'keywords': ['sustainability', 'esg', 'social responsibility']
             },
             {
                 'url': 'https://www.datacenterknowledge.com/rss.xml',
@@ -80,9 +45,59 @@ class RSSAggregator:
                 'keywords': ['sustainability', 'green tech', 'energy efficiency', 'data center', 'esg']
             },
             {
-                'url': 'https://www.smartenergydecisions.com/feed/',
-                'name': 'Smart Energy Decisions',
-                'keywords': ['energy', 'smart energy', 'energy efficiency', 'renewable energy', 'sustainability', 'energy management']
+                'url': 'https://feeds.feedburner.com/EnvironmentalLeader',
+                'name': 'Environmental Leader',
+                'keywords': ['environmental', 'sustainability', 'esg', 'energy efficiency']
+            },
+            {
+                'url': 'https://www.energymanagertoday.com/feed/',
+                'name': 'Energy Manager Today',
+                'keywords': ['energy', 'energy management', 'sustainability', 'energy efficiency']
+            },
+            {
+                'url': 'https://www.renewableenergyworld.com/feed/',
+                'name': 'Renewable Energy World',
+                'keywords': ['renewable energy', 'solar', 'wind', 'clean energy', 'sustainability']
+            },
+            {
+                'url': 'https://www.utilitydive.com/rss/',
+                'name': 'Utility Dive',
+                'keywords': ['utility', 'energy', 'renewable', 'sustainability', 'grid']
+            },
+            {
+                'url': 'https://www.greentechmedia.com/rss',
+                'name': 'Greentech Media',
+                'keywords': ['sustainability', 'renewable', 'clean energy', 'esg']
+            },
+            {
+                'url': 'https://www.cleanenergywire.org/rss.xml',
+                'name': 'Clean Energy Wire',
+                'keywords': ['clean energy', 'renewable', 'sustainability', 'energy transition']
+            },
+            {
+                'url': 'https://www.energycentral.com/rss.xml',
+                'name': 'Energy Central',
+                'keywords': ['energy', 'utility', 'renewable', 'sustainability']
+            },
+            {
+                'url': 'https://www.solarpowerworldonline.com/feed/',
+                'name': 'Solar Power World',
+                'keywords': ['solar', 'renewable energy', 'clean energy', 'sustainability']
+            },
+            {
+                'url': 'https://www.windpowerengineering.com/feed/',
+                'name': 'Wind Power Engineering',
+                'keywords': ['wind power', 'renewable energy', 'clean energy', 'sustainability']
+            },
+            {
+                'url': 'https://www.energynewsnetwork.org/feed/',
+                'name': 'Energy News Network',
+                'keywords': ['energy', 'renewable', 'sustainability', 'clean energy']
+            },
+            {
+                'url': 'https://www.greenbiz.com/feed',
+                'name': 'GreenBiz',
+                'keywords': ['sustainability', 'esg', 'green business', 'climate']
             }
         ]
         
@@ -110,7 +125,12 @@ class RSSAggregator:
             'tcfd', 'sasb', 'gri', 'ungc',
             'carbon credits', 'carbon offset', 'carbon trading',
             'data center', 'data centres', 'server farm',
-            'renewable energy', 'solar', 'wind power', 'clean energy'
+            'renewable energy', 'solar', 'wind power', 'clean energy',
+            # RTO and grid operators
+            'nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso',
+            'grid operator', 'transmission', 'electricity market',
+            'power market', 'energy market', 'grid modernization',
+            'smart grid', 'grid reliability', 'interconnection'
         ]
 
     def fetch_feed(self, feed_url, timeout=10):
@@ -143,7 +163,7 @@ class RSSAggregator:
             return articles
             
         # For Google Alerts, take more entries and skip filtering
-        max_entries = 30 if "Google Alert" in source_name else 10
+        max_entries = 100 if "Google Alert" in source_name else 20
         skip_filtering = "Google Alert" in source_name
             
         for entry in feed.entries[:max_entries]:
@@ -215,19 +235,19 @@ class RSSAggregator:
         """Create the aggregated RSS feed"""
         all_articles = []
         
-        # Skip external feeds - only use Google Alerts
-        # for feed_config in self.external_feeds:
-        #     feed = self.fetch_feed(feed_config['url'])
-        #     if feed:
-        #         articles = self.extract_articles(
-        #             feed, 
-        #             feed_config['name'], 
-        #             feed_config['keywords']
-        #         )
-        #         all_articles.extend(articles)
-        #         logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
+        # Fetch articles from external feeds
+        for feed_config in self.external_feeds:
+            feed = self.fetch_feed(feed_config['url'])
+            if feed:
+                articles = self.extract_articles(
+                    feed, 
+                    feed_config['name'], 
+                    feed_config['keywords']
+                )
+                all_articles.extend(articles)
+                logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
         
-        # Fetch articles from Google Alerts feeds only
+        # Fetch articles from Google Alerts feeds
         for feed_config in self.google_alerts_feeds:
             feed = self.fetch_feed(feed_config['url'])
             if feed:
@@ -244,7 +264,7 @@ class RSSAggregator:
         all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
         
         # Generate RSS XML with higher max_items
-        rss_xml = self.generate_rss(all_articles, max_items=50)
+        rss_xml = self.generate_rss(all_articles, max_items=100)
         
         # Add XML declaration
         xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n' + rss_xml
