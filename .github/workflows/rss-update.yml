@@ -1,0 +1,70 @@
+name: RSS Feed Update
+
+on:
+  schedule:
+    # Run at 6 AM, 12 PM, and 6 PM Eastern Time (UTC-5)
+    # 6 AM Eastern = 11 AM UTC
+    # 12 PM Eastern = 5 PM UTC  
+    # 6 PM Eastern = 11 PM UTC
+    - cron: '0 11,17,23 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run RSS aggregator
+      run: |
+        python rss_aggregator.py
+        
+    - name: Create timestamped feed file
+      run: |
+        timestamp=$(date +%Y%m%d-%H%M)
+        cp feed.xml feed-$timestamp.xml
+        echo "Created feed-$timestamp.xml"
+        
+    - name: Update news page to use latest feed
+      run: |
+        # Get the latest timestamped feed file
+        latest_feed=$(ls feed-*.xml | sort | tail -n 1)
+        echo "Latest feed: $latest_feed"
+        
+        # Update the esg-news.html file to point to the latest feed
+        # Extract timestamp from filename (e.g., feed-20250822-185335.xml -> 20250822-185335)
+        timestamp=$(echo $latest_feed | sed 's/feed-\(.*\)\.xml/\1/')
+        version=$(echo $timestamp | sed 's/.*-//') # Get the time part for version number
+        
+        # Update the feed URL in esg-news.html
+        sed -i "s/feed-[0-9]\{8\}-[0-9]\{4\}\.xml/feed-$timestamp.xml/g" esg-news.html
+        sed -i "s/v=[0-9]\+/v=$version/g" esg-news.html
+        
+        echo "Updated esg-news.html to use $latest_feed"
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Auto-update RSS feed - $(date '+%Y-%m-%d %H:%M:%S')"
+        git push origin master
+        
+    - name: Show summary
+      run: |
+        echo "✅ RSS feed updated successfully!"
+        echo "📅 Update time: $(date)"
+        echo "📊 Latest feed: $(ls feed-*.xml | sort | tail -n 1)"
+        echo "🌐 Website: https://www.sustain74.com/esg-news.html"
