@@ -169,6 +169,21 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/8416975834830823093',
                 'name': 'Google Alert: ESG and Energy',
                 'keywords': ['ai', 'artificial intelligence', 'sustainability', 'carbon credits', 'esg', 'sbti', 'energy', 'grid', 'renewable energy', 'epa', 'ferc', 'ghg protocol']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/8261983527978060796',
+                'name': 'Google Alert: CAISO',
+                'keywords': ['caiso', 'california', 'grid operator', 'energy market', 'transmission']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/3058773563308323113',
+                'name': 'Google Alert: ERCOT',
+                'keywords': ['ercot', 'texas', 'grid operator', 'energy market', 'transmission']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/706682144053230716',
+                'name': 'Google Alert: Carbon Credits',
+                'keywords': ['carbon credits', 'carbon trading', 'carbon offset', 'carbon market']
             }
         ]
         
