@@ -309,7 +309,9 @@
           
           // Fetch RSS feed with aggressive cache busting
           const timestamp = new Date().getTime();
-          const response = await fetch(`feed.xml?t=${timestamp}&r=${Math.random()}`, {
+          const feedUrl = `feed.xml?v=2&t=${timestamp}&r=${Math.random()}`;
+          console.log('Fetching from:', feedUrl);
+          const response = await fetch(feedUrl, {
             cache: 'no-cache',
             headers: {
               'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -318,6 +320,7 @@
             }
           });
           const xmlText = await response.text();
+          console.log('Response size:', xmlText.length, 'bytes');
           
           // Parse XML
           const parser = new DOMParser();
