@@ -307,9 +307,16 @@
         try {
           this.showLoading();
           
-          // Fetch RSS feed with cache busting
+          // Fetch RSS feed with aggressive cache busting
           const timestamp = new Date().getTime();
-          const response = await fetch(`feed.xml?t=${timestamp}`);
+          const response = await fetch(`feed.xml?t=${timestamp}&r=${Math.random()}`, {
+            cache: 'no-cache',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            }
+          });
           const xmlText = await response.text();
           
           // Parse XML
@@ -334,7 +341,7 @@
             };
           });
 
-          document.getElementById('article-count').textContent = `Loading ${this.newsData.length} articles...`;
+          document.getElementById('article-count').textContent = `Loading ${this.newsData.length} articles... (Latest: ${this.newsData[0]?.title?.substring(0, 50)}...)`;
           this.displayNews();
         } catch (error) {
           console.error('Error loading news:', error);
