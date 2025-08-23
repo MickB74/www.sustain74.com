@@ -1,4 +1,19 @@
 User-agent: *
 Allow: /
 
+# Allow Google to crawl dynamic content
+Allow: /feed.xml
+Allow: /esg-news.html
+Allow: /blog/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+# Disallow temporary files
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /*.log
+Disallow: /*.csv
+Disallow: /*.py
+
 Sitemap: https://www.sustain74.com/sitemap.xml 
