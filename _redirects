@@ -1,0 +1,12 @@
+# Redirect old news page to new ESG news page
+/news.html /esg-news.html 301
+
+# Redirect old feed URLs
+/feed-old.xml /feed.xml 301
+
+# Redirect www to non-www
+https://www.sustain74.com/* https://sustain74.com/:splat 301!
+
+# Redirect HTTP to HTTPS
+http://sustain74.com/* https://sustain74.com/:splat 301!
+http://www.sustain74.com/* https://sustain74.com/:splat 301!
