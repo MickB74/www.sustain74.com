@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESG Newsletter – Sustain 74</title>
+  <meta name="description" content="Subscribe to Sustain74's weekly ESG newsletter for professional insights on carbon credits, renewable energy, data centers, and sustainability developments.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="ESG Newsletter – Sustain 74">
+  <meta property="og:description" content="Subscribe to Sustain74's weekly ESG newsletter for professional insights on carbon credits, renewable energy, data centers, and sustainability developments.">
+  <meta property="og:image" content="assets/og-preview.png">
+  <meta property="og:url" content="https://www.sustain74.com/newsletter.html">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="keywords" content="ESG newsletter, sustainability newsletter, carbon credits news, renewable energy updates, ESG insights, sustainability consulting">
+  <meta name="author" content="Sustain74">
+  <link rel="canonical" href="https://www.sustain74.com/newsletter.html">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsMediaOrganization",
+    "name": "Sustain74 ESG Newsletter",
+    "url": "https://www.sustain74.com/newsletter.html",
+    "description": "Weekly ESG newsletter with professional insights on carbon credits, renewable energy, data centers, and sustainability developments.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Sustain74",
+      "url": "https://www.sustain74.com"
+    },
+    "mainEntity": {
+      "@type": "WebPage",
+      "name": "ESG Newsletter",
+      "description": "Subscribe to Sustain74's weekly ESG newsletter for professional insights and analysis."
+    }
+  }
+  </script>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E825E8QMZ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E825E8QMZ1');
+  </script>
+  
+  <style>
+    .newsletter-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .newsletter-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .newsletter-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2d5f8a;
+    }
+    
+    .newsletter-header p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .newsletter-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      color: #2d5f8a;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+      color: #2d5f8a;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter-preview {
+      background: #f9f9f9;
+      padding: 3rem;
+      border-radius: 10px;
+      margin: 3rem 0;
+      text-align: center;
+    }
+    
+    .newsletter-preview h2 {
+      color: #2d5f8a;
+      margin-bottom: 1rem;
+    }
+    
+    .preview-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      text-align: left;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .subscribe-section {
+      background: #2d5f8a;
+      color: white;
+      padding: 3rem;
+      border-radius: 10px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .subscribe-section h2 {
+      margin-bottom: 1rem;
+    }
+    
+    .subscribe-form {
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+    
+    .subscribe-form input[type="email"] {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    .subscribe-form button {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .subscribe-form button:hover {
+      background: #45a049;
+    }
+    
+    .newsletter-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #2d5f8a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><img src="assets/sustain74_logo.png" alt="Sustain74 Logo"></a>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="michael-barry.html">Our Story</a></li>
+        <li><a href="services.html">Our Solutions</a></li>
+        <li><a href="sample-engagements.html">Sample Engagements</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="esg-news.html">ESG News</a></li>
+        <li><a href="newsletter.html" class="active">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="content">
+    <div class="newsletter-container">
+      <div class="newsletter-header">
+        <h1>ESG Newsletter</h1>
+        <p>Stay ahead of the curve with our weekly ESG newsletter, written by senior sustainability analysts and delivered to your inbox every week.</p>
+      </div>
+
+      <div class="newsletter-features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Market Intelligence</h3>
+          <p>Get insights on carbon credits, renewable energy markets, and regulatory developments that impact your business strategy.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-industry"></i>
+          </div>
+          <h3>Sector Analysis</h3>
+          <p>Deep dives into data centers, clean energy procurement, and ESG reporting trends with actionable takeaways.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Expert Insights</h3>
+          <p>Professional analysis from sustainability consultants with 15+ years of experience in ESG strategy and implementation.</p>
+        </div>
+      </div>
+
+      <div class="newsletter-stats">
+        <div class="stat-card">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Articles Analyzed Weekly</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Key Sectors Covered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Years of Expertise</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">AI-Powered Analysis</div>
+        </div>
+      </div>
+
+      <div class="newsletter-preview">
+        <h2>What You'll Get Each Week</h2>
+        <div class="preview-content">
+          <h3>📊 Executive Summary</h3>
+          <p>Key themes and trends from the week's ESG developments, distilled into actionable insights.</p>
+          
+          <h3>🔥 Top Stories</h3>
+          <p>Most important developments with brief analysis and market implications for your business.</p>
+          
+          <h3>🏭 Sector Highlights</h3>
+          <ul>
+            <li><strong>Carbon Credits & Markets</strong> - Pricing trends, regulatory updates, and market opportunities</li>
+            <li><strong>Renewable Energy</strong> - PPA developments, policy changes, and technology advances</li>
+            <li><strong>Data Centers & Technology</strong> - Energy efficiency, sustainability initiatives, and industry trends</li>
+            <li><strong>Regulatory & Policy Updates</strong> - New frameworks, compliance requirements, and strategic implications</li>
+          </ul>
+          
+          <h3>💼 Market Implications</h3>
+          <p>What these developments mean for businesses, investors, and sustainability professionals.</p>
+          
+          <h3>🔮 Looking Ahead</h3>
+          <p>Key events, trends, and developments to watch in the coming weeks and months.</p>
+        </div>
+      </div>
+
+      <div class="subscribe-section">
+        <h2>Subscribe to Our Weekly ESG Newsletter</h2>
+        <p>Join sustainability professionals, investors, and business leaders who rely on our insights to stay informed and make strategic decisions.</p>
+        
+        <div class="subscribe-form">
+          <form action="https://docs.google.com/forms/d/e/1FAIpQLSce2loWM6RZDlNACAu0QTHL4wtbtOYjuchxpQ0BUo--y-ovZw/formResponse" method="POST" target="_blank">
+            <input type="email" name="entry.1234567890" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe Now</button>
+          </form>
+        </div>
+        
+        <p style="font-size: 0.9rem; margin-top: 1rem;">
+          <i class="fas fa-shield-alt"></i> We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+
+      <div style="text-align: center; margin: 3rem 0;">
+        <h3>Recent Newsletter Examples</h3>
+        <p>Want to see what you're signing up for? Check out our latest newsletters:</p>
+        <div style="margin: 2rem 0;">
+          <a href="ESG_Newsletter_20250824_164544.html" class="button button-primary" target="_blank">
+            <i class="fas fa-external-link-alt"></i> View Latest Newsletter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 Sustain74 · <a href="mailto:info@sustain74.com">info@sustain74.com</a> · <a href="feed.xml" title="RSS Feed"><i class="fas fa-rss"></i> RSS</a></p>
+    </div>
+  </footer>
+  
+  <div class="sticky-cta-bar">
+    <p>Have sustainability questions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSce2loWM6RZDlNACAu0QTHL4wtbtOYjuchxpQ0BUo--y-ovZw/viewform" target="_blank">Contact Sustain74 →</a></p>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
