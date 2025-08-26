@@ -55,3 +55,5 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1/ [L,R=301]
     ExpiresByType application/xml "access plus 1 hour"
     ExpiresByType application/rss+xml "access plus 1 hour"
 </IfModule>
+
+
