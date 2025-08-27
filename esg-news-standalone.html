@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>ESG News - Sustain74</title>
     <style>
         body {
@@ -39,7 +42,6 @@
             padding: 1rem 2rem;
             border-bottom: 1px solid #e9ecef;
         }
-
         .stats {
             display: flex;
             gap: 20px;
@@ -154,15 +156,10 @@
 
     <script>
         let allArticles = [];
-        let currentFilter = 'all';
 
         function cleanSourceName(source) {
             if (!source) return 'Unknown Source';
-            
-            // Remove "Google Alert:" prefix
             source = source.replace(/^Google Alert:\s*/i, '');
-            
-            // Map to cleaner names
             const sourceMap = {
                 'ESG & Energy': 'ESG & Energy',
                 'PJM Interconnection': 'PJM Interconnection',
@@ -171,29 +168,28 @@
                 'ERCOT': 'ERCOT',
                 'FERC': 'FERC'
             };
-            
             return sourceMap[source] || source;
         }
 
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
             });
+        }
+
+        function updateStats() {
+            document.getElementById('article-count').textContent = `${allArticles.length} articles`;
+            document.getElementById('last-updated').textContent = `Last updated: ${new Date().toLocaleString()}`;
         }
 
         function displayArticles() {
             const container = document.getElementById('news-container');
-            
             if (allArticles.length === 0) {
                 container.innerHTML = '<div class="loading">No articles found.</div>';
                 return;
             }
-            
             const newsHTML = allArticles.map(article => `
                 <div class="news-card">
                     <div class="news-meta">
@@ -204,43 +200,31 @@
                     <div class="category">${article.category}</div>
                 </div>
             `).join('');
-            
             container.innerHTML = `<div class="news-grid">${newsHTML}</div>`;
-        }
-
-        function updateStats() {
-            const articleCount = document.getElementById('article-count');
-            const lastUpdated = document.getElementById('last-updated');
-            
-            articleCount.textContent = `${allArticles.length} articles`;
-            lastUpdated.textContent = `Last updated: ${new Date().toLocaleString()}`;
         }
 
         async function loadNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '<div class="loading">Loading latest ESG news...</div>';
-            
             try {
-                // Add cache busting parameter
-                const timestamp = new Date().getTime();
-                const response = await fetch(`feed.xml?t=${timestamp}`, {
+                const ts = Date.now();
+                const rand = Math.random().toString(36).slice(2);
+                const url = `feed.xml?t=${ts}&r=${rand}`;
+                const response = await fetch(url, {
+                    cache: 'no-store',
                     headers: {
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache'
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0',
+                        'If-Modified-Since': '0'
                     }
                 });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const xmlText = await response.text();
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-                
                 const items = xmlDoc.querySelectorAll('item');
                 allArticles = [];
-                
                 items.forEach(item => {
                     const title = item.querySelector('title')?.textContent || '';
                     const link = item.querySelector('link')?.textContent || '';
@@ -248,35 +232,22 @@
                     const pubDate = item.querySelector('pubDate')?.textContent || '';
                     const source = item.querySelector('source')?.textContent || '';
                     const category = item.querySelector('category')?.textContent || 'ESG';
-                    
-                    allArticles.push({
-                        title,
-                        link,
-                        description,
-                        pubDate,
-                        source,
-                        category
-                    });
+                    allArticles.push({ title, link, description, pubDate, source, category });
                 });
-                
-                // Sort by date (newest first)
                 allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-                
                 updateStats();
                 displayArticles();
-                
             } catch (error) {
                 console.error('Error loading news:', error);
                 container.innerHTML = `
                     <div class="error">
                         Error loading news feed. Please try again later.<br>
-                        <small>Error: ${error.message}</small>
+                        <small>${error.message}</small>
                     </div>
                 `;
             }
         }
 
-        // Load news on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadNews();
         });
