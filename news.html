@@ -1,73 +1,335 @@
 <!DOCTYPE html>
-<script>
-  // Maintenance redirect
-  window.location.href = "index.html";
-</script>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ESG News – Sustain 74</title>
-  <meta name="description" content="Latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.">
-  
-  <!-- 301 Redirect to canonical URL -->
-  <meta http-equiv="refresh" content="0; url=https://www.sustain74.com/esg-news.html">
-  <link rel="canonical" href="https://www.sustain74.com/esg-news.html">
-  
-  <!-- Open Graph Tags -->
-  <meta property="og:title" content="ESG News – Sustain 74">
-  <meta property="og:description" content="Latest ESG news on carbon credits, renewable energy, data centers, and sustainability developments curated from trusted sources.">
-  <meta property="og:image" content="assets/og-preview.png">
-  <meta property="og:url" content="https://www.sustain74.com/esg-news.html">
-  <meta property="og:type" content="website">
-  
-  <!-- SEO Meta Tags -->
-  <meta name="robots" content="noindex, follow">
-  <meta name="googlebot" content="noindex, follow">
-  
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f5f5f5;
-    }
-    .redirect-message {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .redirect-message h1 {
-      color: #2d5f8a;
-      margin-bottom: 20px;
-    }
-    .redirect-message p {
-      color: #666;
-      margin-bottom: 20px;
-    }
-    .redirect-message a {
-      color: #2d5f8a;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .redirect-message a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG News - Sustain74</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2d5f8a 0%, #1e3a5f 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+        .controls {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #2d5f8a;
+            background: white;
+            color: #2d5f8a;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #2d5f8a;
+            color: white;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .news-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: white;
+        }
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .news-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        .news-card h3 a {
+            color: #2d5f8a;
+            text-decoration: none;
+        }
+        .news-card h3 a:hover {
+            text-decoration: underline;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .source {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .date {
+            color: #999;
+        }
+        .category {
+            display: inline-block;
+            background: #2d5f8a;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .refresh-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .refresh-btn:hover {
+            background: #218838;
+        }
+    </style>
 </head>
 <body>
-  <div class="redirect-message">
-    <h1>Redirecting...</h1>
-    <p>You are being redirected to our ESG News page.</p>
-    <p>If you are not redirected automatically, <a href="https://www.sustain74.com/esg-news.html">click here</a>.</p>
-  </div>
-  
-  <script>
-    // JavaScript redirect as backup
-    window.location.href = "https://www.sustain74.com/esg-news.html";
-  </script>
+    <div class="container">
+        <div class="header">
+            <h1>ESG News Feed</h1>
+            <p>Latest sustainability and ESG developments</p>
+        </div>
+        
+        <div class="controls">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All Stories</button>
+                <button class="filter-btn" data-category="Carbon">Carbon</button>
+                <button class="filter-btn" data-category="Renewable">Renewable</button>
+                <button class="filter-btn" data-category="Data Centers">Data Centers</button>
+                <button class="filter-btn" data-category="ESG">ESG</button>
+                <button class="filter-btn" data-category="Technology & Innovation">Technology & Innovation</button>
+                <button class="filter-btn" data-category="Supply Chain">Supply Chain</button>
+                <button class="filter-btn" data-category="RTO/Grid">RTO/Grid</button>
+                <button class="filter-btn" data-category="GHG Protocol">GHG Protocol</button>
+            </div>
+            <div class="stats">
+                <span id="article-count">Loading...</span>
+                <span id="last-updated">Last updated: Loading...</span>
+                <button class="refresh-btn" onclick="loadNews()">Refresh</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div id="news-container" class="loading">
+                Loading latest ESG news...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allArticles = [];
+        let currentFilter = 'all';
+
+        function cleanSourceName(source) {
+            if (!source) return 'Unknown Source';
+            
+            // Remove "Google Alert:" prefix
+            source = source.replace(/^Google Alert:\s*/i, '');
+            
+            // Map to cleaner names
+            const sourceMap = {
+                'ESG & Energy': 'ESG & Energy',
+                'PJM Interconnection': 'PJM Interconnection',
+                'NYISO': 'NYISO',
+                'CAISO': 'CAISO',
+                'ERCOT': 'ERCOT',
+                'FERC': 'FERC'
+            };
+            
+            return sourceMap[source] || source;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function filterArticles() {
+            const container = document.getElementById('news-container');
+            const filteredArticles = currentFilter === 'all' 
+                ? allArticles 
+                : allArticles.filter(article => article.category === currentFilter);
+            
+            if (filteredArticles.length === 0) {
+                container.innerHTML = '<div class="loading">No articles found for this category.</div>';
+                return;
+            }
+            
+            const newsHTML = filteredArticles.map(article => `
+                <div class="news-card">
+                    <div class="news-meta">
+                        <span class="source">${cleanSourceName(article.source)}</span>
+                        <span class="date">${formatDate(article.pubDate)}</span>
+                    </div>
+                    <h3><a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
+                    <div class="category">${article.category}</div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = `<div class="news-grid">${newsHTML}</div>`;
+        }
+
+        function updateStats() {
+            const articleCount = document.getElementById('article-count');
+            const lastUpdated = document.getElementById('last-updated');
+            
+            articleCount.textContent = `${allArticles.length} articles`;
+            lastUpdated.textContent = `Last updated: ${new Date().toLocaleString()}`;
+        }
+
+        async function loadNews() {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '<div class="loading">Loading latest ESG news...</div>';
+            
+            try {
+                // Add cache busting parameter
+                const timestamp = new Date().getTime();
+                const response = await fetch(`feed.xml?t=${timestamp}`, {
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                const items = xmlDoc.querySelectorAll('item');
+                allArticles = [];
+                
+                items.forEach(item => {
+                    const title = item.querySelector('title')?.textContent || '';
+                    const link = item.querySelector('link')?.textContent || '';
+                    const description = item.querySelector('description')?.textContent || '';
+                    const pubDate = item.querySelector('pubDate')?.textContent || '';
+                    const source = item.querySelector('source')?.textContent || '';
+                    const category = item.querySelector('category')?.textContent || 'ESG';
+                    
+                    allArticles.push({
+                        title,
+                        link,
+                        description,
+                        pubDate,
+                        source,
+                        category
+                    });
+                });
+                
+                // Sort by date (newest first)
+                allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                
+                updateStats();
+                filterArticles();
+                
+            } catch (error) {
+                console.error('Error loading news:', error);
+                container.innerHTML = `
+                    <div class="error">
+                        Error loading news feed. Please try again later.<br>
+                        <small>Error: ${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Set up filter buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update filter and re-render
+                    currentFilter = this.getAttribute('data-category');
+                    filterArticles();
+                });
+            });
+            
+            // Load news on page load
+            loadNews();
+        });
+    </script>
 </body>
 </html>
