@@ -147,44 +147,6 @@
         .refresh-btn:hover {
             background: #218838;
         }
-        .run-aggregator-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-left: 10px;
-        }
-        .run-aggregator-btn:hover {
-            background: #c82333;
-        }
-        .run-aggregator-btn:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-        }
-        .status-message {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .status-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .status-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .status-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
     </style>
 </head>
 <body>
@@ -210,9 +172,7 @@
                 <span id="article-count">Loading...</span>
                 <span id="last-updated">Last updated: Loading...</span>
                 <button class="refresh-btn" onclick="loadNews()">Refresh</button>
-                <button class="run-aggregator-btn" onclick="runAggregator()">Run Aggregator</button>
             </div>
-            <div id="status-message" class="status-message" style="display: none;"></div>
         </div>
         
         <div class="content">
@@ -346,40 +306,6 @@
                         <small>Error: ${error.message}</small>
                     </div>
                 `;
-            }
-        }
-
-        async function runAggregator() {
-            const statusMessage = document.getElementById('status-message');
-            statusMessage.style.display = 'block';
-            statusMessage.textContent = 'Running aggregator...';
-            statusMessage.className = 'status-message status-info';
-
-            try {
-                const response = await fetch('/run-aggregator', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.success) {
-                    statusMessage.textContent = `Aggregator ran successfully. ${data.message}`;
-                    statusMessage.className = 'status-success';
-                    loadNews(); // Reload news to show new articles
-                } else {
-                    statusMessage.textContent = `Aggregator failed: ${data.message}`;
-                    statusMessage.className = 'status-error';
-                }
-            } catch (error) {
-                console.error('Error running aggregator:', error);
-                statusMessage.textContent = `Error running aggregator: ${error.message}`;
-                statusMessage.className = 'status-error';
             }
         }
 
