@@ -39,26 +39,7 @@
             padding: 1rem 2rem;
             border-bottom: 1px solid #e9ecef;
         }
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 1rem;
-        }
-        .filter-btn {
-            padding: 8px 16px;
-            border: 2px solid #2d5f8a;
-            background: white;
-            color: #2d5f8a;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background: #2d5f8a;
-            color: white;
-        }
+
         .stats {
             display: flex;
             gap: 20px;
@@ -157,17 +138,6 @@
         </div>
         
         <div class="controls">
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-category="all">All Stories</button>
-                <button class="filter-btn" data-category="Carbon">Carbon</button>
-                <button class="filter-btn" data-category="Renewable">Renewable</button>
-                <button class="filter-btn" data-category="Data Centers">Data Centers</button>
-                <button class="filter-btn" data-category="ESG">ESG</button>
-                <button class="filter-btn" data-category="Technology & Innovation">Technology & Innovation</button>
-                <button class="filter-btn" data-category="Supply Chain">Supply Chain</button>
-                <button class="filter-btn" data-category="RTO/Grid">RTO/Grid</button>
-                <button class="filter-btn" data-category="GHG Protocol">GHG Protocol</button>
-            </div>
             <div class="stats">
                 <span id="article-count">Loading...</span>
                 <span id="last-updated">Last updated: Loading...</span>
@@ -216,18 +186,15 @@
             });
         }
 
-        function filterArticles() {
+        function displayArticles() {
             const container = document.getElementById('news-container');
-            const filteredArticles = currentFilter === 'all' 
-                ? allArticles 
-                : allArticles.filter(article => article.category === currentFilter);
             
-            if (filteredArticles.length === 0) {
-                container.innerHTML = '<div class="loading">No articles found for this category.</div>';
+            if (allArticles.length === 0) {
+                container.innerHTML = '<div class="loading">No articles found.</div>';
                 return;
             }
             
-            const newsHTML = filteredArticles.map(article => `
+            const newsHTML = allArticles.map(article => `
                 <div class="news-card">
                     <div class="news-meta">
                         <span class="source">${cleanSourceName(article.source)}</span>
@@ -296,7 +263,7 @@
                 allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
                 
                 updateStats();
-                filterArticles();
+                displayArticles();
                 
             } catch (error) {
                 console.error('Error loading news:', error);
@@ -309,25 +276,8 @@
             }
         }
 
-        // Set up filter buttons
+        // Load news on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update filter and re-render
-                    currentFilter = this.getAttribute('data-category');
-                    filterArticles();
-                });
-            });
-            
-            // Load news on page load
             loadNews();
         });
     </script>
