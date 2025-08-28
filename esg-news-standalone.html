@@ -62,6 +62,7 @@
             padding: 1.5rem;
             transition: transform 0.2s, box-shadow 0.2s;
             background: white;
+            text-align: left;
         }
         .news-card:hover {
             transform: translateY(-2px);
@@ -71,6 +72,7 @@
             margin: 0 0 10px 0;
             font-size: 1.1rem;
             line-height: 1.4;
+            text-align: left;
         }
         .news-card h3 a {
             color: #2d5f8a;
@@ -86,6 +88,7 @@
             margin-bottom: 10px;
             font-size: 0.9rem;
             color: #666;
+            text-align: left;
         }
         .source {
             background: #e9ecef;
@@ -104,6 +107,7 @@
             border-radius: 4px;
             font-size: 0.8rem;
             margin-top: 10px;
+            text-align: left;
         }
         .loading {
             text-align: center;
@@ -130,6 +134,32 @@
         .refresh-btn:hover {
             background: #218838;
         }
+        .sort-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .sort-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .sort-btn:hover {
+            background: #5a6268;
+        }
+        .sort-btn.active {
+            background: #2d5f8a;
+        }
+        .sort-label {
+            font-weight: 500;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -145,6 +175,12 @@
                 <span id="last-updated">Last updated: Loading...</span>
                 <button class="refresh-btn" onclick="loadNews()">Refresh</button>
             </div>
+            <div class="sort-controls">
+                <span class="sort-label">Sort by:</span>
+                <button class="sort-btn active" onclick="sortByDate()">Date (Newest)</button>
+                <button class="sort-btn" onclick="sortByDateOldest()">Date (Oldest)</button>
+                <button class="sort-btn" onclick="sortByTopic()">Topic</button>
+            </div>
         </div>
         
         <div class="content">
@@ -156,6 +192,7 @@
 
     <script>
         let allArticles = [];
+        let currentSort = 'date-newest';
 
         function cleanSourceName(source) {
             if (!source) return 'Unknown Source';
@@ -182,6 +219,30 @@
         function updateStats() {
             document.getElementById('article-count').textContent = `${allArticles.length} articles`;
             document.getElementById('last-updated').textContent = `Last updated: ${new Date().toLocaleString()}`;
+        }
+
+        function updateSortButtons(activeSort) {
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            currentSort = activeSort;
+        }
+
+        function sortByDate() {
+            allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+            updateSortButtons('date-newest');
+            displayArticles();
+        }
+
+        function sortByDateOldest() {
+            allArticles.sort((a, b) => new Date(a.pubDate) - new Date(b.pubDate));
+            updateSortButtons('date-oldest');
+            displayArticles();
+        }
+
+        function sortByTopic() {
+            allArticles.sort((a, b) => a.category.localeCompare(b.category));
+            updateSortButtons('topic');
+            displayArticles();
         }
 
         function displayArticles() {
@@ -234,7 +295,14 @@
                     const category = item.querySelector('category')?.textContent || 'ESG';
                     allArticles.push({ title, link, description, pubDate, source, category });
                 });
-                allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                // Apply current sort
+                if (currentSort === 'date-newest') {
+                    allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                } else if (currentSort === 'date-oldest') {
+                    allArticles.sort((a, b) => new Date(a.pubDate) - new Date(b.pubDate));
+                } else if (currentSort === 'topic') {
+                    allArticles.sort((a, b) => a.category.localeCompare(b.category));
+                }
                 updateStats();
                 displayArticles();
             } catch (error) {
