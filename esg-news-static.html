@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustain74 ESG News Feed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .source {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .date {
+            color: #999;
+        }
+        
+        h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.4;
+            text-align: left;
+        }
+        
+        h3 a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        h3 a:hover {
+            color: #2c5aa0;
+        }
+        
+        .website {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sustain74 ESG News Feed</h1>
+            <p>Latest ESG and sustainability news curated by Sustain74</p>
+            <div class="stats">
+                <span>📊 80 Articles</span>
+                <span>🕒 Last Updated: August 28, 2025 at 07:26 PM</span>
+            </div>
+        </div>
+        
+        <div class="news-grid">
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">CAISO</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.rtoinsider.com/113510-newsom-renews-call-passage-pathways-bill/&ct=ga&cd=CAIyGmIxNDZhNWJlODkyN2Y0YTI6Y29tOmVuOlVT&usg=AOvVaw1lmFj85EeNC1P7o7uV2YPx" target="_blank" rel="noopener noreferrer">Newsom Renews Call for Passage of Pathways Bill - RTO Insider</a></h3>
+                <div class="website">rtoinsider.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.rwe.com/en/press/rwe-renewables-europe-australia/2025-08-27-rwe-commissions-new-pv-plant-at-hambach-opencast-mine/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw3wBcVc2yCSowhj9rsq6iLA" target="_blank" rel="noopener noreferrer">RWE commissions new photovoltaic plant at Hambach opencast mine</a></h3>
+                <div class="website">rwe.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.renewableenergyworld.com/energy-storage/misos-new-method-for-capacity-accreditation-benefits-storage-more-than-solar/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw2aLm2_lhBW9J7epI5S-c1n" target="_blank" rel="noopener noreferrer">MISO's new method for capacity accreditation benefits storage more than solar</a></h3>
+                <div class="website">renewableenergyworld.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://europeansting.com/2025/08/27/with-ebrd-support-romania-delivers-second-successful-renewable-energy-auction/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw2vxkPWHWwri-h4Ymd2c8Dj" target="_blank" rel="noopener noreferrer">With EBRD support, Romania delivers second successful renewable energy auction</a></h3>
+                <div class="website">europeansting.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.semafor.com/article/08/26/2025/global-investments-in-renewable-energy-reach-half-year-record&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw2spdlxvwVjP_LBT2kHrI-M" target="_blank" rel="noopener noreferrer">Global investments in renewable energy reach half-year record - Semafor</a></h3>
+                <div class="website">semafor.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.mediamatters.org/rupert-murdoch/murdoch-media-find-scapegoat-new-jerseys-high-electric-rates&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw1qUt9GBAaVGhk_mm0Ci62q" target="_blank" rel="noopener noreferrer">Murdoch media find a scapegoat for New Jersey's high electric rates</a></h3>
+                <div class="website">mediamatters.org</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">ERCOT</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.power-eng.com/onsite-power/is-texas-ready-for-a-wave-of-data-center-demand/&ct=ga&cd=CAIyGmQyZTYzOTM0NDhmMzdjZjY6Y29tOmVuOlVT&usg=AOvVaw3ObBGK_A67DvnKSjwWjtrT" target="_blank" rel="noopener noreferrer">Is Texas ready for a wave of data center demand? - Power Engineering</a></h3>
+                <div class="website">power-eng.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.wfw.com/press/wfw-advises-stonepeak-on-strategic-european-renewables-partnership-with-solaria/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw09lsi-AAvOijylK9NifVBT" target="_blank" rel="noopener noreferrer">WFW advises Stonepeak on strategic European renewables partnership with Solaria</a></h3>
+                <div class="website">wfw.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://datacentremagazine.com/top10/top-10-data-centres-using-100-renewable-energy&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw1uDuxntikgNLjqpvP8Znc7" target="_blank" rel="noopener noreferrer">Top 10: Data Centres Using 100% Renewable Energy</a></h3>
+                <div class="website">datacentremagazine.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://singularityhub.com/2025/08/26/new-study-could-a-swarm-of-space-mirrors-replace-much-of-europes-solar-and-wind-by-2050/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw37mUNU0OudwofBKFBIkGEV" target="_blank" rel="noopener noreferrer">Could a Swarm of Space Mirrors Replace Much of Europe's Solar and Wind by 2050?</a></h3>
+                <div class="website">singularityhub.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">ERCOT</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://wahanariau.com/news/detail/38908/wood-mackenzie-launches-nodal-price-forecast&ct=ga&cd=CAIyGmQyZTYzOTM0NDhmMzdjZjY6Y29tOmVuOlVT&usg=AOvVaw03bJZvFzcXokIfHJ8muSr6" target="_blank" rel="noopener noreferrer">Wood Mackenzie Launches Nodal Price Forecast - WahanaRiau.com</a></h3>
+                <div class="website">wahanariau.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">CAISO</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.morningstar.com/news/globe-newswire/9518859/twaice-partners-with-fullmark-energy-to-power-290-mwh-of-battery-storage-with-data-analytics-in-caiso-market&ct=ga&cd=CAIyGmIxNDZhNWJlODkyN2Y0YTI6Y29tOmVuOlVT&usg=AOvVaw21EktHfWFcLl09UokpQQZT" target="_blank" rel="noopener noreferrer">TWAICE Partners With Fullmark Energy to Power 290 MWh of Battery Storage with Data ...</a></h3>
+                <div class="website">morningstar.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">GHG Protocol</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.freshplaza.com/latin-america/article/9759884/citrosuco-ship-begins-first-voyage-with-b24-biodiesel/&ct=ga&cd=CAIyGmJiMzg0ZDEwN2ZhNTk2NmM6Y29tOmVuOlVT&usg=AOvVaw2iuIWfps8u0j7WTXzpVDXk" target="_blank" rel="noopener noreferrer">Citrosuco ship begins first voyage with B24 biodiesel - FreshPlaza</a></h3>
+                <div class="website">freshplaza.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 27, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://finance.yahoo.com/news/successful-sale-renewables-platforms-netherlands-100000999.html&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw1WtePrpkq1jpThdhWjwCXX" target="_blank" rel="noopener noreferrer">Successful sale of renewables platforms in the Netherlands - Yahoo Finance</a></h3>
+                <div class="website">finance.yahoo.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://tripurachronicle.in/national-news/india-japan-business-ties-enter-golden-phase-with-usd-13-bln-multi-sectoral-investment-in-previous-two-years/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw0LkdA5MdvdxK-ay7cB2zuL" target="_blank" rel="noopener noreferrer">India-Japan business ties enter golden phase with USD 13 bln multi-sectoral investment in ...</a></h3>
+                <div class="website">tripurachronicle.in</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://solarquarter.com/2025/08/28/eia-data-shows-solar-hits-record-9-of-u-s-power-renewables-near-28-in-first-half-of-2025/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw2OJAaMmL7jO8WPigwyQmfa" target="_blank" rel="noopener noreferrer">EIA Data Shows Solar Hits Record 9% of U.S. Power, Renewables Near 28% in First Half of 2025</a></h3>
+                <div class="website">solarquarter.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.cnbc.com/2025/08/28/oil-gas-utilities-energy-stocks-market-winners-losers.html&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw1LB49m1-LByOS-1ek-xMJu" target="_blank" rel="noopener noreferrer">In Trump's market, oil and gas stocks have not been the big energy winners - CNBC</a></h3>
+                <div class="website">cnbc.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.blm.gov/press-release/blm-announces-december-2025-sale-oil-and-gas-leases-wyoming&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw1B4sISWQ4k3CWEOQQFxCxX" target="_blank" rel="noopener noreferrer">BLM announces December 2025 sale of oil and gas leases in Wyoming</a></h3>
+                <div class="website">blm.gov</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://indonesiabusinesspost.com/5101/energy-and-resources/abadi-lng-pushed-toward-final-investment-decision-as-feed-nears-completion&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw3tYsghakH0w6g8idTb5Fu3" target="_blank" rel="noopener noreferrer">Abadi LNG pushed toward final investment decision as FEED nears completion</a></h3>
+                <div class="website">indonesiabusinesspost.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.caixinglobal.com/2025-08-28/chinas-largest-home-built-floating-lng-facility-sets-course-for-west-africa-102356115.html&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw1kwpBvaW4hBDwZSJKfFENU" target="_blank" rel="noopener noreferrer">China's Largest Home-Built Floating LNG Facility Sets Course for West Africa</a></h3>
+                <div class="website">caixinglobal.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">SBTi</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.gurufocus.com/news/3083848/wuxi-biologics-nearterm-and-netzero-targets-approved-by-sbti-wxxwy-stock-news&ct=ga&cd=CAIyGjA3ZjllMWExZWZkNmNkNGQ6Y29tOmVuOlVT&usg=AOvVaw1zTVbxqgjEFy7sxJ7yfCz1" target="_blank" rel="noopener noreferrer">WuXi Biologics' Near-Term and Net-Zero Targets Approved by SBTi | WXXWY Stock News</a></h3>
+                <div class="website">gurufocus.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.reuters.com/markets/commodities/europe-gas-markets-escape-hectic-lng-summer-storage-race-2025-08-28/&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw1ZSmmnTwMufi08kDMNBEbi" target="_blank" rel="noopener noreferrer">Europe gas markets escape hectic LNG summer storage race - Reuters</a></h3>
+                <div class="website">reuters.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.utilitydive.com/news/iep-plans-944-mw-behind-the-meter-gas-plant-in-pennsylvania-to-power-data-c/758830/&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw1Cy1k04JzL1Z46QXQaIBYP" target="_blank" rel="noopener noreferrer">IEP plans 944-MW behind-the-meter gas plant to power PA data center | Utility Dive</a></h3>
+                <div class="website">utilitydive.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.wsj.com/finance/commodities-futures/european-gas-price-falls-on-higher-lng-imports-2568ea01&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw0u5JkeJ8tCAt14hItEd2wl" target="_blank" rel="noopener noreferrer">U.S. Natural Gas Extends Gains As Storage Surplus Shrinks - WSJ</a></h3>
+                <div class="website">wsj.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://psuwatch.com/newsupdates/ireda-cmd-urges-innovative-financing-models-to-accelerate-re-growth&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw1d16d7O_u-2W7T0L63Xba4" target="_blank" rel="noopener noreferrer">IREDA CMD urges innovative financing models to accelerate RE growth - PSU Watch</a></h3>
+                <div class="website">psuwatch.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.argusmedia.com/en/news-and-insights/market-opinion-and-analysis-blog/north-america-lng-price-trends-market-news&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw35rHqLjvcSNYiOf_8mf0I7" target="_blank" rel="noopener noreferrer">LNG Price Trends & Market Insights in North America - Argus Media</a></h3>
+                <div class="website">argusmedia.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://ca.finance.yahoo.com/news/european-buyers-eye-offtake-deals-140504241.html&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw3cs4mcE7N4ITxAfayCc1D1" target="_blank" rel="noopener noreferrer">European buyers eye offtake deals for Canadian LNG — but on the West Coast</a></h3>
+                <div class="website">ca.finance.yahoo.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://solarquarter.com/2025/08/28/neo-infra-income-opportunities-fund-acquires-solararise-india-projects-in-%25E2%2582%25B91400-cr-deal/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw3wYox1HAWEQmYFP54OYUtS" target="_blank" rel="noopener noreferrer">Neo Infra Income Opportunities Fund Acquires SolarArise India Projects in ₹1400 Cr Deal</a></h3>
+                <div class="website">solarquarter.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://pv-magazine-usa.com/2025/08/28/new-jersey-to-expand-community-solar-by-3000-mw/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw24ygPlOVqEckVlH_5VzE1-" target="_blank" rel="noopener noreferrer">New Jersey to expand community solar by 3 GW - pv magazine USA</a></h3>
+                <div class="website">pv-magazine-usa.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://indianmasterminds.com/news/ireda-renewable-investment-rajasthan-business-summit-2025-140459/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw27XJXrfPT5gmnT0lAGDsz4" target="_blank" rel="noopener noreferrer">IREDA CMD Pradip Kumar Das Highlights Surge in Renewable Investment, Calls for ...</a></h3>
+                <div class="website">indianmasterminds.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.oilfieldtechnology.com/offshore-and-subsea/28082025/nguya-flng-ready-for-phase-2-of-the-congo-lng-project/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw0S1tvMI76NkJnytvLD_4XH" target="_blank" rel="noopener noreferrer">Nguya FLNG ready for Phase 2 of the Congo LNG project - Oilfield Technology</a></h3>
+                <div class="website">oilfieldtechnology.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.ksdk.com/article/news/local/st-louis-county-home-explosion-renews-scrutiny-underground-gas-storage-field-wells/63-148f8639-2f40-40eb-9374-28f9cc385a0f&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw3hLgoccPrlAgwJ64YQkLWV" target="_blank" rel="noopener noreferrer">St. Louis County home explosion renews scrutiny of underground gas storage field, nearby wells</a></h3>
+                <div class="website">ksdk.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://troymedia.com/business/heres-why-canada-risks-losing-the-global-lng-race/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw1mYTYOxYUT1e0kBbPbt8Bt" target="_blank" rel="noopener noreferrer">Here's why Canada risks losing the global LNG race - Troy Media</a></h3>
+                <div class="website">troymedia.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.project-syndicate.org/commentary/new-research-estimates-india-true-climate-finance-needs-by-rakesh-mohan-and-janak-raj-2025-08&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw2171798XkgBDFBU9sYNOf8" target="_blank" rel="noopener noreferrer">India's Climate-Finance Gap Is Smaller Than It Seems - Project Syndicate</a></h3>
+                <div class="website">project-syndicate.org</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://developingtelecoms.com/telecom-technology/data-centres-networks/18982-india-s-techno-digital-announces-inauguration-of-chennai-data-centre.html&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw1DNIi8fVNvCQjGKMXvrm6I" target="_blank" rel="noopener noreferrer">India's Techno Digital announces inauguration of Chennai data centre - Developing Telecoms</a></h3>
+                <div class="website">developingtelecoms.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://downbeach.com/news/2025/aug/28/save-lbi-wants-state-to-reconsider-offshore-wind/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw3B8Zr-ugCH1jV1anB4HS1M" target="_blank" rel="noopener noreferrer">Save LBI wants state to reconsider offshore wind - DownBeach</a></h3>
+                <div class="website">downbeach.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.houstonchronicle.com/news/houston-texas/trending/article/conroe-blackfin-gas-compressor-bartholet-21017784.php&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw11kXBXrbiB3OEvE7jUOYfP" target="_blank" rel="noopener noreferrer">Conroe hires attorney to fight construction of Blackfin natural gas site - Houston Chronicle</a></h3>
+                <div class="website">houstonchronicle.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.bloomberg.com/news/articles/2025-08-27/us-gas-driller-eqt-is-in-talks-with-nextdecade-for-lng-supply&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw2iMjsb3gGlCLHMN3CWUaFT" target="_blank" rel="noopener noreferrer">US Gas Driller EQT Is in Talks With NextDecade for LNG - Bloomberg.com</a></h3>
+                <div class="website">bloomberg.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://naturalgasintel.com/news/october-natural-gas-futures-in-holding-pattern-as-traders-await-eia-print/&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw344QqzsivzspwwPayYTSR-" target="_blank" rel="noopener noreferrer">October Natural Gas Futures in Holding Pattern as Traders Await EIA Print</a></h3>
+                <div class="website">naturalgasintel.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://mynorthwest.com/local/natural-gas-leak-interbay-sfd/4125298&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw27l8v63cfS6wEY1fH9x0Kh" target="_blank" rel="noopener noreferrer">Natural gas leak in Interbay prompts significant SFD response - MyNorthwest.com</a></h3>
+                <div class="website">mynorthwest.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.fxempire.com/forecasts/article/natural-gas-price-outlook-natural-gas-looks-heavy-1544647&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw3Qb4fxpxYYo6ELyWwUZOkm" target="_blank" rel="noopener noreferrer">Natural Gas Price Outlook – Natural Gas Looks Heavy | FXEmpire</a></h3>
+                <div class="website">fxempire.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.ft.com/content/95aac1d8-3396-47ab-8ae8-c6608c67335e&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw3MXvIdbDfK4aruW1j3yKUW" target="_blank" rel="noopener noreferrer">Why oil and gas M&A is 'losing steam' - Financial Times</a></h3>
+                <div class="website">ft.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://hellowoodlands.com/centerpoint-energy-celebrated-national-dog-day-with-its-gas-leak-detecting-k9-team/&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw3SsaGXSIo0fbDbYL_iDBtn" target="_blank" rel="noopener noreferrer">CenterPoint Energy celebrated National Dog Day with its gas leak-detecting K9 team</a></h3>
+                <div class="website">hellowoodlands.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.lngindustry.com/liquid-natural-gas/28082025/technip-energies-awarded-feed-contracts-for-inpex-abadi-lng-project/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw2a7CwUQYaBjmVWaVkFDvH6" target="_blank" rel="noopener noreferrer">Technip Energies awarded FEED contracts for INPEX Abadi LNG project</a></h3>
+                <div class="website">lngindustry.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://seekingalpha.com/news/4490020-us-natural-gas-inventory-net-change-of-18bcf-for-week-ended-august-22&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw36v8dMJDz7xzb5iN8ys1a6" target="_blank" rel="noopener noreferrer">US natural gas inventory net change of +18Bcf for week ended August 22</a></h3>
+                <div class="website">seekingalpha.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.thehindubusinessline.com/companies/serentica-renewables-partners-with-shanghai-gotion-digital-for-one-of-indias-largest-bess-facility/article69985378.ece&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw0yeq9x0Q4gBHLyiBIXZl53" target="_blank" rel="noopener noreferrer">Serentica Renewables partners with Shanghai Gotion Digital for one of India's largest BESS facility</a></h3>
+                <div class="website">thehindubusinessline.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.h2-view.com/story/hydrogen-spas-break-from-lng-model-with-shorter-policy-shaped-terms/2131385.article/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw0pCXE4fHcrnGzxCUfBsur7" target="_blank" rel="noopener noreferrer">Hydrogen SPAs break from LNG model with shorter, policy-shaped terms - H2 View</a></h3>
+                <div class="website">h2-view.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Natural Gas</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://interestingengineering.com/innovation/china-ultra-pure-helium-6n9-breakthrough&ct=ga&cd=CAIyGmRlZTU2OTE4ZGIyY2M1Mzg6Y29tOmVuOlVT&usg=AOvVaw2nD29j4RDH7Cwqr8MkA4gJ" target="_blank" rel="noopener noreferrer">China develops device that extracts 99.99997% pure helium from natural gas fields</a></h3>
+                <div class="website">interestingengineering.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.atlanticcouncil.org/blogs/energysource/overheated-and-underbuilt-how-to-fortify-the-us-grid-in-the-face-of-heat-waves/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw0dGJLqhbTPNTIwprWnQW_p" target="_blank" rel="noopener noreferrer">Overheated and underbuilt: How to fortify the US grid in the face of heat waves - Atlantic Council</a></h3>
+                <div class="website">atlanticcouncil.org</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://geopoliticalfutures.com/daily-memo-russian-lng-shipment-to-china-tests-us-sanctions/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw1SGCvKo3Y1jag1UtgT-9gR" target="_blank" rel="noopener noreferrer">Daily Memo: Russian LNG Shipment to China Tests US Sanctions - Geopolitical Futures</a></h3>
+                <div class="website">geopoliticalfutures.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">LNG</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.offshore-energy.biz/sempra-inks-another-multi-decade-lng-deal-for-texas-project/&ct=ga&cd=CAIyGjYxNjEzYzJjYzYxNzQ5NmU6Y29tOmVuOlVT&usg=AOvVaw0-WE8GWpVwuLVSIUj9jopD" target="_blank" rel="noopener noreferrer">Sempra inks another multi-decade LNG deal for Texas project - Offshore-Energy.biz</a></h3>
+                <div class="website">offshore-energy.biz</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.stocktitan.net/news/FE/first-energy-names-brooke-trammell-vice-president-transmission-rp4s2tf1u6kg.html&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw273B7EhOtddhWprYiJzFIm" target="_blank" rel="noopener noreferrer">FirstEnergy Names Brooke Trammell Vice President, Transmission Strategy & Engagement</a></h3>
+                <div class="website">stocktitan.net</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://m.economictimes.com/industry/renewables/tvs-orbiter-launched-at-rs-99900-heres-range-features-specifications/articleshow/123558923.cms&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw0pWYV-HgHb7CE8oQQErhJY" target="_blank" rel="noopener noreferrer">TVS Orbiter launched at Rs 99900: Here's range, features & specifications</a></h3>
+                <div class="website">m.economictimes.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.dispatch.com/story/news/state/2025/08/28/as-the-demand-for-electricity-grows-ohio-looks-for-ways-to-save-power/85854997007/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw26FquIFUNjABJPx3-_1klD" target="_blank" rel="noopener noreferrer">As the demand for electricity grows, Ohio looks for ways to save power</a></h3>
+                <div class="website">dispatch.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Additional Feed</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=http://www.msn.com/en-us/money/companies/nyiso-issued-energy-warning-amid-extreme-heat/ar-AA1HmtYv%3Fapiversion%3Dv2%26noservercache%3D1%26domshim%3D1%26renderwebcomponents%3D1%26wcseo%3D1%26batchservertelemetry%3D1%26noservertelemetry%3D1&ct=ga&cd=CAIyGjQ5YWE0M2M5MmNhODY1ZTI6Y29tOmVuOlVT&usg=AOvVaw3j6DhGrHbVKIv4iCkSO9pn" target="_blank" rel="noopener noreferrer">NYISO issued energy warning amid extreme heat - MSN</a></h3>
+                <div class="website">msn.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.bisinfotech.com/india-approves-ten-semiconductor-units-projects-underway/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw2qPy_qMSUobjJbEz8pl794" target="_blank" rel="noopener noreferrer">India Approves Ten Semiconductor Units, Projects Underway - Bisinfotech</a></h3>
+                <div class="website">bisinfotech.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://asian-power.com/news/ireda-sets-targets-fy-2024-2025&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw20LpMiHDYJUJaLc3HzQOCL" target="_blank" rel="noopener noreferrer">IREDA sets targets for FY 2024-2025 - Asian Power</a></h3>
+                <div class="website">asian-power.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://cleantechnica.com/2025/08/28/indias-renewable-energy-is-progressing-but-the-world-isnt-paying-attention-part-2/&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw0BGbUvNNKab1QU6kri7_Mq" target="_blank" rel="noopener noreferrer">India's Renewable Energy Is Progressing, But The World Isn't Paying Attention (Part 2)</a></h3>
+                <div class="website">cleantechnica.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.maroc.ma/en/news/moroccos-energy-transition-experience-spotlighted-new-delhi&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw2QuIsC35uV-PnBPkqygLG3" target="_blank" rel="noopener noreferrer">Morocco's Energy Transition Experience Spotlighted in New Delhi | Maroc.ma</a></h3>
+                <div class="website">maroc.ma</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">SBTi</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.morningstar.com/news/pr-newswire/20250828cn61029/wuxi-biologics-near-term-and-net-zero-targets-approved-by-sbti&ct=ga&cd=CAIyGjA3ZjllMWExZWZkNmNkNGQ6Y29tOmVuOlVT&usg=AOvVaw3lYN7ZY55ABq8FrooEHe6m" target="_blank" rel="noopener noreferrer">WuXi Biologics' Near-Term and Net-Zero Targets Approved by SBTi | Morningstar</a></h3>
+                <div class="website">morningstar.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.energetica-india.net/news/sael-industries-commissions-200-mw-ac-solar-project-in-jalore-rajasthan&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw3rFTW4FdLv8vEKgH4ixnbR" target="_blank" rel="noopener noreferrer">SAEL Industries Commissions 200 MW (AC) Solar Project in Jalore, Rajasthan - Asia Pacific</a></h3>
+                <div class="website">energetica-india.net</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.livemint.com/market/stock-market-news/renewable-energy-stocks-clean-energy-stocks-india-solar-energy-stocks-indian-stock-market-clean-energy-ipo-11756371331516.html&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw3LKt2b6rSvXTpVUhOeEFGP" target="_blank" rel="noopener noreferrer">Renewable energy may be the future, but its stocks are full of hot air - Mint</a></h3>
+                <div class="website">livemint.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">ERCOT</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.ainvest.com/news/soluna-holdings-achieves-milestone-1gw-clean-computing-projects-2508/&ct=ga&cd=CAIyGmQyZTYzOTM0NDhmMzdjZjY6Y29tOmVuOlVT&usg=AOvVaw0eytu66WmjQcRqY13in_2l" target="_blank" rel="noopener noreferrer">Soluna Holdings Achieves Milestone with 1GW of Clean Computing Projects - AInvest</a></h3>
+                <div class="website">ainvest.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://san.com/cc/private-investment-drops-as-us-shifts-renewable-energy-policy/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw1XXcZ8bBW02GSPP3kJSqFU" target="_blank" rel="noopener noreferrer">Private investment drops as US shifts renewable energy policy - Straight Arrow News</a></h3>
+                <div class="website">san.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">India Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.hydrogeninsight.com/electrolysers/thyssenkrupp-nucera-lined-up-to-supply-1-4gw-of-electrolysers-to-giant-green-hydrogen-based-steel-project/2-1-1863709&ct=ga&cd=CAIyGjA2N2RjOTUwNTBhYzVjODk6Y29tOmVuOlVT&usg=AOvVaw3_Cb4UK7MtW8TfIWkNmTaU" target="_blank" rel="noopener noreferrer">Thyssenkrupp Nucera lined up to supply 1.4GW of electrolysers to giant green hydrogen ...</a></h3>
+                <div class="website">hydrogeninsight.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.insurancebusinessmag.com/uk/news/breaking-news/physical-climate-risks-threaten-europes-renewable-energy-push--zurich-547683.aspx&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw09e5fTtJilu4qjnjOYD-Uq" target="_blank" rel="noopener noreferrer">Physical climate risks threaten Europe's renewable energy push – Zurich</a></h3>
+                <div class="website">insurancebusinessmag.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.ft.com/content/2e3ee55b-f956-415d-9ad0-89d85a6bb260&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw2SXKiiG2m7nqlBNNvUs1Bi" target="_blank" rel="noopener noreferrer">European green investment stands to gain at the US's expense - Financial Times</a></h3>
+                <div class="website">ft.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.marketscreener.com/news/europe-power-higher-renewables-supply-forecast-weak-demand-weigh-on-spot-ce7c50dfdc8ff222&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw3_Xjhh79KnubUarBx5-V1i" target="_blank" rel="noopener noreferrer">EUROPE POWER-Higher renewables supply forecast, weak demand weigh on spot</a></h3>
+                <div class="website">marketscreener.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.mondaq.com/renewables/1671086/sustainability-obligations-for-spanish-data-centers&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw0rSZV5rDHpPVKh0p_ONRpW" target="_blank" rel="noopener noreferrer">Sustainability Obligations For Spanish Data Centers - Renewables - European Union</a></h3>
+                <div class="website">mondaq.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.dailyherald.com/20250828/columns/lawmakers-should-act-to-reform-utility-rate-system/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw3IZgi8kmVCNRSO8dDz_gHP" target="_blank" rel="noopener noreferrer">Lawmakers should act to reform utility rate system - Daily Herald</a></h3>
+                <div class="website">dailyherald.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">SBTi</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.stocktitan.net/news/WXXWY/wu-xi-biologics-near-term-and-net-zero-targets-approved-by-sb-092bt2ghrkw5.html&ct=ga&cd=CAIyGjA3ZjllMWExZWZkNmNkNGQ6Y29tOmVuOlVT&usg=AOvVaw0VmuzSSQSGmTIj_31XldDG" target="_blank" rel="noopener noreferrer">WuXi Biologics' Near-Term and Net-Zero Targets Approved by SBTi - Stock Titan</a></h3>
+                <div class="website">stocktitan.net</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.chicagobusiness.com/politics/soaring-power-bills-pose-risk-republicans&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw0NrRU6-oT98m3lNQ2M8O2v" target="_blank" rel="noopener noreferrer">Rising power costs in Illinois and battleground states spell political risk - Crain's Chicago Business</a></h3>
+                <div class="website">chicagobusiness.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.reuters.com/sustainability/climate-energy/norways-statkraft-agrees-sale-dutch-renewables-business-2025-08-27/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw0VpUlsC9jIt8khk2lUvgiL" target="_blank" rel="noopener noreferrer">Norway's Statkraft agrees sale of Dutch renewables business - Reuters</a></h3>
+                <div class="website">reuters.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.rechargenews.com/wind/copenhagen-infrastructure-partners-shows-appetite-for-one-of-offshore-winds-frontier-markets/2-1-1863296&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw1ujpQuKB8JlCzizlfCa8mX" target="_blank" rel="noopener noreferrer">Copenhagen Infrastructure Partners shows appetite for one of offshore wind's frontier markets</a></h3>
+                <div class="website">rechargenews.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.contexte.com/briefing/2025/08/28/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw2ea_RwybQ5hzErQie6486O" target="_blank" rel="noopener noreferrer">Briefing of Thursday 28 August 2025 | Contexte</a></h3>
+                <div class="website">contexte.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://oilprice.com/Energy/Energy-General/Europe-Cant-Drill-Its-Way-to-Security.html&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw2uj2muJBs3Sa17X_ijypPS" target="_blank" rel="noopener noreferrer">Europe Can't Drill Its Way to Security | OilPrice.com</a></h3>
+                <div class="website">oilprice.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">SBTi</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.wideformatonline.com/news/wide-format-news/14043-epsons-net-zero-by-2050-target-officially-acknowledged-as-science-based.html&ct=ga&cd=CAIyGjA3ZjllMWExZWZkNmNkNGQ6Y29tOmVuOlVT&usg=AOvVaw2lf7SqvQ9F05I9JXpINWca" target="_blank" rel="noopener noreferrer">Epson's 'Net-Zero by 2050' target officially acknowledged as 'Science Based'</a></h3>
+                <div class="website">wideformatonline.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">Europe Renewables</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.weforum.org/stories/2025/08/brazil-urgent-plea-climate-plans-nature-climate-news/&ct=ga&cd=CAIyGjhhZGQwYzA0NTU2NTM0OTY6Y29tOmVuOlVT&usg=AOvVaw3mDTH8Aweb22P9qFeJlxGU" target="_blank" rel="noopener noreferrer">Brazil's urgent NDC call, and other nature and climate news | World Economic Forum</a></h3>
+                <div class="website">weforum.org</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">PJM</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.rtoinsider.com/113500-nrg-pjm-imm-disagree-ls-power-deals-market-power-impact/&ct=ga&cd=CAIyGjgyNTM1YzJkNDQ5YmE4OTI6Y29tOmVuOlVT&usg=AOvVaw310bdjcdvcGrArmm_ZXw47" target="_blank" rel="noopener noreferrer">NRG, PJM IMM Disagree on LS Power Deal's Market Power Impact - RTO Insider</a></h3>
+                <div class="website">rtoinsider.com</div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">GHG Protocol</span>
+                    <span class="date">Aug 28, 2025</span>
+                </div>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://trellis.net/article/why-mars-plans-to-more-than-triple-the-amount-of-renewable-energy-it-buys/&ct=ga&cd=CAIyGmJiMzg0ZDEwN2ZhNTk2NmM6Y29tOmVuOlVT&usg=AOvVaw1nQ4bDrzu_yj830XXrk979" target="_blank" rel="noopener noreferrer">Mars plans to more than triple the renewable energy it buys - Trellis Group</a></h3>
+                <div class="website">trellis.net</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
