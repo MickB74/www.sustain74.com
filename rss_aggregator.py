@@ -92,6 +92,16 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/13034409552276427076',
                 'name': 'Google Alert: Europe Renewables',
                 'keywords': ['europe', 'eu', 'renewable energy', 'offshore wind', 'solar power', 'energy transition', 'clean energy', 'sustainable development']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/10430378286967578519',
+                'name': 'Google Alert: Natural Gas',
+                'keywords': ['natural gas', 'lng', 'liquefied natural gas', 'gas market', 'energy market', 'fossil fuels']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/10430378286967577760',
+                'name': 'Google Alert: Additional Energy',
+                'keywords': ['energy', 'power', 'electricity', 'energy market', 'energy policy', 'energy transition']
             }
         ]
         
