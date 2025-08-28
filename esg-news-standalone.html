@@ -99,15 +99,16 @@
         .date {
             color: #999;
         }
-        .category {
+        .website {
             display: inline-block;
-            background: #2d5f8a;
-            color: white;
+            background: #e9ecef;
+            color: #666;
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
             margin-top: 10px;
             text-align: left;
+            font-style: italic;
         }
         .loading {
             text-align: center;
@@ -251,16 +252,20 @@
                 container.innerHTML = '<div class="loading">No articles found.</div>';
                 return;
             }
-            const newsHTML = allArticles.map(article => `
-                <div class="news-card">
-                    <div class="news-meta">
-                        <span class="source">${cleanSourceName(article.source)}</span>
-                        <span class="date">${formatDate(article.pubDate)}</span>
+            const newsHTML = allArticles.map(article => {
+                const url = new URL(article.link);
+                const website = url.hostname.replace('www.', '');
+                return `
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="source">${cleanSourceName(article.source)}</span>
+                            <span class="date">${formatDate(article.pubDate)}</span>
+                        </div>
+                        <h3><a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
+                        <div class="website">${website}</div>
                     </div>
-                    <h3><a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
-                    <div class="category">${article.category}</div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             container.innerHTML = `<div class="news-grid">${newsHTML}</div>`;
         }
 
