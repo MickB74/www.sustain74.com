@@ -100,7 +100,7 @@ class RSSAggregator:
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/10430378286967577760',
-                'name': 'Google Alert: Additional Energy',
+                'name': 'Google Alert: LNG',
                 'keywords': ['energy', 'power', 'electricity', 'energy market', 'energy policy', 'energy transition']
             }
         ]
