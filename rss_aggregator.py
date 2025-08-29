@@ -108,6 +108,11 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/8761439016609917737',
                 'name': 'Google Alert: EIA',
                 'keywords': ['eia', 'energy information administration', 'energy data', 'energy statistics', 'energy reports', 'energy market data']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/4175802949917622328',
+                'name': 'Google Alert: IEA',
+                'keywords': ['iea', 'international energy agency', 'global energy', 'energy policy', 'energy outlook', 'energy transition', 'clean energy']
             }
         ]
         
