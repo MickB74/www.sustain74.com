@@ -9,14 +9,18 @@ import feedparser
 import google.generativeai as genai
 from datetime import datetime
 import json
+from dotenv import load_dotenv
 
 class GeminiTLDRGenerator:
     def __init__(self):
         """Initialize the Gemini TLDR generator"""
+        # Load environment variables from .env file
+        load_dotenv()
+        
         # Configure Gemini API
         api_key = os.getenv('GEMINI_API_KEY')
         if not api_key:
-            raise ValueError("GEMINI_API_KEY environment variable not set")
+            raise ValueError("GEMINI_API_KEY not found in .env file")
         
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
@@ -154,8 +158,8 @@ def main():
         
     except Exception as e:
         print(f"❌ Error: {e}")
-        print("\nMake sure to set your GEMINI_API_KEY environment variable:")
-        print("export GEMINI_API_KEY='your_api_key_here'")
+        print("\nMake sure to add your GEMINI_API_KEY to the .env file:")
+        print("GEMINI_API_KEY=your_api_key_here")
 
 if __name__ == "__main__":
     main()
