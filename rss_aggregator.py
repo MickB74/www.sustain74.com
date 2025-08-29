@@ -113,6 +113,11 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/4175802949917622328',
                 'name': 'Google Alert: IEA',
                 'keywords': ['iea', 'international energy agency', 'global energy', 'energy policy', 'energy outlook', 'energy transition', 'clean energy']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/11943491749560683085',
+                'name': 'Google Alert: ESG Reports',
+                'keywords': ['esg report', 'sustainability report', 'esg disclosure', 'corporate responsibility report', 'esg reporting', 'sustainability disclosure']
             }
         ]
         
