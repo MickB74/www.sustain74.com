@@ -253,8 +253,14 @@ class RSSAggregator:
         # Remove duplicates
         self.all_articles = self.remove_duplicates(self.all_articles)
         
-        # Sort by date (newest first)
-        self.all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
+        # Sort by date (newest first) - convert string dates to datetime objects for proper sorting
+        def parse_date(date_str):
+            try:
+                return datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            except:
+                return datetime.now()
+        
+        self.all_articles.sort(key=lambda x: parse_date(x['pubDate']), reverse=True)
         
         print(f"\n📊 Total articles after processing: {len(self.all_articles)}")
         
@@ -379,8 +385,14 @@ class RSSAggregator:
         """Generate static HTML page with embedded news content"""
         print("\n🌐 Generating static HTML page...")
         
-        # Sort by date (newest first)
-        articles_sorted = sorted(articles, key=lambda x: x['pubDate'], reverse=True)
+        # Sort by date (newest first) - convert string dates to datetime objects for proper sorting
+        def parse_date(date_str):
+            try:
+                return datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            except:
+                return datetime.now()
+        
+        articles_sorted = sorted(articles, key=lambda x: parse_date(x['pubDate']), reverse=True)
         
         # Generate HTML
         html_content = f"""<!DOCTYPE html>
