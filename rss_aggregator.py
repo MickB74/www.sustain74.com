@@ -444,6 +444,36 @@ class RSSAggregator:
             color: #666;
         }}
         
+        .filter-buttons {{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }}
+        
+        .filter-btn {{
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }}
+        
+        .filter-btn:hover {{
+            background: #1976d2;
+            color: white;
+        }}
+        
+        .filter-btn.active {{
+            background: #1976d2;
+            color: white;
+        }}
+        
         .news-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -536,14 +566,25 @@ class RSSAggregator:
             </div>
         </div>
         
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterArticles('all')">All Articles</button>
+            <button class="filter-btn" onclick="filterArticles('renewable')">Renewable Energy</button>
+            <button class="filter-btn" onclick="filterArticles('technology')">Technology</button>
+            <button class="filter-btn" onclick="filterArticles('rto')">RTO/Grid</button>
+            <button class="filter-btn" onclick="filterArticles('datacenters')">Data Centers</button>
+            <button class="filter-btn" onclick="filterArticles('esg')">ESG</button>
+        </div>
+        
         <div class="news-grid">
 """
         
         # Add each article
         for article in articles_sorted:
             website = self.extract_real_website(article['link'])
+            categories = article.get('categories', [])
+            category_classes = ' '.join(categories) if categories else 'uncategorized'
             html_content += f"""
-            <div class="news-card">
+            <div class="news-card" data-categories="{category_classes}">
                 <div class="news-meta">
                     <span class="source">{self.clean_source_name(article['source'])}</span>
                     <span class="date">{self.format_date(article['pubDate'])}</span>
@@ -556,6 +597,41 @@ class RSSAggregator:
         html_content += """
         </div>
     </div>
+    
+    <script>
+        function filterArticles(category) {{
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {{
+                btn.classList.remove('active');
+            }});
+            event.target.classList.add('active');
+            
+            // Show/hide articles
+            const articles = document.querySelectorAll('.news-card');
+            articles.forEach(article => {{
+                if (category === 'all') {{
+                    article.style.display = 'block';
+                }} else {{
+                    const categories = article.getAttribute('data-categories');
+                    if (categories && categories.includes(category)) {{
+                        article.style.display = 'block';
+                    }} else {{
+                        article.style.display = 'none';
+                    }}
+                }}
+            }});
+            
+            // Update article count
+            const visibleArticles = document.querySelectorAll('.news-card[style*="display: block"], .news-card:not([style*="display: none"])').length;
+            const totalArticles = articles.length;
+            const statsElement = document.querySelector('.stats span:first-child');
+            if (category === 'all') {{
+                statsElement.textContent = `📊 ${{totalArticles}} Articles`;
+            }} else {{
+                statsElement.textContent = `📊 ${{visibleArticles}} of ${{totalArticles}} Articles`;
+            }}
+        }}
+    </script>
 </body>
 </html>
 """

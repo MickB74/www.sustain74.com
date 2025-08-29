@@ -47,6 +47,36 @@
             color: #666;
         }
         
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background: #1976d2;
+            color: white;
+        }
+        
+        .filter-btn.active {
+            background: #1976d2;
+            color: white;
+        }
+        
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -135,13 +165,22 @@
             <p>Latest ESG and sustainability news curated by Sustain74</p>
             <div class="stats">
                 <span>📊 122 Articles</span>
-                <span>🕒 Last Updated: August 28, 2025 at 11:09 PM</span>
+                <span>🕒 Last Updated: August 28, 2025 at 11:13 PM</span>
             </div>
+        </div>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterArticles('all')">All Articles</button>
+            <button class="filter-btn" onclick="filterArticles('renewable')">Renewable Energy</button>
+            <button class="filter-btn" onclick="filterArticles('technology')">Technology</button>
+            <button class="filter-btn" onclick="filterArticles('rto')">RTO/Grid</button>
+            <button class="filter-btn" onclick="filterArticles('datacenters')">Data Centers</button>
+            <button class="filter-btn" onclick="filterArticles('esg')">ESG</button>
         </div>
         
         <div class="news-grid">
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -150,7 +189,7 @@
                 <div class="website">rivieramm.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -159,7 +198,7 @@
                 <div class="website">hartenergy.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -168,7 +207,7 @@
                 <div class="website">uniindia.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -177,7 +216,7 @@
                 <div class="website">manufacturing.economictimes.indiatimes.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -186,7 +225,7 @@
                 <div class="website">biomassmagazine.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -195,7 +234,7 @@
                 <div class="website">energyintel.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -204,7 +243,7 @@
                 <div class="website">binghamtonhomepage.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -213,7 +252,7 @@
                 <div class="website">local12.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -222,7 +261,7 @@
                 <div class="website">qcintel.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -231,7 +270,7 @@
                 <div class="website">spglobal.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -240,7 +279,7 @@
                 <div class="website">powermag.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -249,7 +288,7 @@
                 <div class="website">youtube.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -258,7 +297,7 @@
                 <div class="website">law360.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -267,7 +306,7 @@
                 <div class="website">finance.yahoo.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -276,7 +315,7 @@
                 <div class="website">boereport.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -285,7 +324,7 @@
                 <div class="website">taxpayer.net</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -294,7 +333,7 @@
                 <div class="website">resourceworks.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -303,7 +342,7 @@
                 <div class="website">tathya.in</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -312,7 +351,7 @@
                 <div class="website">rigzone.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology esg">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -321,7 +360,7 @@
                 <div class="website">gurufocus.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -330,7 +369,7 @@
                 <div class="website">naturalgasintel.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -339,7 +378,7 @@
                 <div class="website">youtube.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -348,7 +387,7 @@
                 <div class="website">paenvironmentdaily.blogspot.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -357,7 +396,7 @@
                 <div class="website">wkbn.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -366,7 +405,7 @@
                 <div class="website">tankterminals.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -375,7 +414,7 @@
                 <div class="website">tankterminals.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -384,7 +423,7 @@
                 <div class="website">ghanaweb.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -393,7 +432,7 @@
                 <div class="website">lngindustry.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -402,7 +441,7 @@
                 <div class="website">power-eng.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -411,7 +450,7 @@
                 <div class="website">extremetech.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -420,7 +459,7 @@
                 <div class="website">studyiq.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -429,7 +468,7 @@
                 <div class="website">carbon-pulse.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -438,7 +477,7 @@
                 <div class="website">nytimes.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -447,7 +486,7 @@
                 <div class="website">oaoa.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -456,7 +495,7 @@
                 <div class="website">allafrica.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -465,7 +504,7 @@
                 <div class="website">techcrunch.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -474,7 +513,7 @@
                 <div class="website">chemindigest.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -483,7 +522,7 @@
                 <div class="website">justice.gov</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">GHG Protocol</span>
                     <span class="date">Aug 28, 2025</span>
@@ -492,7 +531,7 @@
                 <div class="website">ahgz.de</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -501,7 +540,7 @@
                 <div class="website">spglobal.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -510,7 +549,7 @@
                 <div class="website">canarymedia.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -519,7 +558,7 @@
                 <div class="website">utilitydive.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -528,7 +567,7 @@
                 <div class="website">rtoinsider.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -537,7 +576,7 @@
                 <div class="website">csrwire.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -546,7 +585,7 @@
                 <div class="website">gurufocus.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -555,7 +594,7 @@
                 <div class="website">asian-power.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -564,7 +603,7 @@
                 <div class="website">rrc.state.tx.us</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -573,7 +612,7 @@
                 <div class="website">nature.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -582,7 +621,7 @@
                 <div class="website">pv-magazine-usa.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -591,7 +630,7 @@
                 <div class="website">kyivindependent.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -600,7 +639,7 @@
                 <div class="website">moneycontrol.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -609,7 +648,7 @@
                 <div class="website">saurenergy.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -618,7 +657,7 @@
                 <div class="website">stocktitan.net</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -627,7 +666,7 @@
                 <div class="website">m.economictimes.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">CAISO</span>
                     <span class="date">Aug 28, 2025</span>
@@ -636,7 +675,7 @@
                 <div class="website">caiso.webex.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -645,7 +684,7 @@
                 <div class="website">energyintel.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -654,7 +693,7 @@
                 <div class="website">forbes.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -663,7 +702,7 @@
                 <div class="website">solarquarter.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -672,7 +711,7 @@
                 <div class="website">cnbc.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -681,7 +720,7 @@
                 <div class="website">blm.gov</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -690,7 +729,7 @@
                 <div class="website">indonesiabusinesspost.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -699,7 +738,7 @@
                 <div class="website">caixinglobal.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">LNG</span>
                     <span class="date">Aug 28, 2025</span>
@@ -708,7 +747,7 @@
                 <div class="website">spglobal.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -717,7 +756,7 @@
                 <div class="website">gurufocus.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -726,7 +765,7 @@
                 <div class="website">seekingalpha.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -735,7 +774,7 @@
                 <div class="website">reuters.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology datacenters">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -744,7 +783,7 @@
                 <div class="website">utilitydive.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -753,7 +792,7 @@
                 <div class="website">wktn.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -762,7 +801,7 @@
                 <div class="website">wsj.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -771,7 +810,7 @@
                 <div class="website">psuwatch.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -780,7 +819,7 @@
                 <div class="website">solarquarter.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -789,7 +828,7 @@
                 <div class="website">pv-magazine-usa.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">India Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -798,7 +837,7 @@
                 <div class="website">indianmasterminds.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -807,7 +846,7 @@
                 <div class="website">vietnam.vn</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -816,7 +855,7 @@
                 <div class="website">eia.gov</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -825,7 +864,7 @@
                 <div class="website">downbeach.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">Natural Gas</span>
                     <span class="date">Aug 28, 2025</span>
@@ -834,7 +873,7 @@
                 <div class="website">houstonchronicle.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -843,7 +882,7 @@
                 <div class="website">energyconnects.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology datacenters esg">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -852,7 +891,7 @@
                 <div class="website">reuters.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology esg">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -861,7 +900,7 @@
                 <div class="website">agfundernews.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology esg">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -870,7 +909,7 @@
                 <div class="website">esgdive.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto datacenters">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -879,7 +918,7 @@
                 <div class="website">atlanticcouncil.org</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">CAISO</span>
                     <span class="date">Aug 28, 2025</span>
@@ -888,7 +927,7 @@
                 <div class="website">energy-storage.news</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">Carbon Credits</span>
                     <span class="date">Aug 28, 2025</span>
@@ -897,7 +936,7 @@
                 <div class="website">carbon-pulse.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -906,7 +945,7 @@
                 <div class="website">stocktitan.net</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="esg">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -915,7 +954,7 @@
                 <div class="website">ainvest.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -924,7 +963,7 @@
                 <div class="website">dispatch.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">Additional Feed</span>
                     <span class="date">Aug 28, 2025</span>
@@ -933,7 +972,7 @@
                 <div class="website">msn.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -942,7 +981,7 @@
                 <div class="website">tirto.id</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">ERCOT</span>
                     <span class="date">Aug 28, 2025</span>
@@ -951,7 +990,7 @@
                 <div class="website">ainvest.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -960,7 +999,7 @@
                 <div class="website">san.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -969,7 +1008,7 @@
                 <div class="website">insurancebusinessmag.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -978,7 +1017,7 @@
                 <div class="website">ft.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -987,7 +1026,7 @@
                 <div class="website">marketscreener.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology datacenters esg">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -996,7 +1035,7 @@
                 <div class="website">mondaq.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1005,7 +1044,7 @@
                 <div class="website">dailyherald.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1014,7 +1053,7 @@
                 <div class="website">stocktitan.net</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1023,7 +1062,7 @@
                 <div class="website">chicagobusiness.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1032,7 +1071,7 @@
                 <div class="website">reuters.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1041,7 +1080,7 @@
                 <div class="website">rechargenews.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1050,7 +1089,7 @@
                 <div class="website">contexte.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1059,7 +1098,7 @@
                 <div class="website">oilprice.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1068,7 +1107,7 @@
                 <div class="website">asgam.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1077,7 +1116,7 @@
                 <div class="website">wideformatonline.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology esg">
                 <div class="news-meta">
                     <span class="source">GHG Protocol</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1086,7 +1125,7 @@
                 <div class="website">pubmed.ncbi.nlm.nih.gov</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1095,7 +1134,7 @@
                 <div class="website">weforum.org</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">PJM</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1104,7 +1143,7 @@
                 <div class="website">rtoinsider.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology">
                 <div class="news-meta">
                     <span class="source">GHG Protocol</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1113,7 +1152,7 @@
                 <div class="website">wattagnet.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">GHG Protocol</span>
                     <span class="date">Aug 28, 2025</span>
@@ -1122,7 +1161,7 @@
                 <div class="website">trellis.net</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable esg">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1131,7 +1170,7 @@
                 <div class="website">cleanenergywire.org</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1140,7 +1179,7 @@
                 <div class="website">rwe.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1149,7 +1188,7 @@
                 <div class="website">europeansting.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable technology">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1158,7 +1197,7 @@
                 <div class="website">semafor.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1167,7 +1206,7 @@
                 <div class="website">wfw.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1176,7 +1215,7 @@
                 <div class="website">datacentremagazine.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1185,7 +1224,7 @@
                 <div class="website">singularityhub.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="rto">
                 <div class="news-meta">
                     <span class="source">ERCOT</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1194,7 +1233,7 @@
                 <div class="website">wahanariau.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1203,7 +1242,7 @@
                 <div class="website">pv-tech.org</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="technology rto">
                 <div class="news-meta">
                     <span class="source">CAISO</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1212,7 +1251,7 @@
                 <div class="website">morningstar.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">GHG Protocol</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1221,7 +1260,7 @@
                 <div class="website">freshplaza.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="renewable">
                 <div class="news-meta">
                     <span class="source">Europe Renewables</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1230,7 +1269,7 @@
                 <div class="website">finance.yahoo.com</div>
             </div>
 
-            <div class="news-card">
+            <div class="news-card" data-categories="uncategorized">
                 <div class="news-meta">
                     <span class="source">SBTi</span>
                     <span class="date">Aug 27, 2025</span>
@@ -1241,5 +1280,40 @@
 
         </div>
     </div>
+    
+    <script>
+        function filterArticles(category) {{
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {{
+                btn.classList.remove('active');
+            }});
+            event.target.classList.add('active');
+            
+            // Show/hide articles
+            const articles = document.querySelectorAll('.news-card');
+            articles.forEach(article => {{
+                if (category === 'all') {{
+                    article.style.display = 'block';
+                }} else {{
+                    const categories = article.getAttribute('data-categories');
+                    if (categories && categories.includes(category)) {{
+                        article.style.display = 'block';
+                    }} else {{
+                        article.style.display = 'none';
+                    }}
+                }}
+            }});
+            
+            // Update article count
+            const visibleArticles = document.querySelectorAll('.news-card[style*="display: block"], .news-card:not([style*="display: none"])').length;
+            const totalArticles = articles.length;
+            const statsElement = document.querySelector('.stats span:first-child');
+            if (category === 'all') {{
+                statsElement.textContent = `📊 ${{totalArticles}} Articles`;
+            }} else {{
+                statsElement.textContent = `📊 ${{visibleArticles}} of ${{totalArticles}} Articles`;
+            }}
+        }}
+    </script>
 </body>
 </html>
