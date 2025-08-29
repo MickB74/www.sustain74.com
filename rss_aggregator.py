@@ -17,6 +17,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 import os
 import re
+from urllib.parse import urlparse, parse_qs
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -105,196 +106,183 @@ class RSSAggregator:
             }
         ]
         
-        # Industry-related keywords for filtering
-        self.industry_keywords = [
-            # Core ESG terms
-            'esg', 'environmental social governance', 'sustainability', 'sustainable development',
-            'climate change', 'climate action', 'carbon', 'carbon footprint', 'emissions',
-            'net zero', 'carbon neutral', 'carbon negative', 'decarbonization',
-            'greenhouse gas', 'ghg', 'scope 1', 'scope 2', 'scope 3',
-            
-            # Sustainability frameworks
-            'sbti', 'science based targets', 'cdp', 'tcfd', 'sasb', 'gri', 'ungc',
-            'carbon disclosure project', 'task force on climate-related financial disclosures',
-            'sustainability accounting standards board', 'global reporting initiative',
-            
-            # Carbon markets
-            'carbon credits', 'carbon offset', 'carbon trading', 'carbon market',
-            'voluntary carbon market', 'compliance carbon market',
-            
-            # Renewable energy
-            'renewable energy', 'clean energy', 'green energy', 'solar power', 'solar energy',
-            'wind power', 'wind energy', 'offshore wind', 'onshore wind', 'hydroelectric',
-            'geothermal', 'biomass', 'bioenergy', 'hydrogen', 'green hydrogen',
-            
-            # Energy efficiency and management
-            'energy efficiency', 'energy management', 'energy conservation',
-            'smart grid', 'grid modernization', 'energy storage', 'battery storage',
-            
-            # Data centers and technology
-            'data center', 'data centre', 'server farm', 'cloud computing',
-            'green data center', 'sustainable technology', 'clean tech', 'cleantech',
-            
-            # RTO and grid operators
-            'nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso',
-            'grid operator', 'transmission', 'electricity market', 'power market',
-            'energy market', 'grid reliability', 'interconnection', 'miso',
-            'midcontinent independent system operator',
-            
-            # Supply chain and manufacturing
-            'supply chain', 'manufacturing', 'factory', 'industrial', 'value chain',
-            'logistics', 'procurement', 'circular economy', 'biodiversity',
-            
-            # Policy and regulation
-            'epa', 'environmental protection agency', 'energy policy', 'climate policy',
-            'renewable energy policy', 'energy transition', 'clean energy transition'
-        ]
+        # Keywords for categorizing articles
+        self.category_keywords = {
+            'renewable': ['renewable', 'solar', 'wind', 'clean energy', 'green energy', 'sustainable energy'],
+            'technology': ['technology', 'innovation', 'digital', 'ai', 'artificial intelligence', 'machine learning', 'automation'],
+            'rto': ['rto', 'iso', 'grid operator', 'caiso', 'ercot', 'pjm', 'miso', 'nyiso', 'ferc', 'transmission'],
+            'datacenters': ['data center', 'datacenter', 'server', 'cloud computing', 'digital infrastructure'],
+            'esg': ['esg', 'environmental', 'social', 'governance', 'sustainability', 'corporate responsibility']
+        }
         
-        # Keywords that indicate irrelevant content (to exclude)
-        self.exclude_keywords = [
-            'sports', 'entertainment', 'celebrity', 'gossip', 'movie', 'music',
-            'gaming', 'video game', 'casino', 'poker', 'betting', 'gambling',
-            'crypto', 'bitcoin', 'ethereum', 'blockchain', 'nft', 'cryptocurrency',
-            'stock market', 'trading', 'investment', 'finance', 'banking',
-            'real estate', 'property', 'housing', 'mortgage', 'insurance',
-            'health', 'medical', 'pharmaceutical', 'drug', 'medicine',
-            'food', 'restaurant', 'cooking', 'recipe', 'diet', 'nutrition',
-            'fashion', 'clothing', 'shopping', 'retail', 'consumer goods',
-            'automotive', 'car', 'vehicle', 'transportation', 'travel', 'tourism',
-            'politics', 'election', 'government', 'political party', 'campaign',
-            'crime', 'police', 'law enforcement', 'legal', 'court', 'lawyer'
-        ]
+        # Keywords for filtering out irrelevant content
+        self.off_topic_keywords = ['sports', 'entertainment', 'celebrity', 'gossip', 'movie', 'music', 'game']
+        
+        # Store all articles
+        self.all_articles = []
 
-    def fetch_feed(self, feed_url, timeout=10):
-        """Fetch and parse an RSS feed"""
+    def fetch_feed(self, url, feed_name):
+        """Fetch and parse RSS feed"""
         try:
-            logger.info(f"Fetching feed: {feed_url}")
-            response = requests.get(feed_url, timeout=timeout)
-            response.raise_for_status()
-            feed = feedparser.parse(response.content)
-            return feed
+            print(f"📡 Fetching {feed_name}...")
+            feed = feedparser.parse(url)
+            
+            if feed.bozo:
+                print(f"⚠️  Warning: Feed parsing issues for {feed_name}")
+            
+            articles = []
+            for entry in feed.entries:
+                # Skip entries without required fields
+                if not all(key in entry for key in ['title', 'link', 'published']):
+                    continue
+                
+                # Parse publication date
+                try:
+                    pub_date = datetime(*entry.published_parsed[:6])
+                except:
+                    pub_date = datetime.now()
+                
+                # Skip articles older than 7 days or future dates
+                if pub_date < datetime.now() - timedelta(days=7) or pub_date > datetime.now():
+                    continue
+                
+                article = {
+                    'title': entry.title,
+                    'link': entry.link,
+                    'description': entry.get('summary', ''),
+                    'pubDate': pub_date.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+                    'source': feed_name,
+                    'categories': []
+                }
+                
+                # Categorize article
+                article['categories'] = self.categorize_article(article)
+                
+                # Check if article is relevant
+                if self.is_relevant(article):
+                    articles.append(article)
+            
+            print(f"✅ {feed_name}: {len(articles)} relevant articles")
+            return articles
+            
         except Exception as e:
-            logger.error(f"Error fetching {feed_url}: {e}")
-            return None
+            print(f"❌ Error fetching {feed_name}: {e}")
+            return []
 
-    def is_relevant(self, title, description):
-        """Check if an article is relevant to ESG/sustainability topics"""
-        text = (title + ' ' + description).lower()
-        
-        # Only exclude completely off-topic content
-        off_topic_keywords = [
-            'sports', 'football', 'basketball', 'baseball', 'soccer', 'tennis', 'golf',
-            'entertainment', 'celebrity', 'gossip', 'movie', 'music', 'hollywood',
-            'gaming', 'video game', 'casino', 'poker', 'betting', 'gambling',
-            'crypto', 'bitcoin', 'ethereum', 'blockchain', 'nft', 'cryptocurrency',
-            'real estate', 'property', 'housing', 'mortgage', 'home buying',
-            'health', 'medical', 'pharmaceutical', 'drug', 'medicine', 'disease',
-            'food', 'restaurant', 'cooking', 'recipe', 'diet', 'nutrition',
-            'fashion', 'clothing', 'shopping', 'retail', 'consumer goods',
-            'automotive', 'car', 'vehicle', 'transportation', 'travel', 'tourism',
-            'politics', 'election', 'government', 'political party', 'campaign',
-            'crime', 'police', 'law enforcement', 'legal', 'court', 'lawyer'
-        ]
-        
-        # Check for completely off-topic keywords
-        for off_topic in off_topic_keywords:
-            if off_topic in text:
-                return False
-        
-        # If it's not completely off-topic, include it
-        # This is much more lenient - we'll include most content and let the user decide
-        return True
-
-    def categorize_article(self, title, description):
+    def categorize_article(self, article):
         """Categorize article based on keywords"""
-        text = (title + ' ' + description).lower()
         categories = []
+        text = f"{article['title']} {article['description']}".lower()
         
-        # Carbon Credits
-        if any(keyword in text for keyword in ['carbon credit', 'carbon offset', 'carbon trading', 'carbon market']):
-            categories.append('carbon')
-        
-        # Renewable Energy
-        if any(keyword in text for keyword in ['renewable energy', 'solar', 'wind power', 'clean energy', 'green energy']):
-            categories.append('renewable')
-        
-        # Data Centers
-        if any(keyword in text for keyword in ['data center', 'data centre', 'server farm', 'cloud computing']):
-            categories.append('datacenters')
-        
-        # ESG
-        if any(keyword in text for keyword in ['esg', 'environmental social governance', 'sustainability']):
-            categories.append('esg')
-        
-        # Technology & Innovation
-        if any(keyword in text for keyword in ['ai', 'artificial intelligence', 'innovation', 'technology', 'digital', 'clean tech', 'smart', 'automation', 'machine learning']):
-            categories.append('technology')
-        
-        # Supply Chain
-        if any(keyword in text for keyword in ['supply chain', 'manufacturing', 'factory', 'industrial', 'scope 3', 'value chain', 'logistics', 'procurement']):
-            categories.append('supplychain')
-        
-        # RTO/Grid
-        if any(keyword in text for keyword in ['nyiso', 'caiso', 'pjm', 'ercot', 'ferc', 'rto', 'iso', 'grid operator', 'transmission']):
-            categories.append('rto')
+        for category, keywords in self.category_keywords.items():
+            if any(keyword in text for keyword in keywords):
+                categories.append(category)
         
         return categories
 
-    def extract_articles(self, feed, source_name, keywords):
-        """Extract relevant articles from a feed"""
-        articles = []
+    def is_relevant(self, article):
+        """Check if article is relevant (not off-topic)"""
+        text = f"{article['title']} {article['description']}".lower()
         
-        if not feed or not feed.entries:
-            return articles
-            
-        # For Google Alerts, take more entries but still apply filtering
-        max_entries = 100 if "Google Alert" in source_name else 20
-            
-        for entry in feed.entries[:max_entries]:
-            title = entry.get('title', '')
-            description = entry.get('description', '') or entry.get('summary', '')
-            
-            # Clean HTML tags from description
-            description = re.sub(r'<[^>]+>', '', description)
-            
-            # Always check if article is relevant (including Google Alerts)
-            if self.is_relevant(title, description):
-                # Parse date
-                published = entry.get('published_parsed') or entry.get('updated_parsed')
-                if published:
-                    pub_date = datetime(*published[:6])
-                else:
-                    pub_date = datetime.now()
-                
-                # Only include articles from last 30 days and not future dates
-                if datetime.now() - pub_date <= timedelta(days=30) and pub_date <= datetime.now():
-                    # Categorize the article
-                    categories = self.categorize_article(title, description)
-                    
-                    articles.append({
-                        'title': title,
-                        'description': description[:300] + '...' if len(description) > 300 else description,
-                        'link': entry.get('link', ''),
-                        'pubDate': pub_date.strftime('%a, %d %b %Y %H:%M:%S GMT'),
-                        'pubDateObj': pub_date,  # Keep datetime object for sorting
-                        'source': source_name,
-                        'guid': entry.get('id', entry.get('link', '')),
-                        'categories': categories
-                    })
+        # Check for off-topic keywords
+        if any(keyword in text for keyword in self.off_topic_keywords):
+            return False
         
-        return articles
+        return True
+
+    def is_duplicate(self, article1, article2):
+        """Check if two articles are duplicates based on title similarity and URL"""
+        # Check if URLs are the same (exact match)
+        if article1['link'] == article2['link']:
+            return True
+        
+        # Check title similarity
+        title1 = article1['title'].lower()
+        title2 = article2['title'].lower()
+        
+        # Skip very short titles
+        if len(title1) < 20 or len(title2) < 20:
+            return False
+        
+        # Calculate word overlap
+        words1 = set(title1.split())
+        words2 = set(title2.split())
+        
+        if len(words1) < 3 or len(words2) < 3:
+            return False
+        
+        overlap = len(words1.intersection(words2))
+        total_words = len(words1.union(words2))
+        
+        if total_words == 0:
+            return False
+        
+        similarity = overlap / total_words
+        
+        # Consider duplicate if similarity > 70%
+        return similarity > 0.7
+
+    def remove_duplicates(self, articles):
+        """Remove duplicate articles"""
+        unique_articles = []
+        duplicates_removed = 0
+        
+        for article in articles:
+            is_duplicate = False
+            for existing in unique_articles:
+                if self.is_duplicate(article, existing):
+                    is_duplicate = True
+                    duplicates_removed += 1
+                    break
+            
+            if not is_duplicate:
+                unique_articles.append(article)
+        
+        print(f"🔄 Removed {duplicates_removed} duplicate articles")
+        return unique_articles
+
+    def create_feed(self):
+        """Create RSS feed from all articles"""
+        print("\n🔄 Processing articles...")
+        
+        # Fetch from Google Alerts
+        for feed in self.google_alerts_feeds:
+            articles = self.fetch_feed(feed['url'], feed['name'])
+            self.all_articles.extend(articles)
+        
+        # Remove duplicates
+        self.all_articles = self.remove_duplicates(self.all_articles)
+        
+        # Sort by date (newest first)
+        self.all_articles.sort(key=lambda x: x['pubDate'], reverse=True)
+        
+        print(f"\n📊 Total articles after processing: {len(self.all_articles)}")
+        
+        # Generate RSS feed
+        self.generate_rss(self.all_articles, 'feed.xml')
+        
+        # Export to CSV
+        csv_file = self.export_to_csv(self.all_articles)
+        
+        # Generate static HTML page
+        self.generate_static_html(self.all_articles)
+        
+        return self.all_articles
 
     def generate_rss(self, articles, output_file='feed.xml'):
-        """Generate RSS XML from articles"""
+        """Generate RSS XML feed"""
+        # Create RSS structure
         rss = ET.Element('rss', version='2.0')
         channel = ET.SubElement(rss, 'channel')
         
+        # Channel metadata
         ET.SubElement(channel, 'title').text = 'Sustain74 ESG News Feed'
         ET.SubElement(channel, 'description').text = 'Latest ESG and sustainability news curated by Sustain74'
         ET.SubElement(channel, 'link').text = 'https://www.sustain74.com'
         ET.SubElement(channel, 'language').text = 'en-us'
-        ET.SubElement(channel, 'lastBuildDate').text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+        ET.SubElement(channel, 'lastBuildDate').text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')
         
+        # Add items
         for article in articles:
             item = ET.SubElement(channel, 'item')
             ET.SubElement(item, 'title').text = article['title']
@@ -302,10 +290,11 @@ class RSSAggregator:
             ET.SubElement(item, 'link').text = article['link']
             ET.SubElement(item, 'pubDate').text = article['pubDate']
             ET.SubElement(item, 'source').text = article['source']
-            # Add categories as comma-separated string
-            if article.get('categories'):
+            
+            if article['categories']:
                 ET.SubElement(item, 'categories').text = ', '.join(article['categories'])
         
+        # Write to file
         tree = ET.ElementTree(rss)
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
         print(f"✅ Successfully created RSS feed with {len(articles)} articles")
@@ -328,7 +317,7 @@ class RSSAggregator:
             for article in articles:
                 # Format date for CSV
                 try:
-                    pub_date = datetime.strptime(article['pubDate'], '%a, %d %b %Y %H:%M:%S %z')
+                    pub_date = datetime.strptime(article['pubDate'], '%a, %d %b %Y %H:%M:%S GMT')
                     formatted_date = pub_date.strftime('%Y-%m-%d %H:%M:%S')
                 except:
                     formatted_date = article['pubDate']
@@ -348,6 +337,223 @@ class RSSAggregator:
         
         print(f"📊 CSV exported with {len(articles)} stories: {output_file}")
         return output_file
+
+    def extract_real_website(self, google_url):
+        """Extract the actual destination website from Google Alert URL"""
+        try:
+            parsed = urlparse(google_url)
+            if parsed.hostname == 'www.google.com':
+                # Extract the real URL from query parameters
+                query_params = parse_qs(parsed.query)
+                if 'url' in query_params:
+                    real_url = query_params['url'][0]
+                    real_parsed = urlparse(real_url)
+                    return real_parsed.hostname.replace('www.', '')
+            return parsed.hostname.replace('www.', '')
+        except:
+            return 'unknown'
+
+    def clean_source_name(self, source):
+        """Clean up the source name for display"""
+        return source.replace('Google Alert: ', '')
+
+    def format_date(self, date_str):
+        """Format the date for display"""
+        try:
+            # Parse the date string
+            dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            return dt.strftime('%b %d, %Y')
+        except:
+            return date_str
+
+    def clean_title(self, title):
+        """Clean HTML entities from title"""
+        # Remove HTML tags
+        title = re.sub(r'<[^>]+>', '', title)
+        # Decode HTML entities
+        title = title.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+        title = title.replace('&quot;', '"').replace('&#39;', "'")
+        return title
+
+    def generate_static_html(self, articles):
+        """Generate static HTML page with embedded news content"""
+        print("\n🌐 Generating static HTML page...")
+        
+        # Sort by date (newest first)
+        articles_sorted = sorted(articles, key=lambda x: x['pubDate'], reverse=True)
+        
+        # Generate HTML
+        html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustain74 ESG News Feed</title>
+    <style>
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+        
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }}
+        
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        
+        .header {{
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }}
+        
+        .header h1 {{
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }}
+        
+        .stats {{
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }}
+        
+        .news-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }}
+        
+        .news-card {{
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }}
+        
+        .news-card:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }}
+        
+        .news-meta {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+        }}
+        
+        .source {{
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }}
+        
+        .date {{
+            color: #999;
+        }}
+        
+        h3 {{
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.4;
+            text-align: left;
+        }}
+        
+        h3 a {{
+            color: #333;
+            text-decoration: none;
+        }}
+        
+        h3 a:hover {{
+            color: #2c5aa0;
+        }}
+        
+        .website {{
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }}
+        
+        .loading {{
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }}
+        
+        @media (max-width: 768px) {{
+            .news-grid {{
+                grid-template-columns: 1fr;
+            }}
+            
+            .stats {{
+                flex-direction: column;
+                gap: 10px;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sustain74 ESG News Feed</h1>
+            <p>Latest ESG and sustainability news curated by Sustain74</p>
+            <div class="stats">
+                <span>📊 {len(articles_sorted)} Articles</span>
+                <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
+            </div>
+        </div>
+        
+        <div class="news-grid">
+"""
+        
+        # Add each article
+        for article in articles_sorted:
+            website = self.extract_real_website(article['link'])
+            html_content += f"""
+            <div class="news-card">
+                <div class="news-meta">
+                    <span class="source">{self.clean_source_name(article['source'])}</span>
+                    <span class="date">{self.format_date(article['pubDate'])}</span>
+                </div>
+                <h3><a href="{article['link']}" target="_blank" rel="noopener noreferrer">{self.clean_title(article['title'])}</a></h3>
+                <div class="website">{website}</div>
+            </div>
+"""
+        
+        html_content += """
+        </div>
+    </div>
+</body>
+</html>
+"""
+        
+        # Write to file
+        with open('esg-news-static.html', 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        print(f"✅ Generated static news page with {len(articles_sorted)} articles")
+        print("📄 File: esg-news-static.html")
 
     def send_csv_email(self, csv_file, recipient_email='michael@sustain74.com'):
         """Send CSV file via email"""
@@ -403,146 +609,26 @@ class RSSAggregator:
             print(f"❌ Error preparing email: {e}")
             return False
 
-    def is_duplicate(self, article1, article2):
-        """Check if two articles are duplicates based on title similarity and URL"""
-        # Check if URLs are the same (exact match)
-        if article1['link'] == article2['link']:
-            return True
-        
-        # Check if titles are very similar (fuzzy matching)
-        title1 = article1['title'].lower().strip()
-        title2 = article2['title'].lower().strip()
-        
-        # Remove common punctuation and extra spaces
-        title1 = re.sub(r'[^\w\s]', '', title1)
-        title2 = re.sub(r'[^\w\s]', '', title2)
-        
-        # If titles are identical after cleaning, they're duplicates
-        if title1 == title2:
-            return True
-        
-        # Check for high similarity (if one title contains the other)
-        if len(title1) > 15 and len(title2) > 15:
-            # If one title is contained within the other (with some tolerance)
-            if title1 in title2 or title2 in title1:
-                return True
-            
-            # Check for very similar titles (90% similarity threshold)
-            words1 = set(title1.split())
-            words2 = set(title2.split())
-            
-            if len(words1) > 3 and len(words2) > 3:
-                intersection = words1.intersection(words2)
-                union = words1.union(words2)
-                similarity = len(intersection) / len(union)
-                
-                if similarity > 0.9:  # 90% similarity threshold (increased from 0.8)
-                    return True
-        
-        return False
-
-    def remove_duplicates(self, articles):
-        """Remove duplicate articles from the list"""
-        unique_articles = []
-        seen_urls = set()
-        
-        for article in articles:
-            # Check if we've seen this URL
-            if article['link'] in seen_urls:
-                continue
-            
-            # Check if this article is a duplicate of any existing article
-            is_duplicate = False
-            for existing_article in unique_articles:
-                if self.is_duplicate(article, existing_article):
-                    is_duplicate = True
-                    break
-            
-            if not is_duplicate:
-                unique_articles.append(article)
-                seen_urls.add(article['link'])
-        
-        removed_count = len(articles) - len(unique_articles)
-        if removed_count > 0:
-            logger.info(f"Removed {removed_count} duplicate articles")
-        
-        return unique_articles
-
-    def create_feed(self, output_file='feed.xml'):
-        """Create the aggregated RSS feed"""
-        self.all_articles = []
-        
-        # Fetch articles from external feeds
-        for feed_config in self.external_feeds:
-            feed = self.fetch_feed(feed_config['url'])
-            if feed:
-                articles = self.extract_articles(
-                    feed, 
-                    feed_config['name'], 
-                    feed_config['keywords']
-                )
-                self.all_articles.extend(articles)
-                logger.info(f"Found {len(articles)} relevant articles from {feed_config['name']}")
-        
-        # Fetch articles from Google Alerts feeds
-        for feed_config in self.google_alerts_feeds:
-            feed = self.fetch_feed(feed_config['url'])
-            if feed:
-                # Get all articles from Google Alerts without keyword filtering
-                articles = self.extract_articles(
-                    feed, 
-                    feed_config['name'], 
-                    []  # Empty keywords list to get all articles
-                )
-                self.all_articles.extend(articles)
-                logger.info(f"Found {len(articles)} articles from {feed_config['name']}")
-        
-        # Remove duplicates before sorting
-        logger.info(f"Total articles before deduplication: {len(self.all_articles)}")
-        self.all_articles = self.remove_duplicates(self.all_articles)
-        logger.info(f"Total articles after deduplication: {len(self.all_articles)}")
-        
-        # Sort articles by publication date (newest first)
-        self.all_articles.sort(key=lambda x: x['pubDateObj'], reverse=True)
-        
-        # Generate RSS XML
-        self.generate_rss(self.all_articles, output_file)
-        
-        logger.info(f"Created RSS feed with {len(self.all_articles)} articles: {output_file}")
-        return len(self.all_articles)
-
 def main():
-    """Main function for testing"""
-    print("\nSustain74 RSS Feed Aggregator")
-    print("===================================")
+    """Main function to run the RSS aggregator"""
+    print("🚀 Starting Sustain74 RSS Aggregator...")
+    print("=" * 50)
     
     aggregator = RSSAggregator()
-    aggregator.create_feed()
     
-    # Export to CSV
-    csv_file = aggregator.export_to_csv(aggregator.all_articles)
+    # Create feed and get articles
+    articles = aggregator.create_feed()
     
-    # Prepare email (without sending - requires SMTP setup)
-    aggregator.send_csv_email(csv_file)
-    
-    print(f"\n📊 Summary:")
-    print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
-    print(f"   - CSV Export: {csv_file}")
-    print(f"   - Email prepared for: michael@sustain74.com")
-    print(f"\nTo enable email sending, configure SMTP settings in the script.")
+    # Print summary
+    print("\n" + "=" * 50)
+    print("📊 SUMMARY")
+    print("=" * 50)
+    print(f"✅ Total articles processed: {len(articles)}")
+    print(f"📄 RSS Feed: feed.xml")
+    print(f"🌐 Static Page: esg-news-static.html")
+    print(f"📊 CSV Export: Google Drive ESG News folder")
+    print(f"\n✅ All done! One command completed everything!")
+    print(f"🌐 View your news at: https://www.sustain74.com/esg-news-static.html")
 
 if __name__ == "__main__":
-    print("\nSustain74 RSS Feed Aggregator")
-    print("===================================")
-    
-    aggregator = RSSAggregator()
-    aggregator.create_feed()
-    
-    # Export to CSV in Downloads folder
-    csv_file = aggregator.export_to_csv(aggregator.all_articles)
-    
-    print(f"\n📊 Summary:")
-    print(f"   - RSS Feed: feed.xml ({len(aggregator.all_articles)} articles)")
-    print(f"   - CSV Export: {csv_file}")
-    print(f"   - Location: Google Drive ESG News folder")
-    print(f"\n✅ CSV file saved to Google Drive for easy access!")
+    main()
