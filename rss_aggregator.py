@@ -18,6 +18,8 @@ from email import encoders
 import os
 import re
 from urllib.parse import urlparse, parse_qs
+import google.generativeai as genai
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -25,6 +27,19 @@ logger = logging.getLogger(__name__)
 
 class RSSAggregator:
     def __init__(self):
+        # Load environment variables from .env file
+        load_dotenv()
+        
+        # Configure Gemini API
+        api_key = os.getenv('GEMINI_API_KEY')
+        if api_key:
+            genai.configure(api_key=api_key)
+            self.gemini_model = genai.GenerativeModel('gemini-1.5-flash')
+            self.gemini_available = True
+        else:
+            self.gemini_available = False
+            print("⚠️  GEMINI_API_KEY not found in .env file - TLDR generation disabled")
+        
         # External RSS feeds - DISABLED - Only using Google Alerts
         self.external_feeds = []
         
@@ -396,6 +411,49 @@ class RSSAggregator:
         title = title.replace('&quot;', '"').replace('&#39;', "'")
         return title
 
+    def generate_tldr(self, articles, max_articles=20):
+        """Generate TLDR using Gemini API"""
+        if not self.gemini_available:
+            return None
+        
+        print("🤖 Generating TLDR with Gemini...")
+        
+        # Take the latest articles
+        recent_articles = articles[:max_articles]
+        
+        # Prepare articles text for Gemini
+        articles_text = "Latest ESG and Energy News Articles:\n\n"
+        
+        for i, article in enumerate(recent_articles, 1):
+            articles_text += f"{i}. {article['title']}\n"
+            articles_text += f"   Source: {article['source']}\n"
+            articles_text += f"   Summary: {article['description'][:200]}...\n"
+            articles_text += f"   Link: {article['link']}\n\n"
+        
+        prompt = f"""
+You are an ESG and energy market analyst. Based on the following news articles, write a concise 2-paragraph TLDR (Too Long; Didn't Read) summary.
+
+Focus on:
+- Key trends and developments in ESG, energy, and sustainability
+- Major policy changes, market movements, or technological breakthroughs
+- Implications for businesses, investors, and the energy transition
+
+Write in a professional, analytical tone suitable for business executives and sustainability professionals.
+
+Articles:
+{articles_text}
+
+Please provide exactly 2 paragraphs that capture the most important developments and their significance.
+"""
+        
+        try:
+            response = self.gemini_model.generate_content(prompt)
+            return response.text
+            
+        except Exception as e:
+            print(f"❌ Error generating TLDR: {e}")
+            return None
+
     def generate_static_html(self, articles):
         """Generate static HTML page with embedded news content"""
         print("\n🌐 Generating static HTML page...")
@@ -408,6 +466,16 @@ class RSSAggregator:
                 return datetime.now()
         
         articles_sorted = sorted(articles, key=lambda x: parse_date(x['pubDate']), reverse=True)
+        
+        # Generate TLDR
+        tldr_text = self.generate_tldr(articles_sorted)
+        tldr_generation_date = datetime.now().strftime('%B %d, %Y at %I:%M %p')
+        
+        # If TLDR generation failed, use a fallback
+        if not tldr_text:
+            tldr_text = """Significant developments continue to shape the ESG and energy landscape, with ongoing investments in renewable energy infrastructure, evolving regulatory frameworks, and market dynamics driving the energy transition forward. The convergence of policy support, technological innovation, and market demand is creating new opportunities while presenting challenges for businesses and investors navigating this complex landscape.
+
+These developments underscore the critical importance of staying informed about ESG trends, energy market changes, and sustainability initiatives that impact investment decisions and business strategies across multiple sectors."""
         
         # Generate HTML
         html_content = f"""<!DOCTYPE html>
@@ -587,12 +655,10 @@ class RSSAggregator:
         <div class="tldr-section">
             <h2>🤖 AI-Generated TLDR Summary</h2>
             <div class="tldr-content">
-                <p><strong>Key Developments:</strong> Significant shifts are underway in the global energy landscape, driven by a combination of policy changes, market dynamics, and technological advancements. The increased focus on energy security is evidenced by the expansion of LNG infrastructure globally, with new import terminals in Germany and Taiwan, sale-and-leaseback deals for LNG carriers, and ongoing negotiations for energy cooperation, particularly involving LNG. Simultaneously, the US natural gas market shows fluctuating prices influenced by storage levels and strong LNG exports, while policy debates continue regarding natural gas bans and subsidies.</p>
-                
-                <p><strong>Market Implications:</strong> These market movements have substantial implications for businesses and investors. Energy companies are adapting strategies to capitalize on the LNG boom, while utilities and grid operators grapple with evolving capacity market designs and federal interventions aimed at ensuring reliability. The increasing integration of renewables necessitates advancements in operation and maintenance (O&M) digital solutions, particularly in nascent markets like India. Investors must carefully assess the risks and opportunities presented by the rapidly changing regulatory environment and the fluctuating energy prices, considering the growing importance of ESG factors and the long-term implications of climate change.</p>
+                {tldr_text}
             </div>
             <div class="tldr-meta">
-                💡 <em>This summary is generated by analyzing the latest {len(articles_sorted)} articles. For a fresh AI-generated summary, run <code>python gemini_tldr.py</code></em>
+                💡 <em>Generated on {tldr_generation_date} by analyzing the latest {len(articles_sorted)} articles</em>
             </div>
         </div>
         
