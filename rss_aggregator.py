@@ -431,16 +431,16 @@ class RSSAggregator:
             articles_text += f"   Link: {article['link']}\n\n"
         
         prompt = f"""
-You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured HTML bullet points.
+You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured bullet points.
 
 Output requirements:
-- Return ONLY valid HTML (no markdown, no intro/outro text)
+- Return ONLY plain text (no HTML, no markdown, no intro/outro text)
 - 4 sections total, in this exact order and with these headings:
-  1) <strong>Key Trends</strong>
-  2) <strong>Policy and Regulation</strong>
-  3) <strong>Fossil Fuels and LNG</strong>
-  4) <strong>Renewables and Transition</strong>
-- Use an unordered list (<ul><li>...</li></ul>) under each heading
+  1) Key Trends
+  2) Policy and Regulation
+  3) Fossil Fuels and LNG
+  4) Renewables and Transition
+- Use bullet points (*) under each heading
 - 6–8 bullets total across all sections combined
 - One sentence per bullet, no sub-bullets
 - Executive, neutral tone
@@ -621,6 +621,7 @@ These developments underscore the critical importance of staying informed about 
             font-size: 16px;
             line-height: 1.7;
             color: #333;
+            white-space: pre-line;
         }}
         
         .tldr-content p {{
