@@ -251,3 +251,4 @@ def generate_static_news_page():
 
 if __name__ == "__main__":
     generate_static_news_page()
+

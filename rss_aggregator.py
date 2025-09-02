@@ -431,19 +431,22 @@ class RSSAggregator:
             articles_text += f"   Link: {article['link']}\n\n"
         
         prompt = f"""
-You are an ESG and energy market analyst. Based on the following news articles, write a concise 2-paragraph TLDR (Too Long; Didn't Read) summary.
+You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured HTML bullet points.
 
-Focus on:
-- Key trends and developments in ESG, energy, and sustainability
-- Major policy changes, market movements, or technological breakthroughs
-- Implications for businesses, investors, and the energy transition
-
-Write in a professional, analytical tone suitable for business executives and sustainability professionals.
+Output requirements:
+- Return ONLY valid HTML (no markdown, no intro/outro text)
+- 4 sections total, in this exact order and with these headings:
+  1) <strong>Key Trends</strong>
+  2) <strong>Policy and Regulation</strong>
+  3) <strong>Fossil Fuels and LNG</strong>
+  4) <strong>Renewables and Transition</strong>
+- Use an unordered list (<ul><li>...</li></ul>) under each heading
+- 6–8 bullets total across all sections combined
+- One sentence per bullet, no sub-bullets
+- Executive, neutral tone
 
 Articles:
 {articles_text}
-
-Please provide exactly 2 paragraphs that capture the most important developments and their significance.
 """
         
         try:
@@ -476,6 +479,78 @@ Please provide exactly 2 paragraphs that capture the most important developments
             tldr_text = """Significant developments continue to shape the ESG and energy landscape, with ongoing investments in renewable energy infrastructure, evolving regulatory frameworks, and market dynamics driving the energy transition forward. The convergence of policy support, technological innovation, and market demand is creating new opportunities while presenting challenges for businesses and investors navigating this complex landscape.
 
 These developments underscore the critical importance of staying informed about ESG trends, energy market changes, and sustainability initiatives that impact investment decisions and business strategies across multiple sectors."""
+        
+        # Save TLDR as standalone HTML file to Google Drive
+        google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        tldr_filename = f"ESG_TLDR_{timestamp}.html"
+        tldr_filepath = os.path.join(google_drive_path, tldr_filename)
+        
+        # Create standalone TLDR HTML
+        tldr_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustain74 ESG TLDR - {tldr_generation_date}</title>
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }}
+        .container {{
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }}
+        h1 {{
+            color: #2c5aa0;
+            margin-bottom: 20px;
+            text-align: center;
+        }}
+        .tldr-content {{
+            font-size: 16px;
+            line-height: 1.7;
+        }}
+        .meta {{
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sustain74 ESG Market TLDR</h1>
+        <div class="tldr-content">
+            {tldr_text}
+        </div>
+        <div class="meta">
+            Generated on {tldr_generation_date}
+        </div>
+    </div>
+</body>
+</html>"""
+        
+        try:
+            # Ensure directory exists
+            os.makedirs(google_drive_path, exist_ok=True)
+            # Save TLDR HTML file
+            with open(tldr_filepath, 'w', encoding='utf-8') as f:
+                f.write(tldr_html)
+            print(f"✅ TLDR saved to Google Drive: {tldr_filepath}")
+        except Exception as e:
+            print(f"❌ Error saving TLDR to Google Drive: {e}")
         
         # Generate HTML
         html_content = f"""<!DOCTYPE html>

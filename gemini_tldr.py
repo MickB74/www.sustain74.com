@@ -67,24 +67,22 @@ class GeminiTLDRGenerator:
     
     def generate_tldr(self, articles):
         """Generate TLDR using Gemini API"""
-        print("🤖 Generating TLDR with Gemini...")
+        print("🤖 Generating TLDR with Gemini (bullet points)...")
         
         articles_text = self.prepare_articles_text(articles)
         
         prompt = f"""
-You are an ESG and energy market analyst. Based on the following news articles, write a concise 2-paragraph TLDR (Too Long; Didn't Read) summary.
+You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as bullet points.
 
-Focus on:
-- Key trends and developments in ESG, energy, and sustainability
-- Major policy changes, market movements, or technological breakthroughs
-- Implications for businesses, investors, and the energy transition
-
-Write in a professional, analytical tone suitable for business executives and sustainability professionals.
+Requirements:
+- 6-8 bullets total
+- One sentence per bullet
+- Focus on key developments, market moves, policy changes, and implications
+- Use a professional, executive-friendly tone
+- Do NOT add any intro or outro text; output only the bullets
 
 Articles:
 {articles_text}
-
-Please provide exactly 2 paragraphs that capture the most important developments and their significance.
 """
         
         try:
