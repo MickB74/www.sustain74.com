@@ -672,6 +672,19 @@ These developments underscore the critical importance of staying informed about 
             font-weight: 500;
         }}
         
+        .category-tag {{
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }}
+        
+        .category-tag:hover {{
+            background: #1976d2 !important;
+            color: white !important;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+        }}
+        
         .date {{
             color: #999;
         }}
@@ -738,16 +751,23 @@ These developments underscore the critical importance of staying informed about 
             </div>
         </div>
         
+        <div class="filter-controls" style="text-align: center; margin: 20px 0;">
+            <button id="showAllBtn" onclick="showAllCategories()" style="background: #2c5aa0; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; display: none;">
+                🔄 Show All Categories
+            </button>
+        </div>
+        
         <div class="news-grid">
 """
         
         # Add each article
         for article in articles_sorted:
             website = self.extract_real_website(article['link'])
+            category = self.clean_source_name(article['source'])
             html_content += f"""
-            <div class="news-card">
+            <div class="news-card" data-category="{category}">
                 <div class="news-meta">
-                    <span class="source">{self.clean_source_name(article['source'])}</span>
+                    <span class="source category-tag" onclick="filterByCategory('{category}')">{category}</span>
                     <span class="date">{self.format_date(article['pubDate'])}</span>
                 </div>
                 <h3><a href="{article['link']}" target="_blank" rel="noopener noreferrer">{self.clean_title(article['title'])}</a></h3>
@@ -758,6 +778,49 @@ These developments underscore the critical importance of staying informed about 
         html_content += """
         </div>
     </div>
+    
+    <script>
+    function filterByCategory(category) {
+        // Hide all news cards
+        const allCards = document.querySelectorAll('.news-card');
+        allCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        // Show only cards with matching category
+        const matchingCards = document.querySelectorAll(`[data-category="${category}"]`);
+        matchingCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        
+        // Show the "Show All" button
+        document.getElementById('showAllBtn').style.display = 'inline-block';
+        
+        // Update the header to show filtered count
+        const header = document.querySelector('.header h1');
+        const originalTitle = header.textContent;
+        header.textContent = `Sustain74 ESG News - ${category} (${matchingCards.length} articles)`;
+        header.setAttribute('data-original', originalTitle);
+    }
+    
+    function showAllCategories() {
+        // Show all news cards
+        const allCards = document.querySelectorAll('.news-card');
+        allCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        
+        // Hide the "Show All" button
+        document.getElementById('showAllBtn').style.display = 'none';
+        
+        // Restore original header
+        const header = document.querySelector('.header h1');
+        const originalTitle = header.getAttribute('data-original');
+        if (originalTitle) {
+            header.textContent = originalTitle;
+        }
+    }
+    </script>
 </body>
 </html>
 """
