@@ -739,6 +739,9 @@ These developments underscore the critical importance of staying informed about 
                 <span>📊 {len(articles_sorted)} Articles</span>
                 <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
             </div>
+            <div class="update-schedule" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #666;">
+                <strong>🔄 Auto-Update Schedule:</strong> Daily at <strong>8:00 AM</strong> and <strong>12:00 PM</strong> EST
+            </div>
         </div>
         
         <div class="tldr-section">
