@@ -431,19 +431,23 @@ class RSSAggregator:
             articles_text += f"   Link: {article['link']}\n\n"
         
         prompt = f"""
-You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured bullet points.
+You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured bullet points with links to relevant articles.
+
+CRITICAL: Return ONLY the HTML content below, with NO markdown code blocks, NO ```html``` wrapper, NO intro/outro text.
 
 Output requirements:
-- Return ONLY plain text (no HTML, no markdown, no intro/outro text)
 - 4 sections total, in this exact order and with these headings:
-  1) Key Trends
-  2) Policy and Regulation
-  3) Fossil Fuels and LNG
-  4) Renewables and Transition
-- Use bullet points (*) under each heading
+  1) <strong>Key Trends</strong>
+  2) <strong>Policy and Regulation</strong>
+  3) <strong>Fossil Fuels and LNG</strong>
+  4) <strong>Renewables and Transition</strong>
+- Use an unordered list (<ul><li>...</li></ul>) under each heading
 - 6–8 bullets total across all sections combined
 - One sentence per bullet, no sub-bullets
+- For each bullet point, include a link to the most relevant article using <a href="ARTICLE_URL" target="_blank">link text</a>
 - Executive, neutral tone
+- Use the exact article URLs provided in the articles list
+- Start directly with <strong>Key Trends</strong> and end with the last </ul>
 
 Articles:
 {articles_text}
@@ -518,6 +522,26 @@ These developments underscore the critical importance of staying informed about 
         .tldr-content {{
             font-size: 16px;
             line-height: 1.7;
+        }}
+        
+        .tldr-content ul {{
+            margin: 10px 0;
+            padding-left: 20px;
+        }}
+        
+        .tldr-content li {{
+            margin-bottom: 8px;
+        }}
+        
+        .tldr-content a {{
+            color: #2c5aa0;
+            text-decoration: none;
+            font-weight: 500;
+        }}
+        
+        .tldr-content a:hover {{
+            color: #1976d2;
+            text-decoration: underline;
         }}
         .meta {{
             font-size: 12px;
@@ -621,7 +645,26 @@ These developments underscore the critical importance of staying informed about 
             font-size: 16px;
             line-height: 1.7;
             color: #333;
-            white-space: pre-line;
+        }}
+        
+        .tldr-content ul {{
+            margin: 10px 0;
+            padding-left: 20px;
+        }}
+        
+        .tldr-content li {{
+            margin-bottom: 8px;
+        }}
+        
+        .tldr-content a {{
+            color: #2c5aa0;
+            text-decoration: none;
+            font-weight: 500;
+        }}
+        
+        .tldr-content a:hover {{
+            color: #1976d2;
+            text-decoration: underline;
         }}
         
         .tldr-content p {{
