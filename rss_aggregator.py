@@ -133,6 +133,11 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/11943491749560683085',
                 'name': 'Google Alert: ESG Reports',
                 'keywords': ['esg report', 'sustainability report', 'esg disclosure', 'corporate responsibility report', 'esg reporting', 'sustainability disclosure']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/16662670197619091619',
+                'name': 'Google Alert: SAF',
+                'keywords': ['saf', 'sustainable aviation fuel', 'aviation fuel', 'biofuel', 'aviation decarbonization', 'low carbon aviation', 'green aviation']
             }
         ]
         
