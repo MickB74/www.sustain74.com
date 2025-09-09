@@ -1,0 +1,22 @@
+# Sustain74 ESG News Update - Cron Jobs
+# This file contains the cron job configurations for automatic news updates
+
+# Update twice daily: 8:00 AM and 12:00 PM EST
+0 8 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+0 12 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+
+# Alternative: Update once daily at 8:00 AM EST
+# 0 8 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+
+# Alternative: Update every 6 hours
+# 0 */6 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+
+# Alternative: Update every 4 hours during business hours (8 AM - 8 PM)
+# 0 8,12,16,20 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+
+# Log rotation (clean up old logs weekly)
+0 0 * * 0 find /Users/michaelbarry/Documents/GitHub/www.sustain74.com -name "*.log" -mtime +7 -delete
+
+
+
+

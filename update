@@ -1,0 +1,8 @@
+#!/bin/bash
+# Simple alias script for updating ESG news
+cd /Users/michaelbarry/Documents/GitHub/www.sustain74.com
+python update_news.py
+
+
+
+

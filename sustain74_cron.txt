@@ -1,0 +1,11 @@
+# Sustain74 ESG News Update - Cron Jobs
+# Updates run twice daily: 8:00 AM and 12:00 PM EST
+0 8 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+0 12 * * * /Users/michaelbarry/Documents/GitHub/www.sustain74.com/update_rss.sh
+
+# Log rotation - clean up old logs weekly on Sunday at midnight
+0 0 * * 0 find /Users/michaelbarry/Documents/GitHub/www.sustain74.com -name "*.log" -mtime +7 -delete
+
+
+
+

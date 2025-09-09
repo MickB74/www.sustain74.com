@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install feedparser requests google-generativeai python-dotenv
+        pip install -r requirements.txt
     
     - name: Configure Git
       run: |
@@ -52,3 +52,7 @@ jobs:
         git add esg-news-static.html feed.xml
         git commit -m "Automated ESG news update - $(date '+%Y-%m-%d %H:%M UTC')"
         git push
+
+
+
+

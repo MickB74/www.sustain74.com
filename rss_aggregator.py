@@ -344,11 +344,17 @@ class RSSAggregator:
 
     def export_to_csv(self, articles, output_file=None):
         """Export articles to CSV with tags"""
-        # If no output file specified, save to Google Drive folder
+        # If no output file specified, save to Google Drive folder (if it exists) or current directory
         if output_file is None:
             google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            output_file = os.path.join(google_drive_path, f"ESG_Stories_{timestamp}.csv")
+            
+            # Check if Google Drive path exists (local development)
+            if os.path.exists(google_drive_path):
+                output_file = os.path.join(google_drive_path, f"ESG_Stories_{timestamp}.csv")
+            else:
+                # Fallback for GitHub Actions or other environments
+                output_file = f"ESG_Stories_{timestamp}.csv"
         
         with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['Date', 'Title', 'Description', 'Link', 'Source', 'Categories', 'Tags']
@@ -489,11 +495,17 @@ Articles:
 
 These developments underscore the critical importance of staying informed about ESG trends, energy market changes, and sustainability initiatives that impact investment decisions and business strategies across multiple sectors."""
         
-        # Save TLDR as standalone HTML file to Google Drive
+        # Save TLDR as standalone HTML file to Google Drive (if it exists) or current directory
         google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         tldr_filename = f"ESG_TLDR_{timestamp}.html"
-        tldr_filepath = os.path.join(google_drive_path, tldr_filename)
+        
+        # Check if Google Drive path exists (local development)
+        if os.path.exists(google_drive_path):
+            tldr_filepath = os.path.join(google_drive_path, tldr_filename)
+        else:
+            # Fallback for GitHub Actions or other environments
+            tldr_filepath = tldr_filename
         
         # Create standalone TLDR HTML
         tldr_html = f"""<!DOCTYPE html>
@@ -572,14 +584,20 @@ These developments underscore the critical importance of staying informed about 
 </html>"""
         
         try:
-            # Ensure directory exists
-            os.makedirs(google_drive_path, exist_ok=True)
+            # Ensure directory exists (only if using Google Drive path)
+            if os.path.exists(google_drive_path):
+                os.makedirs(google_drive_path, exist_ok=True)
+            
             # Save TLDR HTML file
             with open(tldr_filepath, 'w', encoding='utf-8') as f:
                 f.write(tldr_html)
-            print(f"✅ TLDR saved to Google Drive: {tldr_filepath}")
+            
+            if os.path.exists(google_drive_path):
+                print(f"✅ TLDR saved to Google Drive: {tldr_filepath}")
+            else:
+                print(f"✅ TLDR saved locally: {tldr_filepath}")
         except Exception as e:
-            print(f"❌ Error saving TLDR to Google Drive: {e}")
+            print(f"❌ Error saving TLDR: {e}")
         
         # Generate HTML
         html_content = f"""<!DOCTYPE html>
