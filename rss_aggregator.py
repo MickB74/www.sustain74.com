@@ -138,6 +138,11 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/11148815731617361241/16662670197619091619',
                 'name': 'Google Alert: SAF',
                 'keywords': ['saf', 'sustainable aviation fuel', 'aviation fuel', 'biofuel', 'aviation decarbonization', 'low carbon aviation', 'green aviation']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/11148815731617361241/7616014905437935867',
+                'name': 'Google Alert: SMR',
+                'keywords': ['smr', 'small modular reactor', 'nuclear power', 'nuclear energy', 'nuclear technology', 'nuclear propulsion', 'maritime nuclear', 'nuclear innovation', 'nuclear infrastructure']
             }
         ]
         
