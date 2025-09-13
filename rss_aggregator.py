@@ -1,3 +1,6 @@
+
+
+
 #!/usr/bin/env python3
 """
 RSS Feed Aggregator for Sustain74
@@ -53,6 +56,36 @@ class RSSAggregator:
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/10208059211885938613',
                 'name': 'Google Alert: EPA',
                 'keywords': ['epa', 'environmental protection agency', 'environmental regulation', 'greenhouse gas reporting', 'emissions standards', 'environmental policy', 'pollution control', 'environmental compliance']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/7247076399060117174',
+                'name': 'Google Alert: AI and Sustainability',
+                'keywords': ['ai', 'artificial intelligence', 'sustainability', 'sustainable energy', 'ai infrastructure', 'data centers', 'carbon footprint', 'environmental ai', 'green technology', 'sustainable ai']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2588330808811951080',
+                'name': 'Google Alert: CAISO',
+                'keywords': ['caiso', 'california independent system operator', 'energy market', 'grid operator', 'ferc', 'day-ahead market', 'energy trading', 'california energy']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/9317338791963863020',
+                'name': 'Google Alert: Carbon Credits',
+                'keywords': ['carbon credits', 'carbon trading', 'carbon offset', 'carbon market', 'vcm', 'voluntary carbon market', 'carbon neutral', 'carbon reduction', 'esg carbon']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/17843257093320527979',
+                'name': 'Google Alert: Additional Feed 1',
+                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2588084030416567261',
+                'name': 'Google Alert: Additional Feed 2',
+                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/4717940623999380595',
+                'name': 'Google Alert: Additional Feed 3',
+                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
             }
         ]
         
