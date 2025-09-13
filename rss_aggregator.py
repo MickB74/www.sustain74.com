@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 #!/usr/bin/env python3
 """
 RSS Feed Aggregator for Sustain74
@@ -370,7 +374,7 @@ class RSSAggregator:
         """Export articles to CSV with tags"""
         # If no output file specified, save to Google Drive folder (if it exists) or current directory
         if output_file is None:
-            google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
+            google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-mickeybarry@gmail.com/My Drive/NewsFeed"
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             
             # Check if Google Drive path exists (local development)
@@ -520,7 +524,7 @@ Articles:
 These developments underscore the critical importance of staying informed about ESG trends, energy market changes, and sustainability initiatives that impact investment decisions and business strategies across multiple sectors."""
         
         # Save TLDR as standalone HTML file to Google Drive (if it exists) or current directory
-        google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-michaelbarry@sustain74.com/My Drive/Sustain74/Business Content/Marketing/ESG News"
+        google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-mickeybarry@gmail.com/My Drive/NewsFeed"
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         tldr_filename = f"ESG_TLDR_{timestamp}.html"
         
