@@ -1,6 +1,7 @@
 
 
 
+
 #!/usr/bin/env python3
 """
 RSS Feed Aggregator for Sustain74
@@ -53,39 +54,114 @@ class RSSAggregator:
         # 3. Copy the RSS URL and add it below
         self.google_alerts_feeds = [
             {
-                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/10208059211885938613',
-                'name': 'Google Alert: EPA',
-                'keywords': ['epa', 'environmental protection agency', 'environmental regulation', 'greenhouse gas reporting', 'emissions standards', 'environmental policy', 'pollution control', 'environmental compliance']
-            },
-            {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/7247076399060117174',
                 'name': 'Google Alert: AI and Sustainability',
-                'keywords': ['ai', 'artificial intelligence', 'sustainability', 'sustainable energy', 'ai infrastructure', 'data centers', 'carbon footprint', 'environmental ai', 'green technology', 'sustainable ai']
+                'keywords': ['ai', 'artificial intelligence', 'sustainability', 'sustainable energy', 'ai infrastructure', 'data centers', 'carbon footprint', 'environmental ai', 'green technology', 'sustainable ai', 'ai efficiency', 'ai data centers', 'ai power consumption']
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2588330808811951080',
                 'name': 'Google Alert: CAISO',
-                'keywords': ['caiso', 'california independent system operator', 'energy market', 'grid operator', 'ferc', 'day-ahead market', 'energy trading', 'california energy']
+                'keywords': ['caiso', 'california independent system operator', 'energy market', 'grid operator', 'ferc', 'day-ahead market', 'energy trading', 'california energy', 'edam', 'extended day-ahead market', 'california grid', 'energy regulation']
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/9317338791963863020',
                 'name': 'Google Alert: Carbon Credits',
-                'keywords': ['carbon credits', 'carbon trading', 'carbon offset', 'carbon market', 'vcm', 'voluntary carbon market', 'carbon neutral', 'carbon reduction', 'esg carbon']
+                'keywords': ['carbon credits', 'carbon trading', 'carbon offset', 'carbon market', 'vcm', 'voluntary carbon market', 'carbon neutral', 'carbon reduction', 'esg carbon', 'carbon capture', 'co2 removal', 'carbon pricing', 'green crypto', 'tokenized carbon']
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/17843257093320527979',
-                'name': 'Google Alert: Additional Feed 1',
-                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
+                'name': 'Google Alert: EIA',
+                'keywords': ['eia', 'energy information administration', 'energy data', 'energy statistics', 'energy reports', 'energy market data', 'electric power monthly', 'natural gas storage', 'oil exports', 'energy forecasts', 'energy outlook', 'energy analysis']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/10208059211885938613',
+                'name': 'Google Alert: EPA',
+                'keywords': ['epa', 'environmental protection agency', 'environmental regulation', 'greenhouse gas reporting', 'emissions standards', 'environmental policy', 'pollution control', 'environmental compliance', 'drinking water standards', 'pfas chemicals', 'carbon capture', 'environmental enforcement']
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2588084030416567261',
-                'name': 'Google Alert: Additional Feed 2',
-                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
+                'name': 'Google Alert: ERCOT',
+                'keywords': ['ercot', 'electric reliability council of texas', 'texas grid', 'texas energy market', 'texas power grid', 'texas electricity', 'texas energy trading', 'texas grid operator', 'texas energy regulation', 'texas power market', 'texas energy policy']
             },
             {
                 'url': 'https://www.google.com/alerts/feeds/05477018627257484545/4717940623999380595',
-                'name': 'Google Alert: Additional Feed 3',
-                'keywords': ['energy', 'sustainability', 'esg', 'renewable energy', 'clean energy', 'environmental']
+                'name': 'Google Alert: ESG',
+                'keywords': ['esg', 'environmental social governance', 'esg reporting', 'esg ratings', 'esg investing', 'esg bonds', 'esg funds', 'esg disclosure', 'sustainability reporting', 'corporate responsibility', 'esg integration', 'greenwashing', 'esg policy', 'esg risk']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2588084030416566838',
+                'name': 'Google Alert: ESG Report Release',
+                'keywords': ['esg report', 'esg report release', 'sustainability report', 'esg disclosure', 'corporate sustainability', 'esg reporting', 'sustainability disclosure', 'esg annual report', 'esg materiality report', 'esg impact report', 'sustainability materiality', 'esg data reporting']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/6227487727411824085',
+                'name': 'Google Alert: GHG Protocol',
+                'keywords': ['ghg protocol', 'greenhouse gas protocol', 'carbon accounting', 'scope 1 emissions', 'scope 2 emissions', 'scope 3 emissions', 'carbon reporting', 'emissions reporting', 'carbon standards', 'ghg standards', 'carbon measurement', 'emissions measurement', 'carbon footprint', 'ghg accounting']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/10834986087919876596',
+                'name': 'Google Alert: IEA',
+                'keywords': ['iea', 'international energy agency', 'energy outlook', 'energy policy', 'energy security', 'energy transition', 'global energy', 'energy markets', 'energy analysis', 'energy forecasts', 'energy statistics', 'energy reports', 'clean energy transition', 'energy efficiency']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/15133328373837915052',
+                'name': 'Google Alert: India Renewables',
+                'keywords': ['india renewable energy', 'india renewables', 'india solar', 'india wind', 'india clean energy', 'india green energy', 'india sustainable energy', 'india renewable projects', 'india solar power', 'india wind power', 'india energy transition', 'india renewable development', 'india clean power', 'india renewable infrastructure']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/3557627759411880609',
+                'name': 'Google Alert: LNG',
+                'keywords': ['lng', 'liquefied natural gas', 'natural gas', 'gas markets', 'gas trading', 'gas infrastructure', 'gas exports', 'gas imports', 'gas terminals', 'gas pipelines', 'gas storage', 'gas prices', 'gas supply', 'gas demand', 'gas transportation']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/11355611965384655818',
+                'name': 'Google Alert: Sustainable Aviation Fuel',
+                'keywords': ['sustainable aviation fuel', 'saf', 'aviation fuel', 'biofuel', 'renewable jet fuel', 'aviation emissions', 'carbon neutral aviation', 'green aviation', 'sustainable transport', 'aviation sustainability', 'low carbon aviation', 'renewable aviation']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/4817184826234460345',
+                'name': 'Google Alert: SMR',
+                'keywords': ['smr', 'small modular reactor', 'nuclear energy', 'modular nuclear', 'nuclear power', 'clean nuclear', 'advanced nuclear', 'nuclear technology', 'nuclear innovation', 'nuclear safety', 'nuclear waste', 'nuclear fuel', 'nuclear reactor', 'nuclear development']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/3724317091985668760',
+                'name': 'Google Alert: SBTi',
+                'keywords': ['sbti', 'science based targets initiative', 'science based targets', 'climate targets', 'net zero targets', 'carbon targets', 'emissions targets', 'climate science', 'corporate climate action', 'climate commitments', 'sustainability targets', 'climate goals', 'carbon reduction targets', 'climate action']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/14074399320458355525',
+                'name': 'Google Alert: OBBBA Renewables',
+                'keywords': ['obbba', 'renewables', 'renewable energy', 'clean energy', 'sustainable energy', 'green energy', 'solar energy', 'wind energy', 'renewable power', 'clean power', 'sustainable power', 'renewable technology', 'energy transition', 'renewable development']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/14810798000819807729',
+                'name': 'Google Alert: NYISO',
+                'keywords': ['nyiso', 'new york independent system operator', 'new york energy market', 'new york grid', 'new york electricity', 'new york power market', 'new york energy trading', 'new york grid operator', 'new york energy regulation', 'new york power grid', 'new york energy policy', 'northeast energy market']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/6050091715561605058',
+                'name': 'Google Alert: Europe Renewables',
+                'keywords': ['europe renewable energy', 'europe renewables', 'eu renewable energy', 'europe solar', 'europe wind', 'europe clean energy', 'europe green energy', 'europe sustainable energy', 'europe renewable projects', 'europe energy transition', 'europe renewable development', 'europe renewable infrastructure', 'europe offshore wind', 'europe geothermal']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/11867778498017191867',
+                'name': 'Google Alert: FERC',
+                'keywords': ['ferc', 'federal energy regulatory commission', 'energy regulation', 'energy policy', 'energy markets', 'energy infrastructure', 'energy transmission', 'energy storage', 'energy grid', 'energy reliability', 'energy security', 'energy trading', 'energy rates', 'energy tariffs', 'energy compliance']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/6361645880654662282',
+                'name': 'Google Alert: MISO',
+                'keywords': ['miso', 'midcontinent independent system operator', 'miso grid', 'midwest energy market', 'midwest grid', 'midwest electricity', 'midwest power market', 'midwest energy trading', 'midwest grid operator', 'midwest energy regulation', 'midwest power grid', 'midwest energy policy', 'central energy market']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/2971273721395665533',
+                'name': 'Google Alert: Natural Gas',
+                'keywords': ['natural gas', 'gas production', 'gas prices', 'gas markets', 'gas infrastructure', 'gas pipelines', 'gas storage', 'gas exports', 'gas imports', 'gas power plants', 'gas generation', 'gas supply', 'gas demand', 'gas trading', 'gas reserves']
+            },
+            {
+                'url': 'https://www.google.com/alerts/feeds/05477018627257484545/590774740641410839',
+                'name': 'Google Alert: PJM',
+                'keywords': ['pjm', 'pjm interconnection', 'pjm grid', 'mid-atlantic energy market', 'mid-atlantic grid', 'mid-atlantic electricity', 'mid-atlantic power market', 'mid-atlantic energy trading', 'mid-atlantic grid operator', 'mid-atlantic energy regulation', 'mid-atlantic power grid', 'mid-atlantic energy policy', 'eastern energy market']
             }
         ]
         
