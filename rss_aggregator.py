@@ -823,8 +823,26 @@ These developments underscore the critical importance of staying informed about 
             }}
         }}
     </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <header class="site-header">
+        <nav class="nav">
+            <a href="index.html" class="logo"><img src="assets/sustain74_logo.png" alt="Sustain74 Logo"></a>
+            <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="michael-barry.html">Our Story</a></li>
+                <li><a href="services.html">Our Solutions</a></li>
+                <li><a href="sample-engagements.html">Sample Engagements</a></li>
+                <li><a href="blog/index.html">Blog</a></li>
+                <li><a href="esg-news-static.html" class="active">ESG News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <div class="header">
             <h1>Sustain74 ESG News Feed</h1>
@@ -832,9 +850,6 @@ These developments underscore the critical importance of staying informed about 
             <div class="stats">
                 <span>📊 {len(articles_sorted)} Articles</span>
                 <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
-            </div>
-            <div class="update-schedule" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #666;">
-                <strong>🔄 Auto-Update Schedule:</strong> Daily at <strong>8:00 AM</strong> and <strong>12:00 PM</strong> EST
             </div>
         </div>
         
@@ -918,6 +933,7 @@ These developments underscore the critical importance of staying informed about 
         }
     }
     </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 """
