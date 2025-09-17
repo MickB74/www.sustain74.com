@@ -24,48 +24,62 @@
         .blog-post .content ul, .blog-post .content ol { margin: 1rem 0; padding-left: 2rem; }
         .blog-post .content li { margin: 0.5rem 0; }
         
-        /* Enhanced table styling */
-        .blog-post .table-container { 
-            margin: 2rem 0; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            overflow-x: auto;
+        /* Organizations grid styling */
+        .blog-post .orgs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
-        .blog-post table { 
-            width: 100%; 
-            border-collapse: collapse; 
+        
+        .blog-post .org-item {
             background: white;
-            font-family: 'Inter', sans-serif;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .blog-post th { 
-            background: #2d5f8a; 
-            color: white; 
-            padding: 1rem; 
-            text-align: left; 
+        
+        .blog-post .org-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .blog-post .org-item h4 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
+            color: #2d5f8a;
+        }
+        
+        .blog-post .org-item h4 a {
+            color: #2d5f8a;
+            text-decoration: none;
             font-weight: 600;
-            border-bottom: 2px solid #0077b6;
         }
-        .blog-post td { 
-            padding: 1rem; 
-            border-bottom: 1px solid #dee2e6; 
-            vertical-align: top;
-            line-height: 1.5;
-        }
-        .blog-post tr:hover { background: #f8f9fa; }
-        .blog-post table a { 
-            color: #2d5f8a; 
-            text-decoration: none; 
-            font-weight: 600;
-        }
-        .blog-post table a:hover { 
-            color: #0077b6; 
+        
+        .blog-post .org-item h4 a:hover {
+            color: #0077b6;
             text-decoration: underline;
+        }
+        
+        .blog-post .org-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #555;
         }
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .blog-post .table-container { font-size: 0.9rem; }
-            .blog-post th, .blog-post td { padding: 0.75rem 0.5rem; }
+            .blog-post .orgs-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .blog-post .org-item {
+                padding: 1rem;
+            }
         }
     </style>
     
@@ -128,65 +142,68 @@
 
                 <h3>Notable Organizations Represented Among the Signatories</h3>
 
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Organization</th>
-                                <th>Why Their Participation Matters</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="https://www.nature.org" target="_blank" rel="noopener"><strong>The Nature Conservancy</strong></a></td>
-                                <td>With multiple senior scientists signing (covering reforestation, freshwater, blue carbon, and forest carbon science), TNC demonstrates its deep commitment to scaling natural climate solutions globally.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.edf.org" target="_blank" rel="noopener"><strong>Environmental Defense Fund (EDF)</strong></a></td>
-                                <td>Senior climate scientists like Brian Buma and Doria Gordon signed, reinforcing EDF's credibility in connecting rigorous science to market-based climate solutions.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.conservation.org" target="_blank" rel="noopener"><strong>Conservation International</strong></a></td>
-                                <td>Leaders like Bronson Griscom and Starry Sprenkle-Hyppolite underscore CI's role in building and scaling NCS across tropical forests and coastal ecosystems.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://drawdown.org" target="_blank" rel="noopener"><strong>Project Drawdown</strong></a></td>
-                                <td>Executive Director Jonathan Foley signed, highlighting the importance of NCS in mainstream decarbonization pathways and public engagement.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.si.edu" target="_blank" rel="noopener"><strong>Smithsonian Institution</strong></a></td>
-                                <td>Sarah Frias-Torres' participation shows that iconic research institutions view healthy ecosystems as central to climate resilience.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.space-intelligence.com" target="_blank" rel="noopener"><strong>Space Intelligence</strong></a></td>
-                                <td>With leadership and scientists signing, this geospatial startup highlights how technology is enabling transparency and accountability in NCS markets.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://earthinnovation.org" target="_blank" rel="noopener"><strong>Earth Innovation Institute</strong></a></td>
-                                <td>President Daniel Nepstad's signature brings decades of tropical forest expertise to the table, reinforcing the urgency of protecting the Amazon and beyond.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.birdlife.org" target="_blank" rel="noopener"><strong>BirdLife International</strong></a></td>
-                                <td>Representation shows how NCS deliver biodiversity and conservation benefits alongside carbon storage.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.woodwellclimate.org" target="_blank" rel="noopener"><strong>Woodwell Climate Research Center</strong></a></td>
-                                <td>Scientists like Jonathan Sanderman and Wayne Walker signed, continuing Woodwell's long tradition of ecosystem-climate leadership.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.unep.org" target="_blank" rel="noopener"><strong>United Nations Environment Programme (UNEP)</strong></a></td>
-                                <td>Gabriel Labbate's participation connects NCS to the UN's climate policy frameworks and global carbon credit integrity efforts (ICVCM).</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://verra.org" target="_blank" rel="noopener"><strong>Verra</strong></a></td>
-                                <td>By signing, Benktesh Sharma signals that carbon standards bodies are engaging with the latest science to ensure credible NCS credits.</td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://www.dorisduke.org" target="_blank" rel="noopener"><strong>Doris Duke Foundation</strong></a></td>
-                                <td>With program directors involved, philanthropy is clearly mobilizing to accelerate NCS finance and implementation.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <p>The following organizations have signed the statement, demonstrating broad institutional support:</p>
+
+                <div class="orgs-grid">
+                    <div class="org-item">
+                        <h4><a href="https://www.nature.org" target="_blank" rel="noopener">The Nature Conservancy</a></h4>
+                        <p>Multiple senior scientists covering reforestation, freshwater, blue carbon, and forest carbon science demonstrate TNC's deep commitment to scaling natural climate solutions globally.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.edf.org" target="_blank" rel="noopener">Environmental Defense Fund (EDF)</a></h4>
+                        <p>Senior climate scientists like Brian Buma and Doria Gordon reinforce EDF's credibility in connecting rigorous science to market-based climate solutions.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.conservation.org" target="_blank" rel="noopener">Conservation International</a></h4>
+                        <p>Leaders like Bronson Griscom and Starry Sprenkle-Hyppolite underscore CI's role in building and scaling NCS across tropical forests and coastal ecosystems.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://drawdown.org" target="_blank" rel="noopener">Project Drawdown</a></h4>
+                        <p>Executive Director Jonathan Foley highlights the importance of NCS in mainstream decarbonization pathways and public engagement.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.si.edu" target="_blank" rel="noopener">Smithsonian Institution</a></h4>
+                        <p>Sarah Frias-Torres' participation shows that iconic research institutions view healthy ecosystems as central to climate resilience.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.space-intelligence.com" target="_blank" rel="noopener">Space Intelligence</a></h4>
+                        <p>Leadership and scientists highlight how technology is enabling transparency and accountability in NCS markets.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://earthinnovation.org" target="_blank" rel="noopener">Earth Innovation Institute</a></h4>
+                        <p>President Daniel Nepstad brings decades of tropical forest expertise, reinforcing the urgency of protecting the Amazon and beyond.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.birdlife.org" target="_blank" rel="noopener">BirdLife International</a></h4>
+                        <p>Representation shows how NCS deliver biodiversity and conservation benefits alongside carbon storage.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.woodwellclimate.org" target="_blank" rel="noopener">Woodwell Climate Research Center</a></h4>
+                        <p>Scientists like Jonathan Sanderman and Wayne Walker continue Woodwell's long tradition of ecosystem-climate leadership.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.unep.org" target="_blank" rel="noopener">United Nations Environment Programme (UNEP)</a></h4>
+                        <p>Gabriel Labbate's participation connects NCS to the UN's climate policy frameworks and global carbon credit integrity efforts (ICVCM).</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://verra.org" target="_blank" rel="noopener">Verra</a></h4>
+                        <p>Benktesh Sharma signals that carbon standards bodies are engaging with the latest science to ensure credible NCS credits.</p>
+                    </div>
+                    
+                    <div class="org-item">
+                        <h4><a href="https://www.dorisduke.org" target="_blank" rel="noopener">Doris Duke Foundation</a></h4>
+                        <p>Program directors show that philanthropy is mobilizing to accelerate NCS finance and implementation.</p>
+                    </div>
                 </div>
 
                 <h2>Why This Matters for Companies</h2>
