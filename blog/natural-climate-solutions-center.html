@@ -15,6 +15,60 @@
 
     <link rel="stylesheet" href="../css/style.css">
     
+    <style>
+        /* Readable width & spacing for article */
+        .blog-post .content { max-width: 120ch !important; margin: 0 auto; line-height: 1.7; }
+        .blog-post .content p + p { margin-top: 1rem; }
+        .blog-post .content h2 { margin-top: 2rem; margin-bottom: 1rem; }
+        .blog-post .content h3 { margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .blog-post .content ul, .blog-post .content ol { margin: 1rem 0; padding-left: 2rem; }
+        .blog-post .content li { margin: 0.5rem 0; }
+        
+        /* Enhanced table styling */
+        .blog-post .table-container { 
+            margin: 2rem 0; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        .blog-post table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        .blog-post th { 
+            background: #2d5f8a; 
+            color: white; 
+            padding: 1rem; 
+            text-align: left; 
+            font-weight: 600;
+            border-bottom: 2px solid #0077b6;
+        }
+        .blog-post td { 
+            padding: 1rem; 
+            border-bottom: 1px solid #dee2e6; 
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .blog-post tr:hover { background: #f8f9fa; }
+        .blog-post table a { 
+            color: #2d5f8a; 
+            text-decoration: none; 
+            font-weight: 600;
+        }
+        .blog-post table a:hover { 
+            color: #0077b6; 
+            text-decoration: underline;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .blog-post .table-container { font-size: 0.9rem; }
+            .blog-post th, .blog-post td { padding: 0.75rem 0.5rem; }
+        }
+    </style>
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E825E8QMZ1"></script>
     <script>

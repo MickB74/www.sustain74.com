@@ -1019,3 +1019,62 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 0 !important;
   text-indent: 0 !important;
 }
+
+/* Table styling for blog posts */
+.table-container {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+}
+
+table th {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--secondary);
+}
+
+table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+table tr:hover {
+  background: #f8f9fa;
+}
+
+table a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+table a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-container {
+    font-size: 0.9rem;
+  }
+  
+  table th,
+  table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
