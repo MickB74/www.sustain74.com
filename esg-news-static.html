@@ -260,6 +260,12 @@
             <button id="showAllBtn" onclick="showAllCategories()" style="background: #2c5aa0; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; display: none;">
                 🔄 Show All Categories
             </button>
+            <div style="margin-top: 12px;">
+                <label for="categorySelect" style="margin-right: 8px; font-weight: 600; color: #2c5aa0;">Filter by category:</label>
+                <select id="categorySelect" style="padding: 8px 12px; border: 1px solid #ccd; border-radius: 6px; font-size: 16px;">
+                    <option value="__all__">All categories</option>
+                </select>
+            </div>
         </div>
         
         <div class="news-grid">
@@ -692,7 +698,7 @@
                     <span class="source category-tag" onclick="filterByCategory('AI and Sustainability')">AI and Sustainability</span>
                     <span class="date">Sep 18, 2025</span>
                 </div>
-                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.reuters.com/world/china/key-products-huaweis-ai-chips-computing-power-roadmap-2025-09-18/&ct=ga&cd=CAIyGmE4YTNiNTVmZmVmZDgwMWM6Y29tOmVuOlVT&usg=AOvVaw2O6UCtMk7geFihqyQDROXR" target="_blank" rel="noopener noreferrer">Key products in Huawei's AI chips and computing power roadmap | Reuters</a></h3>
+                <h3><a href="https://www.google.com/url?rct=j&sa=t&url=https://www.reuters.com/world/china/key-products-huaweis-ai-chips-computing-power-roadmap-2025-09-18/&ct=ga&cd=CAIyGmE4YTNiNTVmZmVmZDgwMWM6Y29tOmVuOlVT&usg=AOvVaw0mYBvdyKfgAuoso4NAomDj" target="_blank" rel="noopener noreferrer">Key products in Huawei's AI chips and computing power roadmap | Reuters</a></h3>
                 <div class="website">reuters.com</div>
             </div>
 
@@ -2359,7 +2365,31 @@
         if (originalTitle) {
             header.textContent = originalTitle;
         }
+        const select = document.getElementById('categorySelect');
+        if (select) select.value = '__all__';
     }
+    
+    // Populate category picker and wire change handler
+    (function initCategoryPicker() {
+        const select = document.getElementById('categorySelect');
+        if (!select) return;
+        const cards = Array.from(document.querySelectorAll('.news-card'));
+        const categories = Array.from(new Set(cards.map(c => c.getAttribute('data-category')).filter(Boolean))).sort();
+        categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+        select.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === '__all__') {
+                showAllCategories();
+            } else {
+                filterByCategory(val);
+            }
+        });
+    })();
     </script>
     <script src="js/main.js"></script>
 </body>
