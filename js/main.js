@@ -12,3 +12,13 @@ document.addEventListener('scroll', () => {
         ctaBar.classList.remove('visible');
     }
 });
+
+// Fallback: remove "Our Solutions" nav item if present to avoid spacing issues
+document.addEventListener('DOMContentLoaded', () => {
+  const navList = document.querySelector('.nav-list');
+  if (!navList) return;
+  const solutionsLink = navList.querySelector('a[href="services.html"]');
+  if (solutionsLink && solutionsLink.parentElement && solutionsLink.parentElement.tagName === 'LI') {
+    solutionsLink.parentElement.remove();
+  }
+});
