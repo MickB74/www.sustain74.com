@@ -247,6 +247,9 @@ body {
   transition: all 0.2s ease;
   display: inline-block;
   text-decoration: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .category-filter-btn:hover {

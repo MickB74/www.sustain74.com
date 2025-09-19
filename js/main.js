@@ -46,9 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sortedCategories.forEach(category => {
         const button = document.createElement('button');
+        button.type = 'button'; // Explicitly set button type
         button.className = 'category-filter-btn';
         button.innerHTML = `${category} <span class="category-count">${categoryCounts[category]}</span>`;
         button.dataset.category = category;
+        button.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            filterByCategory(category);
+            return false;
+        };
         categoryFiltersContainer.appendChild(button);
     });
 
@@ -84,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     categoryFiltersContainer.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default button behavior
+        event.preventDefault();
+        event.stopPropagation();
+        
         const target = event.target.closest('.category-filter-btn');
         if (target) {
             const category = target.dataset.category;
@@ -92,17 +101,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    showAllBtn.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default button behavior
+    showAllBtn.onclick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         showAllCategories();
-    });
+        return false;
+    };
 
     categoryTags.forEach(tag => {
-        tag.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default behavior
+        tag.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
             const category = tag.textContent;
             filterByCategory(category);
-        });
+            return false;
+        };
     });
 
     const savedCategory = localStorage.getItem('newsCategoryFilter');
