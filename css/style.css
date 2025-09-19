@@ -75,6 +75,9 @@ body {
   transition: color 0.3s;
 }
 
+/* Hide "Our Solutions" from the top navigation */
+.nav-list li a[href="services.html"] { display: none !important; }
+
 .nav-list a:hover {
   color: var(--secondary);
 }
