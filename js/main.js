@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     categoryFiltersContainer.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default button behavior
         const target = event.target.closest('.category-filter-btn');
         if (target) {
             const category = target.dataset.category;
@@ -91,13 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    showAllBtn.addEventListener('click', showAllCategories);
+    showAllBtn.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default button behavior
+        showAllCategories();
+    });
 
     categoryTags.forEach(tag => {
-        tag.addEventListener('click', () => {
+        tag.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default behavior
             const category = tag.textContent;
             filterByCategory(category);
-            document.querySelector('.news-grid').scrollIntoView({ behavior: 'smooth' });
         });
     });
 
