@@ -1,26 +1,35 @@
 /* Home Page Version 2 Styles */
 
 :root {
-  --brand: #0a3d62;
-  --brand-2: #0f6f8f;
-  --ink: #14202a;
-  --muted: #5a6b7b;
-  --bg: #ffffff;
-  --bg-alt: #f6f8fb;
-  --line: #e5eaf0;
-  --cta: #0b8f6b;
-  --cta-ink: #ffffff;
+  --primary: #2d5f8a; /* Sustain74 brand blue */
+  --secondary: #0077b6;
+  --text: #333;
+  --light-text: #555;
+  --bg: #f8f9fa;
+  --white: #fff;
+  --border-color: #dee2e6;
+  --shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+  /* Home page specific colors using brand colors */
+  --brand: var(--primary);
+  --brand-2: var(--secondary);
+  --ink: var(--text);
+  --muted: var(--light-text);
+  --bg-alt: var(--bg);
+  --line: var(--border-color);
+  --cta: #2c5aa0; /* Slightly darker brand blue for CTAs */
+  --cta-ink: var(--white);
 }
 
-/* Typography */
+/* Typography - using existing brand fonts */
 body {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Lora', serif;
   line-height: 1.6;
   color: var(--ink);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   line-height: 1.2;
   color: var(--ink);
@@ -155,10 +164,11 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-1px);
 }
 
-/* Navigation */
+/* Navigation - using existing styles from main CSS */
 .site-header {
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+  background: var(--white);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -168,45 +178,58 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.nav-brand img {
+.logo img {
   height: 40px;
 }
 
-.nav-links {
+.nav-list {
   display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   align-items: center;
-  gap: 32px;
+  gap: 2rem;
 }
 
-.nav-links a {
-  color: var(--ink);
+.nav-list a {
+  color: var(--text);
   text-decoration: none;
   font-weight: 500;
-  font-size: 14px;
+  transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
-  color: var(--brand);
+.nav-list a:hover {
+  color: var(--primary);
 }
 
-.nav-cta {
-  margin-left: 16px;
+.nav-cta-btn {
+  background: var(--primary);
+  color: var(--white) !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.nav-cta-btn:hover {
+  background: #1e4a6b;
+  color: var(--white) !important;
 }
 
 .nav-toggle {
   display: block;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: 8px;
+  color: var(--text);
 }
 
 @media (min-width: 768px) {
-  .nav-links {
+  .nav-list {
     display: flex;
   }
   
@@ -577,13 +600,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mobile Navigation */
 @media (max-width: 767px) {
-  .nav-links {
+  .nav-list {
     position: fixed;
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg);
-    border-top: 1px solid var(--line);
+    background: var(--white);
+    border-top: 1px solid var(--border-color);
     padding: 24px;
     flex-direction: column;
     align-items: flex-start;
@@ -592,17 +615,27 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    box-shadow: var(--shadow);
   }
   
-  .nav-links.open {
+  .nav-list.open {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
   }
   
-  .nav-cta {
-    margin-left: 0;
+  .nav-list li {
     width: 100%;
-    justify-content: flex-start;
+  }
+  
+  .nav-list a {
+    display: block;
+    padding: 8px 0;
+  }
+  
+  .nav-cta-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
   }
 }

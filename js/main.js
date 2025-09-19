@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile navigation toggle
     const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const navList = document.querySelector('.nav-list');
     
-    if (navToggle && navLinks) {
+    if (navToggle && navList) {
         navToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.contains('open');
-            navLinks.classList.toggle('open');
+            const isOpen = navList.classList.contains('open');
+            navList.classList.toggle('open');
             navToggle.setAttribute('aria-expanded', !isOpen);
         });
     }
