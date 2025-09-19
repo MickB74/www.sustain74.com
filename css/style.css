@@ -241,6 +241,26 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto; 
 }
 
+/* Highlight box for important intro text on Sample Engagements */
+.intro-highlight {
+  background: #e9f3fb; /* light variant of primary */
+  border: 1px solid #c9e1f4;
+  border-left: 6px solid #2d5f8a; /* tie to theme primary */
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  padding: 1.25rem 1.25rem;
+  margin: 0 auto 1.5rem;
+  max-width: 960px; /* align with body width */
+}
+
+.intro-highlight p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text);
+  text-align: left;
+}
+
 .cta-buttons {
   display: flex;
   gap: 1rem;
