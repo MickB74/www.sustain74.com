@@ -24,6 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.contains('open');
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', !isOpen);
+        });
+    }
+    
+    // News page filtering functionality
     const isNewsPage = document.querySelector('.filter-section');
     if (!isNewsPage) return;
 
