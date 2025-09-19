@@ -854,7 +854,7 @@ These developments underscore the critical importance of staying informed about 
         </div>
         
         <div class="tldr-section">
-            <h2>🤖 AI-Generated TLDR Summary</h2>
+            <h2>🤖 AI Generated Summary</h2>
             <div class="tldr-content">
                 {tldr_text}
             </div>
