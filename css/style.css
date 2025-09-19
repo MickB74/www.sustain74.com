@@ -261,6 +261,24 @@ body {
 .category-filter-btn.active {
   background: #1976d2;
   color: white;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+}
+
+.category-filter-btn.active::before {
+  content: "✓";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .category-count {

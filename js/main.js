@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!categoryFiltersContainer || !allCards.length) return;
 
+    // Track selected categories
+    let selectedCategories = new Set();
+
     const categoryCounts = {};
     allCards.forEach(card => {
         const category = card.getAttribute('data-category');
@@ -46,60 +49,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sortedCategories.forEach(category => {
         const button = document.createElement('button');
-        button.type = 'button'; // Explicitly set button type
+        button.type = 'button';
         button.className = 'category-filter-btn';
         button.innerHTML = `${category} <span class="category-count">${categoryCounts[category]}</span>`;
         button.dataset.category = category;
         button.onclick = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            filterByCategory(category);
+            toggleCategory(category);
             return false;
         };
         categoryFiltersContainer.appendChild(button);
     });
 
-    const filterByCategory = (category) => {
-        allCards.forEach(card => {
-            if (card.getAttribute('data-category') === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+    const toggleCategory = (category) => {
+        if (selectedCategories.has(category)) {
+            selectedCategories.delete(category);
+        } else {
+            selectedCategories.add(category);
+        }
+        
+        updateButtonStates();
+        applyFilters();
+        saveSelectedCategories();
+    };
 
+    const updateButtonStates = () => {
         document.querySelectorAll('.category-filter-btn').forEach(btn => {
-            if (btn.dataset.category === category) {
+            const category = btn.dataset.category;
+            if (selectedCategories.has(category)) {
                 btn.classList.add('active');
             } else {
                 btn.classList.remove('active');
             }
         });
-        showAllBtn.style.display = 'inline-block';
-        localStorage.setItem('newsCategoryFilter', category);
+        
+        // Show "Show All" button if any categories are selected
+        if (selectedCategories.size > 0) {
+            showAllBtn.style.display = 'inline-block';
+        } else {
+            showAllBtn.style.display = 'none';
+        }
+    };
+
+    const applyFilters = () => {
+        if (selectedCategories.size === 0) {
+            // Show all cards if no categories selected
+            allCards.forEach(card => {
+                card.style.display = 'block';
+            });
+        } else {
+            // Show only cards that match selected categories
+            allCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (selectedCategories.has(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     };
 
     const showAllCategories = () => {
-        allCards.forEach(card => {
-            card.style.display = 'block';
-        });
-        document.querySelectorAll('.category-filter-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        showAllBtn.style.display = 'none';
-        localStorage.removeItem('newsCategoryFilter');
+        selectedCategories.clear();
+        updateButtonStates();
+        applyFilters();
+        localStorage.removeItem('newsCategoryFilters');
     };
 
-    categoryFiltersContainer.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        
-        const target = event.target.closest('.category-filter-btn');
-        if (target) {
-            const category = target.dataset.category;
-            filterByCategory(category);
+    const saveSelectedCategories = () => {
+        if (selectedCategories.size > 0) {
+            localStorage.setItem('newsCategoryFilters', JSON.stringify(Array.from(selectedCategories)));
+        } else {
+            localStorage.removeItem('newsCategoryFilters');
         }
-    });
+    };
+
+    const loadSelectedCategories = () => {
+        const saved = localStorage.getItem('newsCategoryFilters');
+        if (saved) {
+            try {
+                const categories = JSON.parse(saved);
+                selectedCategories = new Set(categories);
+                updateButtonStates();
+                applyFilters();
+            } catch (e) {
+                console.error('Error loading saved categories:', e);
+            }
+        }
+    };
 
     showAllBtn.onclick = (event) => {
         event.preventDefault();
@@ -113,13 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             event.stopPropagation();
             const category = tag.textContent;
-            filterByCategory(category);
+            toggleCategory(category);
             return false;
         };
     });
 
-    const savedCategory = localStorage.getItem('newsCategoryFilter');
-    if (savedCategory) {
-        filterByCategory(savedCategory);
-    }
+    // Initialize with saved categories
+    loadSelectedCategories();
 });
