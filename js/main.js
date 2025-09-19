@@ -24,29 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, checking for filter section...');
     const isNewsPage = document.querySelector('.filter-section');
-    console.log('Filter section found:', isNewsPage);
-    if (!isNewsPage) {
-        console.log('No filter section found, exiting...');
-        return;
-    }
+    if (!isNewsPage) return;
 
     const categoryFiltersContainer = document.getElementById('categoryFilters');
     const allCards = document.querySelectorAll('.news-card');
     const showAllBtn = document.getElementById('showAllBtn');
     const categoryTags = document.querySelectorAll('.category-tag');
-    
-    console.log('Elements found:');
-    console.log('- categoryFiltersContainer:', categoryFiltersContainer);
-    console.log('- allCards count:', allCards.length);
-    console.log('- showAllBtn:', showAllBtn);
-    console.log('- categoryTags count:', categoryTags.length);
+
+    if (!categoryFiltersContainer || !allCards.length) return;
 
     const categoryCounts = {};
     allCards.forEach(card => {
         const category = card.getAttribute('data-category');
-        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        if (category) {
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        }
     });
 
     const sortedCategories = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a]);
