@@ -15,6 +15,7 @@ Fetches relevant ESG/sustainability stories from external sources
 import feedparser
 import requests
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import logging
 import xml.etree.ElementTree as ET
 import csv
@@ -639,6 +640,9 @@ Articles:
             print(f"❌ Error saving TLDR: {e}")
         
         # Generate HTML
+        # Format Last Updated in US Eastern time
+        last_updated = datetime.now(ZoneInfo('America/New_York')).strftime('%B %d, %Y at %I:%M %p %Z')
+
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -860,18 +864,7 @@ Articles:
             <p>Latest ESG and sustainability news curated by Sustain74</p>
             <div class="stats">
                 <span>📊 {len(articles_sorted)} Articles</span>
-                <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
-            </div>
-        </div>
-        
-        <div class="tldr-section">
-            <h2>🤖 AI Generated Summary</h2>
-            <div class="tldr-content">
-                {'<!-- TLDR_FALLBACK -->' if tldr_fallback_used else '<!-- TLDR_GEMINI -->'}
-                {tldr_text}
-            </div>
-            <div class="tldr-meta">
-                💡 <em>Generated on {tldr_generation_date} by analyzing the latest {len(articles_sorted)} articles</em>
+                <span>🕒 Last Updated: {last_updated}</span>
             </div>
         </div>
         
