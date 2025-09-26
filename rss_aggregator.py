@@ -519,9 +519,15 @@ Articles:
         
         # If TLDR generation failed, use a fallback
         if not tldr_text:
-            tldr_text = """Significant developments continue to shape the ESG and energy landscape, with ongoing investments in renewable energy infrastructure, evolving regulatory frameworks, and market dynamics driving the energy transition forward. The convergence of policy support, technological innovation, and market demand is creating new opportunities while presenting challenges for businesses and investors navigating this complex landscape.
-
-These developments underscore the critical importance of staying informed about ESG trends, energy market changes, and sustainability initiatives that impact investment decisions and business strategies across multiple sectors."""
+            # Generate simple bullet points from recent articles
+            recent_articles = articles_sorted[:8]  # Take top 8 articles
+            bullet_points = []
+            for article in recent_articles:
+                # Truncate title to reasonable length
+                title = article['title'][:80] + "..." if len(article['title']) > 80 else article['title']
+                bullet_points.append(f"<li><a href=\"{article['link']}\" target=\"_blank\">{title}</a></li>")
+            
+            tldr_text = f"<ul>{''.join(bullet_points)}</ul>"
         
         # Save TLDR as standalone HTML file to Google Drive (if it exists) or current directory
         google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-mickeybarry@gmail.com/My Drive/NewsFeed"

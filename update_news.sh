@@ -4,4 +4,4 @@ cd "$(dirname "$0")"
 # Activate the virtual environment
 source venv/bin/activate
 # Run the python script
-python3 update_news.py
+/opt/anaconda3/bin/python3 update_news.py
