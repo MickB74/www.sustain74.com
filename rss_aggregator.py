@@ -516,7 +516,10 @@ Articles:
         # Generate TLDR
         tldr_text = self.generate_tldr(articles_sorted)
         tldr_generation_date = datetime.now().strftime('%B %d, %Y at %I:%M %p')
-        
+
+        # Track whether we had to fall back
+        tldr_fallback_used = False
+
         # If TLDR generation failed, use a fallback
         if not tldr_text:
             # Generate simple bullet points from recent articles
@@ -528,6 +531,7 @@ Articles:
                 bullet_points.append(f"<li><a href=\"{article['link']}\" target=\"_blank\">{title}</a></li>")
             
             tldr_text = f"<ul>{''.join(bullet_points)}</ul>"
+            tldr_fallback_used = True
         
         # Save TLDR as standalone HTML file to Google Drive (if it exists) or current directory
         google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-mickeybarry@gmail.com/My Drive/NewsFeed"
@@ -608,6 +612,7 @@ Articles:
     <div class="container">
         <h1>Sustain74 ESG Market TLDR</h1>
         <div class="tldr-content">
+            {'<!-- TLDR_FALLBACK -->' if tldr_fallback_used else '<!-- TLDR_GEMINI -->'}
             {tldr_text}
         </div>
         <div class="meta">
@@ -862,6 +867,7 @@ Articles:
         <div class="tldr-section">
             <h2>🤖 AI Generated Summary</h2>
             <div class="tldr-content">
+                {'<!-- TLDR_FALLBACK -->' if tldr_fallback_used else '<!-- TLDR_GEMINI -->'}
                 {tldr_text}
             </div>
             <div class="tldr-meta">
