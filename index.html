@@ -90,15 +90,14 @@
   <section class="hero">
     <h1>Data-backed ESG strategy. Actionable. Aligned.</h1>
     <p class="hero-intro">At Sustain74, we partner with companies to turn complex ESG challenges into clear, data-driven plans that deliver measurable results.</p>
-    <p class="hero-intro hero-outcome"><strong>Outcome:</strong> Reduce reporting time and accelerate SBTi/CDP alignment—often by up to 40%—with focused, data‑backed actions.</p>
 
     <p class="hero-intro">With over 15 years of leadership in sustainability and clean energy—from negotiating large-scale PPAs to embedding ESG at the core of corporate strategy—we bring the tools, insights, and industry expertise needed to transform ESG data into actionable intelligence. We rapidly ingest and normalize disclosures, benchmark performance across peers and suppliers, and apply deep domain knowledge to help position your sustainability program for long-term success.</p>
 
-    <p class="hero-intro"><strong>Outcomes we deliver:</strong></p>
+    <p class="hero-intro"><strong>Our services include:</strong></p>
     <ul class="hero-list">
-      <li>Audit‑ready ESG reporting and disclosure alignment (<a href="https://www.cdp.net/" target="_blank" rel="noopener noreferrer">CDP</a>, <a href="https://sciencebasedtargets.org/" target="_blank" rel="noopener noreferrer">SBTi</a>, <a href="https://www.there100.org/" target="_blank" rel="noopener noreferrer">RE100</a>) — faster timelines, fewer gaps</li>
-      <li>Peer‑leading benchmarking and gap analysis — decisions grounded in market and supplier data</li>
-      <li>Commercially viable clean‑energy and ESG product design — aligned to buyer and compliance needs</li>
+      <li>Deep-dive ESG gap analysis and AI-powered peer benchmarking</li>
+      <li>ESG reporting development and disclosure alignment (<a href="https://www.cdp.net/" target="_blank" rel="noopener noreferrer">CDP</a>, <a href="https://sciencebasedtargets.org/" target="_blank" rel="noopener noreferrer">SBTi</a>, <a href="https://www.there100.org/" target="_blank" rel="noopener noreferrer">RE100</a>)</li>
+      <li>Bespoke ESG and clean-energy product development</li>
     </ul>
 
     <p class="hero-intro">Our end-to-end approach transforms opaque ESG data into transparent, actionable insights and provides your team with the intelligence, tools, and confidence to continuously strengthen performance.</p>
@@ -106,60 +105,6 @@
     <p class="hero-intro"><a href="mailto:michaelbarry@sustain74.com?subject=Sustain74%20Intro%20Call">Ready to turn data into impact? Let's talk.</a></p>
     
     <p class="hero-intro"><a href="STN74 - Introduction.pdf" target="_blank" rel="noopener noreferrer">Introduction to our services</a></p>
-  </section>
-
-  <section class="content">
-    <div class="case-study-card" style="max-width:960px; margin: 0 auto 1.5rem;">
-      <h2>Featured Engagement</h2>
-      <p><strong>Objective:</strong> Customer‑aligned ESG compliance by 2030 for a mid‑market SaaS provider.</p>
-      <p><strong>What we did:</strong> Ran peer and customer scorecard gap analysis, launched supplier‑data sprint, and set quarterly ESG governance.</p>
-      <p><strong>Result:</strong> Clear 2030 roadmap, defined owners and milestones, and renewal of two enterprise contracts.</p>
-    </div>
-
-    <div class="case-study-card" style="max-width:960px; margin: 0 auto 1.5rem;">
-      <h2>Latest ESG News</h2>
-      <ul id="home-news-list" class="hero-list" style="margin-bottom: 0.75rem;"></ul>
-      <p style="margin:0;"><a href="esg-news-static.html">See all news →</a></p>
-      <script>
-        (function(){
-          try {
-            fetch('esg-news-static.html').then(r=>r.text()).then(html=>{
-              const doc = new DOMParser().parseFromString(html,'text/html');
-              const links = Array.from(doc.querySelectorAll('.news-card h3 a')).slice(0,3);
-              const list = document.getElementById('home-news-list');
-              if (!list || links.length === 0) return;
-              links.forEach(a=>{
-                const li=document.createElement('li');
-                const link=document.createElement('a');
-                link.href=a.getAttribute('href');
-                link.target='_blank';
-                link.rel='noopener noreferrer';
-                link.textContent=a.textContent.trim();
-                li.appendChild(link);
-                list.appendChild(li);
-              });
-            });
-          } catch(e) { /* no-op */ }
-        })();
-      </script>
-    </div>
-
-    <div class="endorsements-grid" style="max-width:960px; margin: 0 auto;">
-      <div class="endorsement-card">
-        <p>“Sustain74 translated our ESG data into a plan our CFO backed—and executed.”</p>
-        <div class="author">
-          <span>VP Sustainability, Industrial Manufacturer</span>
-          <a href="https://www.linkedin.com/in/michaelbarryleedap/" target="_blank" aria-label="LinkedIn" class="fa-brands fa-linkedin"></a>
-        </div>
-      </div>
-      <div class="endorsement-card">
-        <p>“Helped us align with SBTi months sooner—no noise, just clarity.”</p>
-        <div class="author">
-          <span>Head of Strategy, SaaS</span>
-          <a href="https://www.linkedin.com/in/michaelbarryleedap/" target="_blank" aria-label="LinkedIn" class="fa-brands fa-linkedin"></a>
-        </div>
-      </div>
-    </div>
   </section>
 
 
