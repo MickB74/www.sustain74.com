@@ -214,6 +214,22 @@ body {
     color: #1f2d3d;
 }
 
+/* Override hero CTAs to be white buttons with black text for contrast */
+.hero .cta-buttons .button,
+.hero .cta-buttons .button:visited {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0,0,0,0.25);
+  text-decoration: none !important;
+}
+
+.hero .cta-buttons .button:hover,
+.hero .cta-buttons .button:focus {
+  background: #f5f5f5 !important;
+  color: #000000 !important;
+  transform: translateY(-2px);
+}
+
 /* Contact page CTA buttons: underline text and use theme blue */
 .contact-page .cta-buttons .button,
 .contact-page .cta-buttons .button:visited {
