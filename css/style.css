@@ -1147,12 +1147,13 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 70px;
+    top: 72px;
     right: 0;
     background: white;
     width: 100%;
     text-align: center;
     box-shadow: var(--shadow);
+    gap: 0;
   }
   .nav-list.nav-open {
     display: flex;
@@ -1160,6 +1161,10 @@ h1, h2, h3, h4, h5, h6 {
   .nav-toggle {
     display: block;
   }
+  /* Make nav more compact/readable on mobile */
+  .nav .logo { height: 64px; }
+  .nav .logo img { height: 64px; width: auto; }
+  .nav-list a { font-size: 16px; display: block; padding: 0.75rem 1rem; }
   .about-page .about-header {
     flex-direction: column;
     text-align: center;
