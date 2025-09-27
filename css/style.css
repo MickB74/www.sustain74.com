@@ -1161,6 +1161,17 @@ h1, h2, h3, h4, h5, h6 {
   .nav-toggle {
     display: block;
   }
+  /* Semi-transparent backdrop behind mobile menu */
+  .mobile-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999; /* below header (which is sticky) but above page */
+  }
+  .mobile-backdrop.visible { display: block; }
+  /* Ensure header/dropdown menu appears above backdrop */
+  .site-header { z-index: 1000; }
   /* Make nav more compact/readable on mobile */
   .nav .logo { height: 64px; }
   .nav .logo img { height: 64px; width: auto; }

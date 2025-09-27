@@ -1,7 +1,4 @@
 // js/main.js
-document.querySelector('.nav-toggle').addEventListener('click', () => {
-  document.querySelector('.nav-list').classList.toggle('nav-open');
-});
 
 // Sticky CTA Bar
 document.addEventListener('scroll', () => {
@@ -24,15 +21,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile navigation toggle
+    // Mobile navigation toggle with semi-transparent backdrop
     const navToggle = document.querySelector('.nav-toggle');
     const navList = document.querySelector('.nav-list');
-    
+    // Create backdrop element
+    let backdrop = document.querySelector('.mobile-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'mobile-backdrop';
+        document.body.appendChild(backdrop);
+    }
+
+    const closeMenu = () => {
+        navList.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        backdrop.classList.remove('visible');
+    };
+
+    const toggleMenu = () => {
+        const willOpen = !navList.classList.contains('nav-open');
+        navList.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', String(willOpen));
+        if (willOpen) backdrop.classList.add('visible'); else backdrop.classList.remove('visible');
+    };
+
     if (navToggle && navList) {
-        navToggle.addEventListener('click', () => {
-            const isOpen = navList.classList.contains('open');
-            navList.classList.toggle('open');
-            navToggle.setAttribute('aria-expanded', !isOpen);
+        navToggle.addEventListener('click', toggleMenu);
+        backdrop.addEventListener('click', closeMenu);
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
         });
     }
     
