@@ -860,8 +860,8 @@ Articles:
 
     <div class="container">
         <div class="header">
-            <h1>Sustain74 ESG News Feed</h1>
-            <p>Latest ESG and sustainability news curated by Sustain74</p>
+            <h1>Sustain74 News Feed</h1>
+            <p>Latest ESG and Energy News curated by Sustain74</p>
             <div class="stats">
                 <span>📊 {len(articles_sorted)} Articles</span>
                 <span>🕒 Last Updated: {last_updated}</span>
