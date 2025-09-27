@@ -982,6 +982,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Compact card variant for short lists on Our Story */
 .list-compact {
   padding: 0.75rem 1rem !important;
+  max-width: 960px; /* match story figure width */
+  margin-left: auto;
+  margin-right: auto;
 }
 .list-compact ul {
   margin: 0 !important;
