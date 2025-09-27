@@ -1147,7 +1147,7 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
     flex-direction: column;
     position: fixed; /* ensure it drops below the header instead of overlapping it */
-    top: 72px;
+    top: 96px; /* increased offset so menu starts below logo/header */
     left: 0;
     right: 0;
     background: white;
