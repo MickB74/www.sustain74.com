@@ -219,8 +219,10 @@ body {
 .hero .cta-buttons .button:visited {
   background: #ffffff !important;
   color: #000000 !important;
-  border: 1px solid rgba(0,0,0,0.25);
+  border: 2px solid #000000; /* stronger border */
   text-decoration: none !important;
+  width: 300px; /* make both buttons the same width */
+  text-align: center;
 }
 
 .hero .cta-buttons .button:hover,
@@ -228,6 +230,15 @@ body {
   background: #f5f5f5 !important;
   color: #000000 !important;
   transform: translateY(-2px);
+}
+
+/* Responsive: full-width buttons on small screens */
+@media (max-width: 600px) {
+  .hero .cta-buttons .button,
+  .hero .cta-buttons .button:visited {
+    width: 100%;
+    max-width: 340px;
+  }
 }
 
 /* Contact page CTA buttons: underline text and use theme blue */
