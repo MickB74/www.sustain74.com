@@ -979,6 +979,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0.25rem 0 0.5rem 0.5rem;
 }
 
+/* Compact card variant for short lists on Our Story */
+.list-compact {
+  padding: 0.75rem 1rem !important;
+}
+.list-compact ul {
+  margin: 0 !important;
+}
+.list-compact li {
+  margin-bottom: 0.4rem !important;
+}
+
 .impl-group.internal {
   border-left: 6px solid #2d5f8a; /* tie to internal header color */
 }
