@@ -48,7 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navList) {
         navToggle.addEventListener('click', toggleMenu);
         backdrop.addEventListener('click', closeMenu);
+        // Dynamically position dropdown below the header height
+        const updateNavOffset = () => {
+            const header = document.querySelector('.site-header');
+            if (!header) return;
+            const h = Math.ceil(header.getBoundingClientRect().height);
+            navList.style.top = `${h}px`;
+        };
+        updateNavOffset();
+
         window.addEventListener('resize', () => {
+            updateNavOffset();
             if (window.innerWidth > 768) closeMenu();
         });
     }
