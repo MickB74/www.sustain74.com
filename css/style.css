@@ -1146,14 +1146,16 @@ h1, h2, h3, h4, h5, h6 {
   .nav-list {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed; /* ensure it drops below the header instead of overlapping it */
     top: 72px;
+    left: 0;
     right: 0;
     background: white;
     width: 100%;
     text-align: center;
     box-shadow: var(--shadow);
     gap: 0;
+    z-index: 1001; /* above backdrop, below header */
   }
   .nav-list.nav-open {
     display: flex;
@@ -1167,11 +1169,11 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.4);
-    z-index: 999; /* below header (which is sticky) but above page */
+    z-index: 1000; /* below header and menu, above page */
   }
   .mobile-backdrop.visible { display: block; }
   /* Ensure header/dropdown menu appears above backdrop */
-  .site-header { z-index: 1000; }
+  .site-header { z-index: 1002; }
   /* Make nav more compact/readable on mobile */
   .nav .logo { height: 64px; }
   .nav .logo img { height: 64px; width: auto; }
