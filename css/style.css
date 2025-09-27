@@ -985,6 +985,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 960px; /* match story figure width */
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 1.25rem; /* add breathing room below the box */
 }
 .list-compact ul {
   margin: 0 !important;
