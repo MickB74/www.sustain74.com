@@ -4,6 +4,8 @@ on:
   push:
     branches: ["master"]
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # run hourly (UTC); we gate to 8am/8pm ET below
 
 permissions:
   contents: read
@@ -24,23 +26,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Decide scheduled run window (ET)
+        if: github.event_name == 'schedule'
+        run: |
+          echo "Now (ET): $(TZ=America/New_York date)"
+          HOUR_ET=$(TZ=America/New_York date +%H)
+          if [ "$HOUR_ET" = "08" ] || [ "$HOUR_ET" = "20" ]; then
+            echo "RUN_NEWS=true" >> $GITHUB_ENV
+            echo "Will run aggregator and deploy (8am/8pm ET)."
+          else
+            echo "RUN_NEWS=false" >> $GITHUB_ENV
+            echo "Skipping aggregator/deploy; not 8am/8pm ET."
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: github.event_name != 'schedule' || env.RUN_NEWS == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements_github.txt
 
       - name: Generate feed and static news
+        if: github.event_name != 'schedule' || env.RUN_NEWS == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python rss_aggregator.py
 
       - name: Clean up non-site artifacts
+        if: github.event_name != 'schedule' || env.RUN_NEWS == 'true'
         run: |
           rm -f ESG_Stories_*.csv || true
 

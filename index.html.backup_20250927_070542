@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sustain 74 – ESG Strategy & Reporting</title>
+  <meta name="description" content="ESG strategy consulting with latest insights on SBTi Scope 3 and data center tariffs.">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Sustain 74 – ESG Strategy & Reporting">
+  <meta property="og:description" content="ESG strategy consulting with latest insights on SBTi Scope 3 and data center tariffs.">
+  <meta property="og:image" content="assets/og-preview.png">
+  <meta property="og:url" content="https://www.sustain74.com">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="keywords" content="ESG consulting, sustainability strategy, carbon accounting, SBTi, Scope 3, data center sustainability, renewable energy, ESG reporting">
+  <meta name="author" content="Sustain74">
+  <link rel="canonical" href="https://www.sustain74.com/">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sustain74",
+    "url": "https://www.sustain74.com",
+    "logo": "https://www.sustain74.com/assets/sustain74_logo.png",
+    "description": "ESG strategy consulting with latest insights on SBTi Scope 3 and data center tariffs.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/sustain74"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "michael@sustain74.com"
+    }
+  }
+  </script>
+  
+  <style>
+    /* Force wider hero text */
+    .hero p, .hero-intro, .hero-list {
+      max-width: 100ch !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    
+    /* Force wider content sections */
+    .content {
+      max-width: 1400px !important;
+      margin: auto !important;
+    }
+  </style>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E825E8QMZ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E825E8QMZ1');
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><img src="assets/sustain74_logo.png" alt="Sustain74 Logo"></a>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="michael-barry.html">Our Story</a></li>
+        <li><a href="sample-engagements.html">Sample Engagements</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="esg-news-static.html">ESG News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Data-backed ESG strategy. Actionable. Aligned.</h1>
+    <p class="hero-intro">At Sustain74, we partner with companies to turn complex ESG challenges into clear, data-driven plans that deliver measurable results.</p>
+
+    <p class="hero-intro">With over 15 years of leadership in sustainability and clean energy—from negotiating large-scale PPAs to embedding ESG at the core of corporate strategy—we bring the tools, insights, and industry expertise needed to transform ESG data into actionable intelligence. We rapidly ingest and normalize disclosures, benchmark performance across peers and suppliers, and apply deep domain knowledge to help position your sustainability program for long-term success.</p>
+
+    <p class="hero-intro"><strong>Our services include:</strong></p>
+    <ul class="hero-list">
+      <li>Deep-dive ESG gap analysis and AI-powered peer benchmarking</li>
+      <li>ESG reporting development and disclosure alignment (<a href="https://www.cdp.net/" target="_blank" rel="noopener noreferrer">CDP</a>, <a href="https://sciencebasedtargets.org/" target="_blank" rel="noopener noreferrer">SBTi</a>, <a href="https://www.there100.org/" target="_blank" rel="noopener noreferrer">RE100</a>)</li>
+      <li>Bespoke ESG and clean-energy product development</li>
+    </ul>
+
+    <p class="hero-intro">Our end-to-end approach transforms opaque ESG data into transparent, actionable insights and provides your team with the intelligence, tools, and confidence to continuously strengthen performance.</p>
+
+    <div class="cta-buttons">
+      <a class="button button-primary" href="mailto:michaelbarry@sustain74.com?subject=Sustain74%20Intro%20Call">Ready to turn data into impact? Let's talk.</a>
+      <a class="button button-secondary" href="STN74 - Introduction.pdf" target="_blank" rel="noopener noreferrer">Download the Deck (PDF)</a>
+    </div>
+  </section>
+
+
+  <footer class="site-footer">
+    <div class="footer-content">
+        
+        <p>© 2025 Sustain74 · <a href="mailto:info@sustain74.com">info@sustain74.com</a></p>
+    </div>
+  </footer>
+  
+  <div class="sticky-cta-bar">
+    <p>Have sustainability questions? <a href="https://docs.google.com/forms/d/e/1FAIpQLSce2loWM6RZDlNACAu0QTHL4wtbtOYjuchxpQ0BUo--y-ovZw/viewform" target="_blank">Contact Sustain74 →</a></p>
+  </div>
+
+  <script src="js/main.js"></script>
+  
+</body>
+</html>
