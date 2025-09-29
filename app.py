@@ -40,18 +40,7 @@ def index():
             }
             articles.append(article)
         
-        # Get latest TLDR summary
-        tldr_files = glob.glob(os.path.join(BASE_DIR, 'tldr_summary_*.txt'))
-        latest_tldr = None
-        if tldr_files:
-            latest_tldr_file = max(tldr_files, key=os.path.getctime)
-            try:
-                with open(latest_tldr_file, 'r', encoding='utf-8') as f:
-                    latest_tldr = f.read()
-            except Exception as e:
-                print(f"Error reading TLDR file: {e}")
-        
-        return render_template_string(HTML_TEMPLATE, articles=articles, tldr=latest_tldr, feed_version=feed_version)
+        return render_template_string(HTML_TEMPLATE, articles=articles, feed_version=feed_version)
         
     except Exception as e:
         return f"Error loading news: {e}", 500
@@ -94,7 +83,7 @@ def status():
         version = 0
     return jsonify({ 'feed_version': version })
 
-# Admin endpoint to refresh stories and TLDR
+# Admin endpoint to refresh stories
 @app.route('/admin/refresh', methods=['POST'])
 def admin_refresh():
     """Kick off rss_aggregator.py in the background and return immediately"""
@@ -143,18 +132,6 @@ HTML_TEMPLATE = '''
             text-align: center;
             margin-bottom: 30px;
         }
-        .tldr-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #28a745;
-        }
-        .tldr-title {
-            color: #28a745;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
         .articles-section h2 {
             color: #2c5530;
             border-bottom: 2px solid #28a745;
@@ -200,16 +177,9 @@ HTML_TEMPLATE = '''
     <div class="container">
         <h1>🌱 Sustain74 ESG News & Insights</h1>
         <div style="text-align: right; margin: 10px 0 20px 0;">
-            <button id="refreshBtn" style="background:#2c5530;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">↻ Refresh stories & TLDR</button>
+            <button id="refreshBtn" style="background:#2c5530;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">↻ Refresh stories</button>
             <span id="refreshStatus" style="margin-left:10px;color:#6c757d;"></span>
         </div>
-        
-        {% if tldr %}
-        <div class="tldr-section">
-            <div class="tldr-title">📊 Today's TLDR Summary</div>
-            <pre style="white-space: pre-wrap; font-family: inherit; margin: 0;">{{ tldr }}</pre>
-        </div>
-        {% endif %}
         
         <div class="articles-section">
             <h2>📰 Latest ESG News</h2>
@@ -288,8 +258,6 @@ HTML_TEMPLATE = '''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
-
-
 
 
 

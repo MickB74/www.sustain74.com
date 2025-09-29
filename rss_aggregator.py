@@ -15,7 +15,6 @@ Fetches relevant ESG/sustainability stories from external sources
 import feedparser
 import requests
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
 import logging
 import xml.etree.ElementTree as ET
 import csv
@@ -27,8 +26,7 @@ from email import encoders
 import os
 import re
 from urllib.parse import urlparse, parse_qs
-import google.generativeai as genai
-from dotenv import load_dotenv
+# AI summary (Gemini) dependencies removed
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -36,18 +34,7 @@ logger = logging.getLogger(__name__)
 
 class RSSAggregator:
     def __init__(self):
-        # Load environment variables from .env file
-        load_dotenv()
-        
-        # Configure Gemini API
-        api_key = os.getenv('GEMINI_API_KEY')
-        if api_key:
-            genai.configure(api_key=api_key)
-            self.gemini_model = genai.GenerativeModel('gemini-1.5-flash')
-            self.gemini_available = True
-        else:
-            self.gemini_available = False
-            print("⚠️  GEMINI_API_KEY not found in .env file - TLDR generation disabled")
+        # AI TLDR generation removed; no Gemini configuration
         
         # External RSS feeds - DISABLED - Only using Google Alerts
         self.external_feeds = []
@@ -184,15 +171,40 @@ class RSSAggregator:
         
         # Store all articles
         self.all_articles = []
+        
+        # HTTP session with browser-like headers to reduce feed blocks
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
+            'Accept': 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.7',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+        })
 
     def fetch_feed(self, url, feed_name):
-        """Fetch and parse RSS feed"""
+        """Fetch and parse RSS/Atom feed with robust handling and diagnostics"""
         try:
             print(f"📡 Fetching {feed_name}...")
-            feed = feedparser.parse(url)
+
+            # Fetch via requests with headers to avoid being blocked
+            resp = self.session.get(url, timeout=20, allow_redirects=True)
+            status = resp.status_code
+            ctype = resp.headers.get('Content-Type', '')
+            if status != 200:
+                print(f"❌ HTTP {status} for {feed_name} ({url})")
+                return []
+
+            # Parse bytes explicitly
+            feed = feedparser.parse(resp.content)
             
-            if feed.bozo:
-                print(f"⚠️  Warning: Feed parsing issues for {feed_name}")
+            # Diagnostics
+            if getattr(feed, 'bozo', False):
+                bozo_exc = getattr(feed, 'bozo_exception', None)
+                print(f"⚠️  Parse issue for {feed_name} | content-type={ctype} | reason={bozo_exc}")
+                sample = resp.text[:200].replace('\n', ' ')
+                if 'text/html' in ctype.lower() or '<html' in sample.lower():
+                    print("ℹ️  Received HTML instead of RSS; feed may require auth/cookies or is blocked.")
             
             articles = []
             for entry in feed.entries:
@@ -451,55 +463,7 @@ class RSSAggregator:
         title = title.replace('&quot;', '"').replace('&#39;', "'")
         return title
 
-    def generate_tldr(self, articles, max_articles=20):
-        """Generate TLDR using Gemini API"""
-        if not self.gemini_available:
-            return None
-        
-        print("🤖 Generating TLDR with Gemini...")
-        
-        # Take the latest articles
-        recent_articles = articles[:max_articles]
-        
-        # Prepare articles text for Gemini
-        articles_text = "Latest ESG and Energy News Articles:\n\n"
-        
-        for i, article in enumerate(recent_articles, 1):
-            articles_text += f"{i}. {article['title']}\n"
-            articles_text += f"   Source: {article['source']}\n"
-            articles_text += f"   Summary: {article['description'][:200]}...\n"
-            articles_text += f"   Link: {article['link']}\n\n"
-        
-        prompt = f"""
-You are an ESG and energy market analyst. Based on the following news articles, write a concise TLDR as structured bullet points with links to relevant articles.
-
-CRITICAL: Return ONLY the HTML content below, with NO markdown code blocks, NO ```html``` wrapper, NO intro/outro text.
-
-Output requirements:
-- 4 sections total, in this exact order and with these headings:
-  1) <strong>Key Trends</strong>
-  2) <strong>Policy and Regulation</strong>
-  3) <strong>Fossil Fuels and LNG</strong>
-  4) <strong>Renewables and Transition</strong>
-- Use an unordered list (<ul><li>...</li></ul>) under each heading
-- 6–8 bullets total across all sections combined
-- One sentence per bullet, no sub-bullets
-- For each bullet point, include a link to the most relevant article using <a href="ARTICLE_URL" target="_blank">link text</a>
-- Executive, neutral tone
-- Use the exact article URLs provided in the articles list
-- Start directly with <strong>Key Trends</strong> and end with the last </ul>
-
-Articles:
-{articles_text}
-"""
-        
-        try:
-            response = self.gemini_model.generate_content(prompt)
-            return response.text
-            
-        except Exception as e:
-            print(f"❌ Error generating TLDR: {e}")
-            return None
+    # generate_tldr removed (AI summary disabled)
 
     def generate_static_html(self, articles):
         """Generate static HTML page with embedded news content"""
@@ -514,135 +478,9 @@ Articles:
         
         articles_sorted = sorted(articles, key=lambda x: parse_date(x['pubDate']), reverse=True)
         
-        # Generate TLDR
-        tldr_text = self.generate_tldr(articles_sorted)
-        tldr_generation_date = datetime.now().strftime('%B %d, %Y at %I:%M %p')
-
-        # Track whether we had to fall back
-        tldr_fallback_used = False
-
-        # If TLDR generation failed, use a fallback
-        if not tldr_text:
-            # Generate simple bullet points from recent articles
-            recent_articles = articles_sorted[:8]  # Take top 8 articles
-            bullet_points = []
-            for article in recent_articles:
-                # Truncate title to reasonable length
-                title = article['title'][:80] + "..." if len(article['title']) > 80 else article['title']
-                bullet_points.append(f"<li><a href=\"{article['link']}\" target=\"_blank\">{title}</a></li>")
-            
-            tldr_text = f"<ul>{''.join(bullet_points)}</ul>"
-            tldr_fallback_used = True
-        
-        # Save TLDR as standalone HTML file to Google Drive (if it exists) or current directory
-        google_drive_path = "/Users/michaelbarry/Library/CloudStorage/GoogleDrive-mickeybarry@gmail.com/My Drive/NewsFeed"
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        tldr_filename = f"ESG_TLDR_{timestamp}.html"
-        
-        # Check if Google Drive path exists (local development)
-        if os.path.exists(google_drive_path):
-            tldr_filepath = os.path.join(google_drive_path, tldr_filename)
-        else:
-            # Fallback for GitHub Actions or other environments
-            tldr_filepath = tldr_filename
-        
-        # Create standalone TLDR HTML
-        tldr_html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustain74 ESG TLDR - {tldr_generation_date}</title>
-    <style>
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }}
-        .container {{
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }}
-        h1 {{
-            color: #2c5aa0;
-            margin-bottom: 20px;
-            text-align: center;
-        }}
-        .tldr-content {{
-            font-size: 16px;
-            line-height: 1.7;
-        }}
-        
-        .tldr-content ul {{
-            margin: 10px 0;
-            padding-left: 20px;
-        }}
-        
-        .tldr-content li {{
-            margin-bottom: 8px;
-        }}
-        
-        .tldr-content a {{
-            color: #2c5aa0;
-            text-decoration: none;
-            font-weight: 500;
-        }}
-        
-        .tldr-content a:hover {{
-            color: #1976d2;
-            text-decoration: underline;
-        }}
-        .meta {{
-            font-size: 12px;
-            color: #666;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Sustain74 ESG Market TLDR</h1>
-        <div class="tldr-content">
-            {'<!-- TLDR_FALLBACK -->' if tldr_fallback_used else '<!-- TLDR_GEMINI -->'}
-            {tldr_text}
-        </div>
-        <div class="meta">
-            Generated on {tldr_generation_date}
-        </div>
-    </div>
-</body>
-</html>"""
-        
-        try:
-            # Ensure directory exists (only if using Google Drive path)
-            if os.path.exists(google_drive_path):
-                os.makedirs(google_drive_path, exist_ok=True)
-            
-            # Save TLDR HTML file
-            with open(tldr_filepath, 'w', encoding='utf-8') as f:
-                f.write(tldr_html)
-            
-            if os.path.exists(google_drive_path):
-                print(f"✅ TLDR saved to Google Drive: {tldr_filepath}")
-            else:
-                print(f"✅ TLDR saved locally: {tldr_filepath}")
-        except Exception as e:
-            print(f"❌ Error saving TLDR: {e}")
+        # AI summary generation removed
         
         # Generate HTML
-        # Format Last Updated in US Eastern time
-        last_updated = datetime.now(ZoneInfo('America/New_York')).strftime('%B %d, %Y at %I:%M %p %Z')
-
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -692,58 +530,7 @@ Articles:
             color: #666;
         }}
         
-        .tldr-section {{
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #2c5aa0;
-        }}
-        
-        .tldr-section h2 {{
-            color: #2c5aa0;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }}
-        
-        .tldr-content {{
-            font-size: 16px;
-            line-height: 1.7;
-            color: #333;
-        }}
-        
-        .tldr-content ul {{
-            margin: 10px 0;
-            padding-left: 20px;
-        }}
-        
-        .tldr-content li {{
-            margin-bottom: 8px;
-        }}
-        
-        .tldr-content a {{
-            color: #2c5aa0;
-            text-decoration: none;
-            font-weight: 500;
-        }}
-        
-        .tldr-content a:hover {{
-            color: #1976d2;
-            text-decoration: underline;
-        }}
-        
-        .tldr-content p {{
-            margin-bottom: 15px;
-        }}
-        
-        .tldr-meta {{
-            font-size: 12px;
-            color: #666;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }}
+        /* AI summary styles removed */
         
         .news-grid {{
             display: grid;
@@ -860,11 +647,11 @@ Articles:
 
     <div class="container">
         <div class="header">
-            <h1>Sustain74 News Feed</h1>
-            <p>Latest ESG and Energy News curated by Sustain74</p>
+            <h1>Sustain74 ESG News Feed</h1>
+            <p>Latest ESG and sustainability news curated by Sustain74</p>
             <div class="stats">
                 <span>📊 {len(articles_sorted)} Articles</span>
-                <span>🕒 Last Updated: {last_updated}</span>
+                <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
             </div>
         </div>
         
