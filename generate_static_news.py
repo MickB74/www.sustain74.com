@@ -6,7 +6,9 @@ This creates a version that doesn't require JavaScript to display content
 
 import xml.etree.ElementTree as ET
 import re
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse, parse_qs
 
 def extract_real_website(google_url):
@@ -31,10 +33,10 @@ def clean_source_name(source):
 def format_date(date_str):
     """Format the date for display"""
     try:
-        # Parse the date string
-        dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
-        return dt.strftime('%b %d, %Y')
-    except:
+        # Parse RFC 2822 date with timezone and show date component
+        dt = parsedate_to_datetime(date_str)
+        return dt.astimezone(ZoneInfo('America/New_York')).strftime('%b %d, %Y')
+    except Exception:
         return date_str
 
 def clean_title(title):
@@ -215,7 +217,7 @@ def generate_static_news_page():
             <p>Latest ESG and sustainability news curated by Sustain74</p>
             <div class="stats">
                 <span>📊 {len(articles)} Articles</span>
-                <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
+                <span>🕒 Last Updated: {datetime.now(timezone.utc).astimezone(ZoneInfo('America/New_York')).strftime('%B %d, %Y at %I:%M %p %Z')}</span>
             </div>
         </div>
         
@@ -251,6 +253,5 @@ def generate_static_news_page():
 
 if __name__ == "__main__":
     generate_static_news_page()
-
 
 

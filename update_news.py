@@ -8,6 +8,9 @@ import os
 import sys
 import subprocess
 import datetime
+from datetime import timezone
+from zoneinfo import ZoneInfo
+import re
 from pathlib import Path
 
 def main():
@@ -31,22 +34,50 @@ def main():
     
     print("✅ News content updated successfully!")
     
-    # Step 2: Check for changes
-    print("\n🔍 Step 2: Checking for changes...")
+    # Step 2: Update ESG News links with cache-busting query
+    print("\n🧹 Step 2: Updating ESG News links with cache-busting query...")
+    try:
+        version = datetime.datetime.now(timezone.utc).astimezone(ZoneInfo('America/New_York')).strftime('%Y%m%d-%H%M')
+        pattern = re.compile(r'(esg-news-static\.html)(?:\?v=[^"\'>\s)]*)?')
+        changed_files = []
+        for root, _, files in os.walk('.'):
+            for fname in files:
+                if not fname.endswith('.html'):
+                    continue
+                fpath = os.path.join(root, fname)
+                try:
+                    with open(fpath, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    new_content = pattern.sub(rf"\1?v={version}", content)
+                    if new_content != content:
+                        with open(fpath, 'w', encoding='utf-8') as f:
+                            f.write(new_content)
+                        changed_files.append(fpath)
+                except Exception:
+                    continue
+        if changed_files:
+            print(f"✅ Updated cache-busting on {len(changed_files)} file(s)")
+        else:
+            print("ℹ️ No ESG News links found to update")
+    except Exception as e:
+        print(f"⚠️ Could not update cache-busting links: {e}")
+
+    # Step 3: Check for changes
+    print("\n🔍 Step 3: Checking for changes...")
     result = subprocess.run("git status --porcelain", shell=True, capture_output=True, text=True)
     
     if not result.stdout.strip():
         print("ℹ️ No new changes detected")
         return True
     
-    # Step 3: Deploy to live site
-    print("\n🚀 Step 3: Deploying to live website...")
+    # Step 4: Deploy to live site
+    print("\n🚀 Step 4: Deploying to live website...")
     
     # Add changes
-    subprocess.run("git add esg-news-static.html feed.xml", shell=True)
+    subprocess.run("git add -A", shell=True)
     
     # Commit with timestamp
-    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    timestamp = datetime.datetime.now(timezone.utc).astimezone(ZoneInfo('America/New_York')).strftime('%Y-%m-%d %H:%M %Z')
     commit_msg = f"Update ESG news - {timestamp}"
     subprocess.run(f'git commit -m "{commit_msg}"', shell=True)
     
@@ -67,8 +98,6 @@ def main():
 if __name__ == "__main__":
     success = main()
     sys.exit(0 if success else 1)
-
-
 
 
 

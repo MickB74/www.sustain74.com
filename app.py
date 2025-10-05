@@ -7,6 +7,8 @@ from flask import Flask, render_template_string, send_from_directory, request, j
 import feedparser
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo
+from email.utils import parsedate_to_datetime
 import glob
 import subprocess
 import sys
@@ -31,11 +33,19 @@ def index():
         articles = []
         
         for entry in feed.entries[:10]:  # Show latest 10 articles
+            # Format published time explicitly in US/Eastern
+            published_raw = entry.get('published', '')
+            published_display = published_raw
+            try:
+                dt = parsedate_to_datetime(published_raw)
+                published_display = dt.astimezone(ZoneInfo('America/New_York')).strftime('%b %d, %Y at %I:%M %p %Z')
+            except Exception:
+                pass
             article = {
                 'title': entry.title,
                 'description': entry.get('summary', ''),
                 'link': entry.link,
-                'published': entry.get('published', ''),
+                'published': published_display,
                 'source': entry.get('source', 'Unknown')
             }
             articles.append(article)
@@ -258,7 +268,6 @@ HTML_TEMPLATE = '''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
-
 
 
 

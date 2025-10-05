@@ -14,7 +14,9 @@ Fetches relevant ESG/sustainability stories from external sources
 
 import feedparser
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
+from email.utils import format_datetime, parsedate_to_datetime
 import logging
 import xml.etree.ElementTree as ET
 import csv
@@ -214,19 +216,22 @@ class RSSAggregator:
                 
                 # Parse publication date
                 try:
-                    pub_date = datetime(*entry.published_parsed[:6])
-                except:
-                    pub_date = datetime.now()
+                    # Feedparser returns struct_time in UTC when tz provided; make it aware
+                    pub_date_utc = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+                except Exception:
+                    pub_date_utc = datetime.now(timezone.utc)
                 
-                # Skip articles older than 7 days or future dates
-                if pub_date < datetime.now() - timedelta(days=7) or pub_date > datetime.now():
+                # Skip articles older than 7 days or future dates (compare in UTC)
+                now_utc = datetime.now(timezone.utc)
+                if pub_date_utc < now_utc - timedelta(days=7) or pub_date_utc > now_utc:
                     continue
                 
                 article = {
                     'title': entry.title,
                     'link': entry.link,
                     'description': entry.get('summary', ''),
-                    'pubDate': pub_date.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+                    # Store pubDate as RFC 2822 in US Eastern time
+                    'pubDate': format_datetime(pub_date_utc.astimezone(ZoneInfo('America/New_York'))),
                     'source': feed_name,
                     'categories': []
                 }
@@ -332,9 +337,9 @@ class RSSAggregator:
         # Sort by date (newest first) - convert string dates to datetime objects for proper sorting
         def parse_date(date_str):
             try:
-                return datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
-            except:
-                return datetime.now()
+                return parsedate_to_datetime(date_str)
+            except Exception:
+                return datetime.now(timezone.utc)
         
         self.all_articles.sort(key=lambda x: parse_date(x['pubDate']), reverse=True)
         
@@ -362,7 +367,9 @@ class RSSAggregator:
         ET.SubElement(channel, 'description').text = 'Latest ESG and sustainability news curated by Sustain74'
         ET.SubElement(channel, 'link').text = 'https://www.sustain74.com'
         ET.SubElement(channel, 'language').text = 'en-us'
-        ET.SubElement(channel, 'lastBuildDate').text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')
+        # Use US Eastern for lastBuildDate in RFC 2822 format
+        eastern_now = datetime.now(timezone.utc).astimezone(ZoneInfo('America/New_York'))
+        ET.SubElement(channel, 'lastBuildDate').text = format_datetime(eastern_now)
         
         # Add items
         for article in articles:
@@ -405,9 +412,11 @@ class RSSAggregator:
             for article in articles:
                 # Format date for CSV
                 try:
-                    pub_date = datetime.strptime(article['pubDate'], '%a, %d %b %Y %H:%M:%S GMT')
-                    formatted_date = pub_date.strftime('%Y-%m-%d %H:%M:%S')
-                except:
+                    pub_dt = parsedate_to_datetime(article['pubDate'])
+                    # Convert to US Eastern for CSV output (without tz suffix for brevity)
+                    pub_dt_eastern = pub_dt.astimezone(ZoneInfo('America/New_York'))
+                    formatted_date = pub_dt_eastern.strftime('%Y-%m-%d %H:%M:%S')
+                except Exception:
                     formatted_date = article['pubDate']
                 
                 # Clean up description (remove HTML tags)
@@ -472,9 +481,9 @@ class RSSAggregator:
         # Sort by date (newest first) - convert string dates to datetime objects for proper sorting
         def parse_date(date_str):
             try:
-                return datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S GMT')
-            except:
-                return datetime.now()
+                return parsedate_to_datetime(date_str)
+            except Exception:
+                return datetime.now(timezone.utc)
         
         articles_sorted = sorted(articles, key=lambda x: parse_date(x['pubDate']), reverse=True)
         
@@ -651,7 +660,7 @@ class RSSAggregator:
             <p>Latest ESG and sustainability news curated by Sustain74</p>
             <div class="stats">
                 <span>📊 {len(articles_sorted)} Articles</span>
-                <span>🕒 Last Updated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</span>
+                <span>🕒 Last Updated: {datetime.now(timezone.utc).astimezone(ZoneInfo('America/New_York')).strftime('%B %d, %Y at %I:%M %p %Z')}</span>
             </div>
         </div>
         
